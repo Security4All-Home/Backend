@@ -31,4 +31,5 @@
 + Sobre os ranks:
 > Definição de parâmetros da aplicação (p.ex. sensores disponíveis, critérios de medição; créditos por
 atividade/seguro (Gamification / Pontos), outros);
-
++ Useful Links:
+    + [Git Rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
