@@ -15,6 +15,9 @@
 
 ## Important 
 + Authentication (which technology)
+    + Token
+    + oAuth (express-Auth 2.0)
+    + 
 + Create Routes
 + Payment methods
 + Create Connection to database
