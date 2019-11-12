@@ -3,12 +3,15 @@ const express = require("express");
 const server = express();
 
 /** Routes */
-const errorHandler = require("./src/routes/errorhandling.route").errorHandler;
-const testRoute = require("./src/routes/tests.route");
+const errorHandler = require("./src/routes/experimentalRoutes/errorhandling.route").errorHandler;
+const testRoute = require("./src/routes/experimentalRoutes/tests.route");
+const getMacAdressRoute = require("./src/routes/experimentalRoutes/getMacAdress");
 
 const port = 8002;
 
-server.use("/test", testRoute)
+server.use("/macadress", getMacAdressRoute);
+server.use("/test", testRoute);
+
 server.get("/test", (req, res) => {
     res.send("Test Page")
 })
