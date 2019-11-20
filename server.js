@@ -1,13 +1,11 @@
-const express = require("express");
-
-const server = express();
+const server = require("express").Router();
+// const server = express();
 
 /** Routes */
 const errorHandler = require("./src/routes/experimentalRoutes/errorhandling.route").errorHandler;
 const testRoute = require("./src/routes/experimentalRoutes/tests.route");
 const getMacAdressRoute = require("./src/routes/experimentalRoutes/getMacAdress");
 
-const port = 8002;
 
 server.use("/macadress", getMacAdressRoute);
 server.use("/test", testRoute);
@@ -20,6 +18,5 @@ server.all("/*", (req, res) => {
     res.send("<h1 style='color: brown;'>Page not Found</h1>")
 })
 server.use(errorHandler)
-server.listen(port, () => {
-    console.log(`Server runnig on localhost:${port}`);
-})
+
+module.exports = server;
