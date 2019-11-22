@@ -10,10 +10,19 @@ const crudCat = {
             res.json({ success: false, err: err })
         }
     },
+    insert(req, res) {
+        try {
+            catModel.insert(req.body, function (data) {
+                res.json({success: true, data: data})
+            })
+        } catch (error) {
+            res.json({success: false, err: error})
+        }
+    },
     update(req, res) {
         try {
             console.log(req.params.id, "ID!!!!!!!!!")
-            catModel.upda(req.params.id, req.body, function (data) {
+            catModel.update(req.params.id, req.body, function (data) {
                 res.json({ success: true, data: data})
             })
         } catch (err) {

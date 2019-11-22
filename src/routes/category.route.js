@@ -9,6 +9,10 @@ router.get('/:name', (req, res) => {
 
 })
 
+router.post('/insert', (req, res) => {
+    categoryController.insert(req, res)
+})
+
 router.put('/update/:id', (req, res) => {
     categoryController.update(req, res)
 })

@@ -21,8 +21,8 @@ server.use(bodyParser.urlencoded({extended: false}))
 server.use(bodyParser.json())
 
 /** Paths */
-server.use("/cat", categoryRoute);
-server.use("/achie", achievementsRoute);
+server.use("/category", categoryRoute);
+server.use("/achievement", achievementsRoute);
 
 server.get("/teste", (req, res) => {
     res.send("Test Page")

@@ -6,7 +6,7 @@ require('dotenv').config()
 
 /** Database connections */
 const mongoConnection = require('./src/mongoconnection');
-const mysqlConnection = require('./src/sqlconnection')
+const mysqlConnection = require('./src/sqlconnection');
 
 /** Onde os caminhos e basicamante a aplicação está */
 const app = require("./server")
