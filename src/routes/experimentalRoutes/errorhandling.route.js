@@ -2,7 +2,6 @@ const router = require("express").Router();
 const fs = require("fs");
 const {connection, model, schema} = require("../../mongoconnection");
 
-
 /** 
  * Notas: 
  * Os erros que acontecem neste ficheiro têm que ser tratdos com o try catch e o envio de um res.json
