@@ -17,8 +17,8 @@ router.put('/update/:id', (req, res) => {
     categoryController.update(req, res)
 })
 
-router.delete('/delete/:name', (req, res) => {
-
+router.delete('/delete/:id', (req, res, next) => {
+    categoryController.delete(req, res, next);
 })
 
 module.exports = router;

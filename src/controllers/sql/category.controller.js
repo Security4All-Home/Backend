@@ -36,6 +36,15 @@ const crudCat = {
         } catch (err) {
             res.json({success: false, err: err})
         }
+    },
+    delete(req, res, next) {
+        try {
+            catModel.delete(req.params, function (data) {
+                res.json({success: true, data: data})
+            }, next)
+        } catch (error) {
+            next(error) && res.json({success: false, err: error})
+        }
     }
 }
 
