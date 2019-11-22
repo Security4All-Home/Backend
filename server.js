@@ -13,6 +13,7 @@ const getMacAdressRoute = require(experimentalRoutesPath + "getMacAdress");
 /** "Real" Routes */
 const categoryRoute = require(generalRoutesPath + "category.route");
 const achievementsRoute = require(generalRoutesPath + "achievement.route");
+const sensorRoute=require(generalRoutesPath+"sensor.route")
 
 /** Middlewares */
 server.use("/macadress", getMacAdressRoute);
@@ -23,7 +24,7 @@ server.use(bodyParser.json())
 /** Paths */
 server.use("/category", categoryRoute);
 server.use("/achievement", achievementsRoute);
-
+server.use("/sensor",sensorRoute)
 server.get("/teste", (req, res) => {
     res.send("Test Page")
 })
