@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const categoryController = require("../controllers/sql/category.controller")
 
-router.get('/all', (req, res) => {
-    categoryController.getAll(res);
+router.get('/all', (req, res, next) => {
+    categoryController.getAll(res, next);
 })
 
 router.get('/:id', (req, res) => {

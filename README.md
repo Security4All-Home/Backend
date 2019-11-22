@@ -49,3 +49,21 @@ will be used to know if computer or smartphone was already used to acess the app
 
 ### 19/11
 - A unica maneira de ter uma conta na site é ao confirmar o pagamento. Depois de um utilizador escolher o pacote e confirmar o método de pagamento, deve ser lhe pedido para criar uma conta com nome, morada, código postal, password e mais campos que acharmos importantes, depois escolhe o método de pagamento e insere os dados referentes ao pagamento, ao terminar a conta é criada e o agora cliente tem acesso ao site.
+
+### 22/11
+- Já temos como não deixar o servidor ir abaixo quando ocorrem erros.
+
+
+## Git Help
+### Fazer merge de um branch de equipa para o master.
+
+Para entrar em num branch tem que se fazer ``` git checkout < branch_a_entrar > ``` *
+
+#### Linha de Comandos
+
+- ``` git add --all ```
+- ``` git commit -m "blah blah wiskas saquetas" ```
+- ``` git push ```
+- ``` git checkout master ``` *
+- ``` git merge company-backend ``` ou qualquer outro branch que se queira fazer merge com o master
+- ``` git push ```
