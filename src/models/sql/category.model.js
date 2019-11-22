@@ -3,13 +3,21 @@ const sql = require("../../sqlconnection");
 const crudCategory = {
     /** Aqui faz sentido ir buscar todas as categorias */
     getAll(result) {
-        sql.query('select * from category', (error, results, fields) => {
+        let query = 'select * from category'
+        sql.query(query, (error, results, fields) => {
             if (error) throw error;
             // console.log([results])
             result(results);
         })
     },
+    getById({id}, result) {
+        let query = `select * from category where idCategory = ${id}`;
+        sql.query(query, (error, rows, fields) => {
+            if (error) throw error
 
+            result(rows);
+        })
+    },
     /** Insert a new Category */
     insert({name, description}, result) {
         if (name == undefined || name == null) throw Error("Name can't be empty")
