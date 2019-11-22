@@ -2,34 +2,32 @@ const sql = require("../../sqlconnection");
 
 const crudCategory = {
     /** Aqui faz sentido ir buscar todas as categorias */
-    getAll(result) {
-        let query = 'select * from category'
+    getAll(result, next) {
+        let query = 'select id, * from category'
         sql.query(query, (error, results, fields) => {
-            if (error) throw error;
-            // console.log([results])
-            result(results);
+            if (error) next(error);
+            else result(results);
         })
     },
-    getById({ id }, result) {
+    getById({ id }, result, next) {
         let query = `select * from category where idCategory = ${id}`;
         sql.query(query, (error, rows, fields) => {
-            if (error) throw error
-
-            result(rows);
+            if (error) next(error)
+            else result(rows);
         })
     },
     /** Insert a new Category */
-    insert({ name, description }, result) {
+    insert({ name, description }, result, next) {
         if (name == undefined || name == null) throw Error("Name can't be empty")
         if (description == undefined || description == null) throw Error("Descripiton can t be empty")
         let query = `insert into category (name, description) values ("${name}", "${description}");`;
         sql.query(query, (error, rows, fields) => {
-            if (error) throw error
-            result(rows);
+            if (error) next(error)
+            else result(rows);
         })
     },
     /** Update a category */
-    update(id, { name, description }, result) {
+    update(id, { name, description }, result, next) {
         // console.log({ id, name, description }, "lalalalala")
         let query = "set "
         if (name != undefined || name != null) {
@@ -44,10 +42,9 @@ const crudCategory = {
         where idCategory = ${id}
         `, (error, results, fields) => {
             if (error) {
-                // console.log(error, "ERROR!!!!!!!!!!!!!!")
-                throw error
+                next(error)
             }
-            result(results)
+            else result(results)
         })
     },
     delete({ id }, result, next) {

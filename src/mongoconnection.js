@@ -7,13 +7,13 @@ mongoose.connect(`mongodb+srv://${rootUser}:${rootPass}@devdbs4a-rxrjs.mongodb.n
 
 let con = mongoose.connection
 
-console.log({rootUser, rootPass})
+// console.log({rootUser, rootPass})
 con.once('open', () => {
     console.log('Mongoose connected sucessfuly');
 })
 
 con.on('error', (err) => {
-    console.log(err, "An error as ocured");
+    console.log(err, "An error as ocured in Mongo Database");
 })
 
 module.exports = con;

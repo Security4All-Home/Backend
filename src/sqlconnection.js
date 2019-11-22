@@ -13,7 +13,7 @@ connection.connect((err) => {
         return;
     }
 
-    console.log('connected as id ' + connection.threadId)
+    console.log('SQL Database connected with the id ' + connection.threadId)
 })
 
 module.exports = connection
