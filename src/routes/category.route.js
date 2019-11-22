@@ -5,8 +5,8 @@ router.get('/all', (req, res) => {
     categoryController.getAll(res);
 })
 
-router.get('/:name', (req, res) => {
-
+router.get('/:id', (req, res) => {
+    categoryController.getById(req, res)
 })
 
 router.post('/insert', (req, res) => {
@@ -17,8 +17,8 @@ router.put('/update/:id', (req, res) => {
     categoryController.update(req, res)
 })
 
-router.delete('/delete/:name', (req, res) => {
-
+router.delete('/delete/:id', (req, res, next) => {
+    categoryController.delete(req, res, next);
 })
 
 module.exports = router;
