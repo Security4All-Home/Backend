@@ -5,7 +5,7 @@ const crudCategory = {
     getAll(result) {
         sql.query('select * from category', (error, results, fields) => {
             if (error) throw error;
-            console.log([results])
+            // console.log([results])
             result(results);
         })
     },
@@ -13,7 +13,6 @@ const crudCategory = {
     /** Update a category */
     upda(id, {name, description }, result) {
         console.log({ id, name, description }, "lalalalala")
-        console.log("asdaskndlaksdlaknsdlaknsdldkanslknlaksnddlakn")
         let query = "set "
         if (name != undefined && name != null) {
             query += `name = '${name}'`
@@ -27,7 +26,7 @@ const crudCategory = {
         where idCatgory = ${id}
         `, (error, results, fields) => {
             if (error) {
-                console.log(error, "ERROR!!!!!!!!!!!!!!")
+                // console.log(error, "ERROR!!!!!!!!!!!!!!")
                 throw error
             }
             result(results)

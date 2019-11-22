@@ -14,7 +14,6 @@ const crudCat = {
         try {
             console.log(req.params.id, "ID!!!!!!!!!")
             catModel.upda(req.params.id, req.body, function (data) {
-                console.log("tou cá dentro")
                 res.json({ success: true, data: data})
             })
         } catch (err) {
