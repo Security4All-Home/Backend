@@ -5,8 +5,8 @@ router.get('/all', (req, res) => {
     categoryController.getAll(res);
 })
 
-router.get('/:name', (req, res) => {
-
+router.get('/:id', (req, res) => {
+    categoryController.getById(req, res)
 })
 
 router.post('/insert', (req, res) => {
