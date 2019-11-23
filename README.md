@@ -53,6 +53,10 @@ will be used to know if computer or smartphone was already used to acess the app
 ### 22/11
 - Já temos como não deixar o servidor ir abaixo quando ocorrem erros.
 
+### 23/11
+- Provavelmente a maneira mais segura de procurar alguma coisa é mandar essa coisa no body do pedido e não nos parametros, porque visto que vamos ter uma ligação https os dados do body estão protegidos.... Certo????
+- Ainda falta avisa se os dados que foram enviados não são referentes a nada ou não têm resultados.
+Ex: tentar apagar um user enviando um id que não existe. (Ver o campo afectedRows, se for 0 é porque nada foi alterado)
 
 ## Git Help
 ### Fazer merge de um branch de equipa para o master.

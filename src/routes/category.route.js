@@ -5,16 +5,16 @@ router.get('/all', (req, res, next) => {
     categoryController.getAll(res, next);
 })
 
-router.get('/:id', (req, res) => {
-    categoryController.getById(req, res)
+router.get('/:id', (req, res, next) => {
+    categoryController.getById(req, res, next)
 })
 
-router.post('/insert', (req, res) => {
-    categoryController.insert(req, res)
+router.post('/insert', (req, res, next) => {
+    categoryController.insert(req, res, next)
 })
 
-router.put('/update/:id', (req, res) => {
-    categoryController.update(req, res)
+router.put('/update/:id', (req, res, next) => {
+    categoryController.update(req, res, next)
 })
 
 router.delete('/delete/:id', (req, res, next) => {

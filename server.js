@@ -2,7 +2,8 @@ const server = require("express").Router();
 
 /** NPM Packages, ver se não dá para passar o invocamento das packages para o loader.js */
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const cors = require("cors")
 
 const experimentalRoutesPath = "./src/routes/experimentalRoutes/"
 const generalRoutesPath = "./src/routes/"
@@ -15,25 +16,33 @@ const getMacAdressRoute = require(experimentalRoutesPath + "getMacAdress");
 const categoryRoute = require(generalRoutesPath + "category.route");
 const achievementsRoute = require(generalRoutesPath + "achievement.route");
 const sensorRoute = require(generalRoutesPath + "sensor.route")
+const userRoute = require(generalRoutesPath + "user.route")
 
 /** Middlewares */
-server.use("/macadress", getMacAdressRoute);
-server.use("/test", testRoute);
+server.use(cors()) // Não pode ficar assim depois
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-server.use(cookieParser());
+server.use(cookieParser())
+
+server.use("/macadress", getMacAdressRoute);
+server.use("/test", testRoute);;
 
 /** Paths */
 server.use("/category", categoryRoute);
 server.use("/achievement", achievementsRoute);
-server.use("/sensor", sensorRoute)
+server.use("/sensor", sensorRoute);
+server.use("/user", userRoute);
+
+
 server.get("/teste", (req, res) => {
     res.send("Test Page")
 })
+
+/** Caminho que avisa que que o caminho pedido não existe */
 server.all("/*", (req, res) => {
     /** Custom Page when the requested route isnt available */
     // res.send("<h1 style='color: brown;'>Page not Found</h1>")
-    res.json({success: false, msg: "That route doens't exist !!!" })
+    res.status(404).json({success: false, msg: "That route doens't exist !!!", status: 404 })
 })
 
 /** Middlewares Finais (Estes precisam de estar no fim (penso eu de que...)) */
