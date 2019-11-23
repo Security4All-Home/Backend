@@ -3,18 +3,23 @@ const sql = require("../../sqlconnection");
 const crudCategory = {
     /** Aqui faz sentido ir buscar todas as categorias */
     getAll(result, next) {
-        let query = 'select id, * from category'
+        let query = 'select * from category'
         sql.query(query, (error, results, fields) => {
             if (error) next(error);
             else result(results);
         })
     },
     getById({ id }, result, next) {
-        let query = `select * from category where idCategory = ${id}`;
-        sql.query(query, (error, rows, fields) => {
-            if (error) next(error)
-            else result(rows);
-        })
+
+            let query = `select * from category where idCategory = ${id}`;
+            sql.query(query, (error, rows, fields) => {
+
+                if (error) {
+                    next(error)
+                    return;
+                }
+                else result(rows);
+            })
     },
     /** Insert a new Category */
     insert({ name, description }, result, next) {
@@ -48,11 +53,11 @@ const crudCategory = {
         })
     },
     delete({ id }, result, next) {
-            let query = `delete from category where idCategory = ${id}`
-            sql.query(query, (error, rows, fields) => {
-                if (error) next(error) /** This is the proper way to handle errors */
-                else result(rows)
-            })
+        let query = `delete from category where idCategory = ${id}`
+        sql.query(query, (error, rows, fields) => {
+            if (error) next(error) /** This is the proper way to handle errors */
+            else result(rows)
+        })
     }
 }
 

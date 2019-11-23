@@ -16,37 +16,42 @@ function errorHandler(err, req, res, next) {
     try {
 
         if (err) {
-            console.log(err.sql, "Função de erro")
-            res.json({ success: false, error: diferenciateErrors(err) })
+            
+            let customError = { // This the error that goes to the user
+                msg: "",
+                status: 400 //For now it's always this code
+            }
+            customError = diferenciateErrors(err, customError);
+            console.log(err, "errorHandler!!!")
+            console.log(typeof err, "typeof err!!!")
+            res.status(customError.status).json({ success: false, error: customError.msg })
         }
         else next();
+
     } catch (err) {
-        res.json({success: false, msg: "Internal server error"})
+        res.json({ success: false, msg: "Internal server error", error: err })
     }
 }
 
-function diferenciateErrors(err) {
+function diferenciateErrors(err, custom) {
     /** Depois talvez se possa usar um Switch
      * We have to make custom errors for the user, for the log file, (more to come?)
      */
-    let customError = { // This the error that goes to the user
-        msg: "",
-        status: 400 //For now it's always this code
-    }
+
 
     if (err.sql != undefined) {
         let queryType = err.sql.split(" ");
 
         switch (queryType[0]) {
             case "select":
-                customError.msg = "There was an error retrieving your data!"
+                custom.msg = "There was an error retrieving your data!"
                 break;
         }
     }
 
     /** Fazer a mesma coisa para os diferentes tipos de erros que tivermos */
 
-    return customError;
+    return custom;
 }
 
 module.exports = {
