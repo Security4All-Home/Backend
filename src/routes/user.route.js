@@ -18,7 +18,7 @@ router.delete('/delete/:iduser', (req, res, next) => {
     userController.delete(req, res, next);
 })
 
-router.get('/:id', verifyToken,(req, res, next) => {
+router.get('/:id', (req, res, next) => {
     userController.getById(req, res, next)
 })
 

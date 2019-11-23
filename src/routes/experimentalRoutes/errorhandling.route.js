@@ -31,7 +31,6 @@ function errorHandler(err, req, res, next) {
         else next();
 
     } catch (err) {
-
         res.json({ success: false, msg: "Internal server error", error: err })
     }
 }
