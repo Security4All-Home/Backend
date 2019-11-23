@@ -65,13 +65,6 @@ const crudCategory = {
             } /** This is the proper way to handle errors */
             else result(rows)
         })
-    },
-    delete({ id }, result, next) {
-            let query = `delete from category where idCategory = ${id}`
-            sql.query(query, (error, rows, fields) => {
-                if (error) next(error) /** This is the proper way to handle errors */
-                else result(rows)
-            })
     }
 }
 
