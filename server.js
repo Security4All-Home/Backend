@@ -21,8 +21,16 @@ server.use(bodyParser.urlencoded({extended: false}))
 server.use(bodyParser.json())
 
 /** Paths */
-server.use("/cat", categoryRoute);
-server.use("/achie", achievementsRoute);
+server.use("/category", categoryRoute);
+server.use("/achievement", achievementsRoute);
+server.use("/sensor", sensorRoute);
+server.use("/user", userRoute);
+
+server.get('/', (req, res) => {
+    res.send(`
+    <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API </h1>
+    `)
+})  
 
 server.get("/teste", (req, res) => {
     res.send("Test Page")
