@@ -25,6 +25,7 @@ Ex: tentar apagar um user enviando um id que não existe. (Ver o campo afectedRo
 ### 25/11
 - ``` res.header('Access-Control-Allow-Origin', '*'); ``` Header que permite que o pedido à API seja feito de qualquer lado
 - ### *não dá para fazer deploy da API no NETLIFY, só dá para fazer deploy de um site* 
+- Para ver os logs do heroku ``` heroku logs --tail ```
 
 ## Git Help
 ### Fazer merge de um branch de equipa para o master.
