@@ -1,12 +1,12 @@
 {
-	"name": "jacinto Filho",
-	"username": "xXJac88 filhinho Xx",
-	"password": "1234",
-	"idType": 1,
-	"email": "verificarseevalidoagain@gmail.com",
-	"taxZipCode": 4480,
-	"phoneNumber": 938017626,
-	"taxAdress": "acola",
-	"nif": 238456457,
-	"verified": "false"
+  "name": "jacinto Filho",
+  "username": "xXJac88 filhinho Xx",
+  "password": "1234",
+  "idType": 1,
+  "email": "verificarseevalidoagain@gmail.com",
+  "taxZipCode": 4480,
+  "phoneNumber": 938017626,
+  "taxAdress": "acola",
+  "nif": 238456457,
+  "verified": "false"
 }
