@@ -42,7 +42,7 @@ server.get('/home', (req, res) => {
     res.send(`
     <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API </h1>
     `)
-})  
+})
 
 server.get("/teste", (req, res) => {
     res.send("Test Page")

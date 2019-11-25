@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const fs = require("fs");
 
+/**
+ * Handle lost connection by mysql
+ * https://stackoverflow.com/questions/20210522/nodejs-mysql-error-connection-lost-the-server-closed-the-connection
+ */
+
 /** 
  * Notas: 
  * Os erros que acontecem neste ficheiro têm que ser tratdos com o try catch e o envio de um res.json
