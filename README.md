@@ -3,45 +3,8 @@
 ### Updates will be after (Outros) (Bottom of the README)
 
 ##### Start server (``` npm start ``` or ``` npm run nodemon ```)
-## SQL (Business Logic)
-+ Users
-+ Casas
-+ Sensors (37 different sensors)
-+ Spaces
-
-## NoSQL (Data)
-+ Notifications
-+ Movimentos
-+ Log de sensores
-+ Implementaion Requests (It has to have a field that says if it was accepted or not)
-
-## Important 
-+ Authentication (which technology)
-    + Token
-    + oAuth (express-Auth 2.0)
-    + 
-+ Create Routes
-+ Payment methods
-+ Create Connection to database
-
-## TODOS:
-+ Sistema de Login
-+ Operações CRUD para: 
-    + Utilizadores (gestores e Admnistradores)
-    + casas 
-    + Espaços
-    + sensores associados aos espaços
-
-## Outros 
-+ Sobre os ranks:
-> Definição de parâmetros da aplicação (p.ex. sensores disponíveis, critérios de medição; créditos por
-atividade/seguro (Gamification / Pontos), outros);
-+ Useful Links:
-    + [Git Rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
-    + [Understanding CORS](https://dev.to/g33konaut/understanding-cors-aaf)
 
 ## Updates 
-
 ### 12/11
 Ideas for authentication:
 - When a user registers he shouldn't go to the home page, instead it would go to a default page that says that an email was sent to the client, and to finalize registration he should click on 
@@ -61,6 +24,7 @@ Ex: tentar apagar um user enviando um id que não existe. (Ver o campo afectedRo
 
 ### 25/11
 - ``` res.header('Access-Control-Allow-Origin', '*'); ``` Header que permite que o pedido à API seja feito de qualquer lado
+- ### *não dá para fazer deploy da API no NETLIFY, só dá para fazer deploy de um site* 
 
 ## Git Help
 ### Fazer merge de um branch de equipa para o master.
@@ -75,3 +39,42 @@ Para entrar em num branch tem que se fazer ``` git checkout < branch_a_entrar > 
 - ``` git checkout master ``` *
 - ``` git merge company-backend ``` ou qualquer outro branch que se queira fazer merge com o master
 - ``` git push ```
+
+### Useful Links:
+- [Git Rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
+- [Understanding CORS](https://dev.to/g33konaut/understanding-cors-aaf)
+- [Heroku API Deployment](https://api-platform.com/docs/deployment/heroku/)
+
+## Important 
++ Authentication (which technology)
+    + Token
+    + oAuth (express-Auth 2.0)
+    + 
++ Create Routes
++ Payment methods
++ Create Connection to database
+
+## TODOS:
++ Sistema de Login
++ Operações CRUD para: 
+    + Utilizadores (gestores e Admnistradores)
+    + casas 
+    + Espaços
+    + sensores associados aos espaços
+
+## SQL (Business Logic)
++ Users
++ Casas
++ Sensors (37 different sensors)
++ Spaces
+
+## NoSQL (Data)
++ Notifications
++ Movimentos
++ Log de sensores
++ Implementaion Requests (It has to have a field that says if it was accepted or not)
+
+## Outros 
++ Sobre os ranks:
+> Definição de parâmetros da aplicação (p.ex. sensores disponíveis, critérios de medição; créditos por
+atividade/seguro (Gamification / Pontos), outros);

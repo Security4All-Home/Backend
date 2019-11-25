@@ -1,0 +1,13 @@
+{
+    "success_url": "/",
+    "env": {
+        "rootUserMongo":"admin",
+        "rootPassMongo":"1234",
+        "rootUserSql":"uZvFiNMuwF",
+        "databaseSql":"uZvFiNMuwF",
+        "rootPassSql":"SWKbSnLDu2",
+        "serverSql":"remotemysql.com",
+        "portSql":3306,
+        "PORT":8002
+    }
+}
