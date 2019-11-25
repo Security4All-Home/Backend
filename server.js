@@ -1,15 +1,16 @@
 const server = require("express").Router();
 
 /** NPM Packages, ver se não dá para passar o invocamento das packages para o loader.js */
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require("cors")
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
-const experimentalRoutesPath = "./src/routes/experimentalRoutes/"
-const generalRoutesPath = "./src/routes/"
-const ourMiddlewarePath = "./src/middlewares/"
+const experimentalRoutesPath = "./src/routes/experimentalRoutes/";
+const generalRoutesPath = "./src/routes/";
+const ourMiddlewarePath = "./src/middlewares/";
 /** Routes */
-const errorHandler = require(experimentalRoutesPath + "errorhandling.route").errorHandler;
+const errorHandler = require(experimentalRoutesPath + "errorhandling.route")
+  .errorHandler;
 const testRoute = require(experimentalRoutesPath + "tests.route");
 const getMacAdressRoute = require(experimentalRoutesPath + "getMacAdress");
 
@@ -26,36 +27,38 @@ const testMiddleware = require(ourMiddlewarePath + "test.mid.js");
 // server.use(cors()) // Não pode ficar assim depois
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-server.use(cookieParser())
-server.use(testMiddleware.visualizeHeaders)
+server.use(cookieParser());
+server.use(testMiddleware.visualizeHeaders);
 
 server.use("/macadress", getMacAdressRoute);
-server.use("/test", testRoute);;
+server.use("/test", testRoute);
 
 /** Paths */
 server.use("/category", categoryRoute);
 server.use("/achievement", achievementsRoute);
-server.use("/sensor", sensorRoute);
+server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);
 
-server.get('/home', (req, res) => {
-    res.send(`
+server.get("/home", (req, res) => {
+  res.send(`
     <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API </h1>
-    `)
-})
+    `);
+});
 
 server.get("/teste", (req, res) => {
-    res.send("Test Page")
-})
+  res.send("Test Page");
+});
 
 /** Caminho que avisa que que o caminho pedido não existe */
 server.all("/*", (req, res) => {
-    /** Custom Page when the requested route isnt available */
-    // res.send("<h1 style='color: brown;'>Page not Found</h1>")
-    res.status(404).json({success: false, msg: "That route doens't exist !!!", status: 404 })
-})
+  /** Custom Page when the requested route isnt available */
+  // res.send("<h1 style='color: brown;'>Page not Found</h1>")
+  res
+    .status(404)
+    .json({ success: false, msg: "That route doens't exist !!!", status: 404 });
+});
 
 /** Middlewares Finais (Estes precisam de estar no fim (penso eu de que...)) */
-server.use(errorHandler)
+server.use(errorHandler);
 
 module.exports = server;
