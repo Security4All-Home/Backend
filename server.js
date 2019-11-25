@@ -72,7 +72,6 @@ server.use("/macadress", getMacAdressRoute);
 server.use("/test", testRoute);
 
 /** Paths */
-<<<<<<< HEAD
 server.use("/auth", authRoute);
 
 
@@ -99,18 +98,6 @@ server.get("/home", (req, res) => {
     <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
     `);
 });
-=======
-server.use("/category", categoryRoute);
-server.use("/achievement", achievementsRoute);
-server.use("/sensor", sensorRoute);
-server.use("/user", userRoute);
-
-server.get('/', (req, res) => {
-    res.send(`
-    <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API </h1>
-    `)
-})  
->>>>>>> 9d6bbcd... start heroku deployment
 
 server.get("/teste", (req, res) => {
   res.send("Test Page");
