@@ -7,6 +7,7 @@ const cors = require("cors")
 
 const experimentalRoutesPath = "./src/routes/experimentalRoutes/"
 const generalRoutesPath = "./src/routes/"
+const ourMiddlewarePath = "./src/middlewares/"
 /** Routes */
 const errorHandler = require(experimentalRoutesPath + "errorhandling.route").errorHandler;
 const testRoute = require(experimentalRoutesPath + "tests.route");
@@ -15,14 +16,18 @@ const getMacAdressRoute = require(experimentalRoutesPath + "getMacAdress");
 /** "Real" Routes */
 const categoryRoute = require(generalRoutesPath + "category.route");
 const achievementsRoute = require(generalRoutesPath + "achievement.route");
-const sensorRoute = require(generalRoutesPath + "sensor.route")
-const userRoute = require(generalRoutesPath + "user.route")
+const sensorRoute = require(generalRoutesPath + "sensor.route");
+const userRoute = require(generalRoutesPath + "user.route");
+
+/** Our middlewares */
+const testMiddleware = require(ourMiddlewarePath + "test.mid.js");
 
 /** Middlewares */
-server.use(cors()) // Não pode ficar assim depois
+// server.use(cors()) // Não pode ficar assim depois
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser())
+server.use(testMiddleware.visualizeHeaders)
 
 server.use("/macadress", getMacAdressRoute);
 server.use("/test", testRoute);;
