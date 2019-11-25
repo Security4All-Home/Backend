@@ -38,6 +38,7 @@
 atividade/seguro (Gamification / Pontos), outros);
 + Useful Links:
     + [Git Rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
+    + [Understanding CORS](https://dev.to/g33konaut/understanding-cors-aaf)
 
 ## Updates 
 
@@ -57,6 +58,9 @@ will be used to know if computer or smartphone was already used to acess the app
 - Provavelmente a maneira mais segura de procurar alguma coisa é mandar essa coisa no body do pedido e não nos parametros, porque visto que vamos ter uma ligação https os dados do body estão protegidos.... Certo????
 - Ainda falta avisa se os dados que foram enviados não são referentes a nada ou não têm resultados.
 Ex: tentar apagar um user enviando um id que não existe. (Ver o campo afectedRows, se for 0 é porque nada foi alterado)
+
+### 25/11
+- ``` res.header('Access-Control-Allow-Origin', '*'); ``` Header que permite que o pedido à API seja feito de qualquer lado
 
 ## Git Help
 ### Fazer merge de um branch de equipa para o master.
