@@ -38,7 +38,7 @@ server.use("/achievement", achievementsRoute);
 server.use("/sensor", sensorRoute);
 server.use("/user", userRoute);
 
-server.get('/', (req, res) => {
+server.get('/home', (req, res) => {
     res.send(`
     <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API </h1>
     `)
