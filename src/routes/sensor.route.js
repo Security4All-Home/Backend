@@ -1,8 +1,25 @@
-const route = require("express").Router()
-const sensorController=require("../controllers/sql/sensor.controller")
+const router = require("express").Router();
+const sensorController = require("../controllers/sql/sensor.controller");
 
-route.post("/",(req,res)=>{
-    sensorController.addSensor(req,res)
-})
+//Create
+router.post("/", (req, res, next) => {
+  sensorController.addSensor(req, res, next);
+});
 
-module.exports=route
+//Read
+router.get("/", (req, res, next) => {
+  sensorController.getAll(req, res, next);
+});
+//ReadByID
+router.get("/:id", (req, res, next) => {
+  sensorController.getByID(req, res, next);
+});
+//Update
+router.put("/:id", (req, res, next) => {
+  sensorController.updateByID(req, res, next);
+});
+//Delete
+router.delete("/:id", (req, res, next) => {
+  sensorController.deleteByID(req, res, next);
+});
+module.exports = router;
