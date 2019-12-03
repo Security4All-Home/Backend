@@ -10,7 +10,7 @@ const crudSensor = {
     ) {
       if (err) throw err;
 
-      result(rows);
+      result(null, rows);
     });
   },
 
@@ -19,7 +19,7 @@ const crudSensor = {
     sql.query("Select * from sensor", function(err, rows, fields) {
       if (err) next(err);
 
-      result(rows);
+      result(null, rows);
     });
   },
 
@@ -29,7 +29,7 @@ const crudSensor = {
       "Select * from sensor where idSensor=" + id,
       (err, rows, fields) => {
         if (err) next(err);
-        result(rows, fields);
+        result(null, rows);
       }
     );
   },
@@ -40,7 +40,7 @@ const crudSensor = {
       [newSensor, id],
       (err, rows) => {
         if (err) next(err);
-        result(rows);
+        result(null, rows);
       }
     );
   },
@@ -49,7 +49,7 @@ const crudSensor = {
   deleteByID(id, result, next) {
     sql.query("delete from sensor where idSensor=" + id, (err, rows) => {
       if (err) next(err);
-      result(rows);
+      result(null, rows);
     });
   }
 };
