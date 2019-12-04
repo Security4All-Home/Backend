@@ -14,6 +14,10 @@ router.get("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   sensorController.getByID(req, res, next);
 });
+//ReadBYCategory
+router.get("/:idCategory", (req, res, next) => {
+  sensorController.getByCategory(req, res, next);
+});
 //Update
 router.put("/:id", (req, res, next) => {
   sensorController.updateByID(req, res, next);
