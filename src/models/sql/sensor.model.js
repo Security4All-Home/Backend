@@ -41,6 +41,19 @@ const crudSensor = {
       }
     );
   },
+  //Read By category
+  getByCategory(idCategory, result) {
+    sql.query(
+      "Select * from sensor where idCategory=" + idCategory,
+      (err, rows, fields) => {
+        if (err) {
+          result(err, rows);
+          return;
+        }
+        result(null, rows);
+      }
+    );
+  },
   //Update
   updateByID(id, newSensor, result) {
     sql.query(
