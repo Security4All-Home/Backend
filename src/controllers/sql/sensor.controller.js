@@ -54,15 +54,6 @@ const crudSensor = {
       next(err);
     }
   },
-  getByCategory(req, res, next) {
-    try {
-      sensorModel.getByCategory(req.params.idCategory, data => {
-        res.status(200).json({ success: true, data: data }, next);
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
   updateByID(req, res, next) {
     try {
       sensorModel.updateByID(
