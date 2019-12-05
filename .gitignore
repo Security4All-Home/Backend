@@ -1,4 +1,5 @@
 /node_modules/
-/database
+/database/
 /dummydata.json
-/.vscode
+todos.txt
+.vscode/settings.json

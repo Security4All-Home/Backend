@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const fs = require("fs");
+const {connection, model, schema} = require("../../mongoconnection");
 
 /**
  * Handle lost connection by mysql
@@ -29,6 +30,7 @@ function errorHandler(err, req, res, next) {
             customError = diferenciateErrors(err, customError);
             console.log(err, "errorHandler!!!")
             console.log(typeof err, "typeof err!!!")
+            logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
             res.status(customError.status).json({ success: false, error: customError.msg })
         }
         else next();
@@ -47,16 +49,66 @@ function diferenciateErrors(err, custom) {
     if (err.sql != undefined) {
         let queryType = err.sql.split(" ");
 
-        switch (queryType[0]) {
-            case "select":
+        switch (queryType[0].toUpperCase()) {
+            case "SELECT":
                 custom.msg = "There was an error retrieving your data!"
                 break;
+            case "UPDATE":
+                custom.msg = "There was an error updating your data!"
+            break;
+
+            case "DELETE": 
+                custom.msg = "There was an error deleting what you want xD!"
+            break;
+
+            case "INSERT":
+                custom.msg = "There was an error inserting your data!"
+            break;
         }
     }
 
     /** Fazer a mesma coisa para os diferentes tipos de erros que tivermos */
 
     return custom;
+}
+
+/** O model dos erros vai ficar aqui */
+let errorSchema = new schema({
+    errorType: {
+        type: String
+    },
+    description: {
+        type: String
+    },
+    date: {
+        type: String,
+        default: new Date().toISOString().split('T').join(' ').split('Z')[0]
+    },
+    message: {
+        type: String
+    }
+})
+
+let error = model('errorLogs', errorSchema);
+
+function logsToDatabase(errorType, errorMessage, description = "") {
+    let newError = new error({
+        errorType: errorType,
+        description: description,
+        message: errorMessage
+    })
+
+    newError.save((err, savedErr) => {
+        if(err) {
+            writingToLogFile() // Vai para o logfile que é para termos registo
+            return;
+        }
+        console.log(savedErr, "Erro Gravado com sucesso !!!")
+    })
+}
+
+function writingToLogFile() {
+    return;
 }
 
 module.exports = {

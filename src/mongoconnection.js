@@ -16,4 +16,8 @@ con.on('error', (err) => {
     console.log(err, "An error as ocured in Mongo Database");
 })
 
-module.exports = con;
+module.exports = {
+    connection: con,
+    model: mongoose.model,
+    schema: mongoose.Schema
+};
