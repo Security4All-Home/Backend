@@ -19,7 +19,7 @@ const categoryRoute = require(generalRoutesPath + "category.route");
 const achievementsRoute = require(generalRoutesPath + "achievement.route");
 const sensorRoute = require(generalRoutesPath + "sensor.route");
 const userRoute = require(generalRoutesPath + "user.route");
-
+const packageRoute = require(generalRoutesPath + "package.route")
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test.mid.js");
 
@@ -38,6 +38,7 @@ server.use("/category", categoryRoute);
 server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);
+server.use("/packages", packageRoute);
 
 server.get("/home", (req, res) => {
   res.send(`
