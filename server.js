@@ -14,12 +14,15 @@ const errorHandler = require(experimentalRoutesPath + "errorhandling.route")
 const testRoute = require(experimentalRoutesPath + "tests.route");
 const getMacAdressRoute = require(experimentalRoutesPath + "getMacAdress");
 
+
 /** "Real" Routes */
 const categoryRoute = require(generalRoutesPath + "category.route");
 const achievementsRoute = require(generalRoutesPath + "achievement.route");
 const sensorRoute = require(generalRoutesPath + "sensor.route");
 const userRoute = require(generalRoutesPath + "user.route");
 const packageRoute = require(generalRoutesPath + "package.route")
+const authRoute = require(generalRoutesPath+"/auth/router")
+
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test.mid.js");
 
@@ -39,6 +42,8 @@ server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);
 server.use("/packages", packageRoute);
+
+server.use("/auth", authRoute);
 
 server.get("/home", (req, res) => {
   res.send(`

@@ -8,18 +8,23 @@ const crudSensor = {
       rows,
       fields
     ) {
-      if (err) throw err;
+      if (err) {
+        result(err, rows);
+        return;
+      }
 
-      result(rows);
+      result(null, rows);
     });
   },
 
   //Read All
   getAll(result) {
     sql.query("Select * from sensor", function(err, rows, fields) {
-      if (err) next(err);
-
-      result(rows);
+      if (err) {
+        result(err, rows);
+        return;
+      }
+      result(null, rows);
     });
   },
 
@@ -28,8 +33,24 @@ const crudSensor = {
     sql.query(
       "Select * from sensor where idSensor=" + id,
       (err, rows, fields) => {
-        if (err) next(err);
-        result(rows, fields);
+        if (err) {
+          result(err, rows);
+          return;
+        }
+        result(null, rows);
+      }
+    );
+  },
+  //Read By category
+  getByCategory(idCategory, result) {
+    sql.query(
+      "Select * from sensor where idCategory=" + idCategory,
+      (err, rows, fields) => {
+        if (err) {
+          result(err, rows);
+          return;
+        }
+        result(null, rows);
       }
     );
   },
@@ -39,8 +60,11 @@ const crudSensor = {
       "update sensor set ? where idSensor=?",
       [newSensor, id],
       (err, rows) => {
-        if (err) next(err);
-        result(rows);
+        if (err) {
+          result(err, rows);
+          return;
+        }
+        result(null, rows);
       }
     );
   },
@@ -48,8 +72,11 @@ const crudSensor = {
   //Delete
   deleteByID(id, result, next) {
     sql.query("delete from sensor where idSensor=" + id, (err, rows) => {
-      if (err) next(err);
-      result(rows);
+      if (err) {
+        result(err, rows);
+        return;
+      }
+      result(null, rows);
     });
   }
 };
