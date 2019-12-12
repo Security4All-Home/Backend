@@ -21,7 +21,9 @@ const sensorRoute = require(generalRoutesPath + "sensor.route");
 const userRoute = require(generalRoutesPath + "user.route");
 const packageRoute = require(generalRoutesPath + "package.route")
 /** Our middlewares */
-const testMiddleware = require(ourMiddlewarePath + "test.mid.js");
+const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
+const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
+
 
 /** Middlewares */
 // server.use(cors()) // Não pode ficar assim depois
@@ -29,22 +31,20 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(testMiddleware.visualizeHeaders);
+server.use(sanitizerMiddleware)
 
 server.use("/macadress", getMacAdressRoute);
 server.use("/test", testRoute);
 
 /** Paths */
+server.use("/auth", authRoute);
+
 server.use("/category", categoryRoute);
 server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);
 server.use("/packages", packageRoute);
 
-server.use("/auth", authRoute);
-
-server.use("/auth", authRoute);
-
-server.use("/auth", authRoute);
 
 server.get("/home", (req, res) => {
   res.send(`
