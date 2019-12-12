@@ -1,9 +1,10 @@
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
-const privateKey = fs.readFileSync("./assets/keys/private.key", "utf-8");
-const publicKey = fs.readFileSync("./assets/keys/public.key", "utf-8");
+const privateKey = process.env.privateKey//fs.readFileSync("/keys/private.key", "utf-8");
+const publicKey = process.env.publicKey//fs.readFileSync("../keys/public.key", "utf-8");
 
+console.log(privateKey, publicKey, "KEYS!!!");
 //opções de criação do JWT para tokens de acesso
 const accessSignOptions = {
     expiresIn: "30m",
@@ -53,42 +54,42 @@ function createRefreshToken(req) {
 
 function validateToken(req, res, next) {
     let token = req.headers.authorization;
-    if (token == "" ||token == null) return res.send("Token não existe.");
+    if (token == "" ||token == null) return next({next: "Token não existe."});
 
     try {
         let legitToken = jwt.verify(token, publicKey, accessVerifyOptions); //verifica a legitimidade do token
 
-        if (legitToken.iat > legitToken.exp) res.send("Token expirado!"); //verifica o tempo que passou desde a criação do token
+        if (legitToken.iat > legitToken.exp) next({error: "Token expirado!"}); //verifica o tempo que passou desde a criação do token
 
         if (legitToken && legitToken.auth == author) { //verifica o autor do token
             res.setHeader("Authorization", createAccessToken(req));
             return next(req, res);
         }
-        else res.send("Erro! O autor é diferente!")
+        else next({error: "Erro! O autor é diferente!"})
     }
     catch (err) {
         console.log(err)
-        res.send(err);
+        next(err);
     }
 }
 
-function refreshToken(req, res) {
+function refreshToken(req, res, next) {
     let token = req.headers.refresh;
 
     try {
         let legitToken = jwt.verify(token, publicKey, refreshVerifyOptions); //verifica a legitimidade do token
 
-        if (legitToken.iat > legitToken.exp) res.send("Token expirado!") //verifica o tempo que passou desde a criação do token
+        if (legitToken.iat > legitToken.exp) next({error: "Token expirado!"}) //verifica o tempo que passou desde a criação do token
 
         if (legitToken && legitToken.auth == author) { //verifica o autor do token
             res.setHeader("Authorization", createAccessToken(req));
             res.setHeader("Refresh", createRefreshToken(req));
-            res.send("Sucesso!")
+            next()
         }
-        else res.send("Erro! O autor é diferente!")
+        else next({error: "Erro! O autor é diferente!"})
     }
     catch (err) {
-        res.send(err);
+        next(err);
     }
 }
 

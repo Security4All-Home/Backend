@@ -1,4 +1,9 @@
 const sql = require('../../sqlconnection');
+const bcrypt = require("bcryptjs");
+const genSaltValue = Number(process.env.genSaltValue);
+let salt = bcrypt.genSaltSync(genSaltValue);
+
+/** FAZER SANITIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
 
 const userCrud = {
     getAll(result) {
@@ -23,25 +28,36 @@ const userCrud = {
             result(null, rows);
         })
     },
-    insert({ name, username, password, idType, email, codigoPostal, telemovel, nif }, result) {
-        let query = `insert into user 
-        (name, username, password, idType, email, codigoPostal, telemovel, nif, verified)
-        values
-        ("${name}","${username}","${password}",${idType},"${email}",${codigoPostal},${telemovel},${nif},False)`
+    getByEmail({email}, result) {
 
-        sql.query(query, (err, rows, fields) => {
+    },
+    insert({ name, username, password, idType, email, taxAdress,taxZipCode, phoneNumber, nif = "", twoFactorAuth = 0 }, result) {
+        // let firstQuery = `select * from user where`
+        password = bcrypt.hashSync(password, salt)
+        console.log(password, "PASSSS")
+        let query = `insert into user 
+        (name, username, password, idType, email, taxAdress,taxZipCode,nif, verified)
+        values
+        (${name},${username},${password},${idType},${email}, ${taxAdress},${taxZipCode},${nif}, ${twoFactorAuth});
+        insert into user_contact values (LAST_INSERT_ID(), ${phoneNumber});`
+
+        console.log(query)
+
+        sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {
+                err.lalalalala = query.replace(/\n/g, "")
                 result(err, rows);
                 return;
             }
+            console.log("DONE!!!!!!!!!!!!")
             result(null, rows);
         });
     },
-    getUsersByHouse({codigoPostal}, result) {
+    getUsersByHouse({zipCode}, result) {
         let query = `select user.*, house.* 
-        from user, house
-        where user.codigoPostal = house.codigoPostal
-        and house.codigoPostal = ${codigoPostal}`;
+        from user, house, user_house
+        where user.idUser = house.zipCode
+        and house.taxZipCode = ${taxZipCode}`;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
@@ -52,15 +68,15 @@ const userCrud = {
             result(null, rows);
         })
     },
-    update({iduser}, { name, username, password, idType, email, codigoPostal, telemovel, nif }, result) {
+    update({iduser}, { name, username, password, idType, email, taxZipCode, telemovel, nif }, result) {
         let query = "update user set "
 
-        if(name != undefined || name != null) query += "name = '" + name + "' " 
-        if(username != undefined || username != null) query += "username = '" + username + "' "
-        if(password != undefined || password != null) query += "password = '" + password + "' "
+        if(name != undefined || name != null) query += "name = " + name + " " 
+        if(username != undefined || username != null) query += "username = " + username + " "
+        if(password != undefined || password != null) query += "password = " + password + " "
         if(idType != undefined || idType !=null) query += "idType = " + idType  + " "
-        if(email != undefined || email != null) query += "email = '" + email  + "' "
-        if(codigoPostal != undefined || codigoPostal != null) query += "codigoPostal = " + codigoPostal + " " 
+        if(email != undefined || email != null) query += "email = " + email  + " "
+        if(taxZipCode != undefined || taxZipCode != null) query += "taxZipCode = " + taxZipCode + " " 
         if(telemovel != undefined || telemovel != null) query += "telemovel = " + telemovel + " " 
         if(nif != undefined || nif != null) query += "nif = " + nif + " "
 
