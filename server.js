@@ -29,11 +29,11 @@ const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
 
 
 /** Middlewares */
-// server.use(cors()) // Não pode ficar assim depois
+server.use(cors()) // Não pode ficar assim depois
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
-server.use(testMiddleware.visualizeHeaders);
+// server.use(testMiddleware.visualizeHeaders);
 server.use(sanitizerMiddleware)
 
 server.use("/macadress", getMacAdressRoute);
