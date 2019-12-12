@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 /** Get Users by house */
-router.get('/house/:codigoPostal', (req, res, next) => {
+router.get('/house/:taxZipCode', (req, res, next) => {
     userController.getUsersByHouse(req, res, next);
 })
 
