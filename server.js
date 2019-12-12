@@ -21,7 +21,7 @@ const achievementsRoute = require(generalRoutesPath + "achievement.route");
 const sensorRoute = require(generalRoutesPath + "sensor.route");
 const userRoute = require(generalRoutesPath + "user.route");
 const packageRoute = require(generalRoutesPath + "package.route")
-const authRoute = require(generalRoutesPath+"/auth/router")
+const authRoute = require(generalRoutesPath+"auth.route")
 
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
