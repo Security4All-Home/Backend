@@ -26,5 +26,20 @@ router.get('/house/:taxZipCode', (req, res, next) => {
     userController.getUsersByHouse(req, res, next);
 })
 
+/** Get Houses by User */
+router.get('/houses/:id', (req, res, next) => {
+    userController.getHousesByUser(req, res, next);
+})
+
+/** Get Sensors by User */
+router.get('/sensors/:id', (req, res, next) => {
+    userController.getSensorByUser(req, res, next);
+})
+
+/** Get Spaces by User */
+router.get('/spaces/:id', (req, res, next) => {
+    userController.getEspacosByUser(req, res, next);
+})
+
 
 module.exports = router;
