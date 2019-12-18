@@ -68,6 +68,44 @@ const userCrud = {
             result(null, rows);
         })
     },
+    getHousesByUser({id}, result) {
+        let query = `select house.zipCode, house.local, house.adress from house, user_house where user_house.idUser = ${id} and user_house.zipCode = house.zipCode `;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+    getSensorByUser({id}, result) {
+        let query = `select sensor.* from sensor, sensor_package,package, uZvFiNMuwF.order where sensor_package.idSensor = sensor.idSensor 
+        and sensor_package.idPackage = package.idPackage and uZvFiNMuwF.order.idUser = ${id} `;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+    getEspacosByUser({id}, result) {
+        let query = `select space.* from sensor, space, sensor_space, sensor_package,package, uZvFiNMuwF.order where sensor_package.idSensor = sensor.idSensor and sensor_space.idSpace = space.idSpace 
+        and sensor_package.idPackage = package.idPackage and uZvFiNMuwF.order.idUser = ${id} `;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
     update({iduser}, { name, username, password, idType, email, taxZipCode, telemovel, nif }, result) {
         let query = "update user set "
 
