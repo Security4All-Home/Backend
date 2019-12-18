@@ -45,24 +45,6 @@ const crudCat = {
         } catch (error) {
             next(error)
         }
-    },
-    delete(req, res, next) {
-        try {
-            catModel.delete(req.params, function (data) {
-                res.json({ success: true, data: data })
-            }, next)
-        } catch (error) {
-            next(error)
-        }
-    },
-    delete(req, res, next) {
-        try {
-            catModel.delete(req.params, function (data) {
-                res.json({ success: true, data: data })
-            }, next)
-        } catch (error) {
-            next(error)
-        }
     }
 }
 
