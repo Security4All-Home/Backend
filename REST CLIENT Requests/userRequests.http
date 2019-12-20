@@ -1,0 +1,14 @@
+# Para testar os diferentes 
+
+GET http://localhost:8002/user
+
+###
+GET http://localhost:8002/user/6
+x-acess-token: 
+
+### 
+
+
+{
+
+}
