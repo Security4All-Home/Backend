@@ -9,13 +9,13 @@ module.exports = {
         // console.log(req.cookies)
         // console.log(req.headers)
 
-        console.log(jwt.decode(token))
+        console.log(jwt.decode(token), "TOKEN")
         if (token) {
-
+            next();
         }
         else {
-
+            console.log("O token está a faltar")
+            next({type: "JWT", error: "missing token"})
         }
-        next();
     }
 }
