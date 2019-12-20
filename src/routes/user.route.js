@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const userController = require("../controllers/sql/user.controller");
+const verifyToken = require("../middlewares/auth.middleware").verifyToken
 
 router.get('/', (req, res, next) => {
     userController.getAll(res, next)
@@ -17,7 +18,7 @@ router.delete('/delete/:iduser', (req, res, next) => {
     userController.delete(req, res, next);
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', verifyToken,(req, res, next) => {
     userController.getById(req, res, next)
 })
 
