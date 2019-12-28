@@ -42,5 +42,25 @@ router.get('/spaces/:id', (req, res, next) => {
     userController.getEspacosByUser(req, res, next);
 })
 
+/** Insert Space */
+router.post('/insert/space', (req, res, next) => {
+    userController.insertSpace(req, res, next);
+})
+
+/** Insert House */
+router.post('/insert/house', (req, res, next) => {
+    userController.insertHouse(req, res, next);
+})
+
+/** Update User Houses */
+router.put('/updateHouses/:zipCode', (req, res, next) => {
+    userController.updateUserHouses(req, res, next)
+})
+
+/** Update Sensor */
+router.put('/updateSensor/:idSensor', (req, res, next) => {
+    userController.updateSensor(req, res, next)
+})
+
 
 module.exports = router;
