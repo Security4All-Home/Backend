@@ -87,10 +87,11 @@ const userCrud = {
         });
     },
     getUsersByHouse({zipCode}, result) {
-        let query = `select user.*, house.* 
+        let query = `select user.*
         from user, house, user_house
-        where user.idUser = house.zipCode
-        and house.taxZipCode = ${taxZipCode}`;
+        where house.zipCode = ${zipCode} 
+        and user_house.zipCode= house.zipCode
+        and user_house.idUser = user.idUser `;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
@@ -130,8 +131,37 @@ const userCrud = {
         })
     },
     getEspacosByUser({id}, result) {
-        let query = `select space.* from space, user_house, house_space where user_house.zipCode=house_space.idHouse
-        and user_house.idUser = ${id}`;
+        let query = `select space.* from space, user_house, house_space 
+        where user_house.idUser = ${id} 
+        and user_house.zipCode=house_space.idHouse 
+        and house_space.idSpace= space.idSpace`;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+    getPackageByUser({id}, result) {
+        let query = `select package.* from uZvFiNMuwF.order, package 
+        where order.idUser = ${id} 
+        and package.idPackage = order.idPackage`;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+    getReviewByUser({id}, result) {
+        let query = `select review.* from review 
+        where review.idUser = ${id}`;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
