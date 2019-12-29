@@ -23,7 +23,7 @@ router.get('/:id', verifyToken,(req, res, next) => {
 })
 
 /** Get Users by house */
-router.get('/house/:taxZipCode', (req, res, next) => {
+router.get('/house/:zipCode', (req, res, next) => {
     userController.getUsersByHouse(req, res, next);
 })
 
@@ -40,6 +40,16 @@ router.get('/sensors/:id', (req, res, next) => {
 /** Get Spaces by User */
 router.get('/spaces/:id', (req, res, next) => {
     userController.getEspacosByUser(req, res, next);
+})
+
+/** Get Package by User */
+router.get('/package/:id', (req, res, next) => {
+    userController.getPackageByUser(req, res, next);
+})
+
+/** Get Review by User */
+router.get('/review/:id', (req, res, next) => {
+    userController.getReviewByUser(req, res, next);
 })
 
 /** Insert Space */
