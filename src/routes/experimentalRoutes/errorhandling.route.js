@@ -18,9 +18,9 @@ function errorHandler(err, req, res, next) {
     /** Clear the console
      * Link: https://stackoverflow.com/questions/9006988/node-js-on-windows-how-to-clear-console/38492871#38492871
      */
-    process.stdout.write("\u001b[0J\u001b[1J\u001b[2J\u001b[0;0H\u001b[0;0W");
+    //process.stdout.write("\u001b[0J\u001b[1J\u001b[2J\u001b[0;0H\u001b[0;0W");
     try {
-
+        console.log(err, "ERORORO")
         if (err) {
             
             let customError = { // This the error that goes to the user
@@ -31,11 +31,12 @@ function errorHandler(err, req, res, next) {
             console.log(err, "errorHandler!!!")
             console.log(typeof err, "typeof err!!!")
             logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
-            res.status(customError.status).json({ success: false, error: customError.msg })
+            res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
         }
         else next();
 
     } catch (err) {
+
         res.json({ success: false, msg: "Internal server error", error: err })
     }
 }
@@ -68,6 +69,12 @@ function diferenciateErrors(err, custom) {
     }
 
     /** Fazer a mesma coisa para os diferentes tipos de erros que tivermos */
+    if (JSON.stringify(err).includes('jwt') || JSON.stringify(err).includes('Token')){
+        custom.msg = "ERrro no JWT";
+    }
+    if(err.type.toUpperCase() = "JWT") {
+        custom.msg = "Erro No JWT!!!"
+    }
 
     return custom;
 }
