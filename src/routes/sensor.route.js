@@ -18,10 +18,15 @@ router.get("/:id", (req, res, next) => {
 router.get("/category/:idCategory", (req, res, next) => {
   sensorController.getByCategory(req, res, next);
 });
+//Update Stock
+router.put("/stock", (req, res, next) => {
+  sensorController.updateSensorStock(req, res, next);
+});
 //Update
 router.put("/:id", (req, res, next) => {
   sensorController.updateByID(req, res, next);
 });
+
 //Delete
 router.delete("/:id", (req, res, next) => {
   sensorController.deleteByID(req, res, next);

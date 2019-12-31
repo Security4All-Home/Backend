@@ -25,7 +25,7 @@ const crudSensor = {
     } catch (err) {
       next(err);
     }
-  },
+  }, //This can be used to know information about the sensor(state,stock,other information)
   getByID(req, res, next) {
     //Read By ID
     try {
@@ -53,11 +53,24 @@ const crudSensor = {
     } catch (err) {
       next(err);
     }
-  },
+  }, //Update sensor information
   updateByID(req, res, next) {
     try {
       sensorModel.updateByID(
         req.params.id,
+        req.body,
+        (err, data) => {
+          res.status(200).json({ success: true, data: data });
+        },
+        next
+      );
+    } catch (err) {
+      next(err);
+    }
+  }, //Update sensor stock for when there is an order the stock update automatically
+  updateSensorStock(req, res, next) {
+    try {
+      sensorModel.updateSensorStock(
         req.body,
         (err, data) => {
           res.status(200).json({ success: true, data: data });
