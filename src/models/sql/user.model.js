@@ -86,6 +86,22 @@ const userCrud = {
             result(null, rows);
         });
     },
+    insertReview({text, idUser, idSensor, date}, result) {
+        let query = `insert into review 
+        (text, idUser, idSensor, date)
+        values
+        (${text}, ${idUser}, ${idSensor}, ${date});`
+
+        sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
+            if (err) {
+                err.lalalalala = query.replace(/\n/g, "")
+                result(err, rows);
+                return;
+            }
+            
+            result(null, rows);
+        });
+    },
     getUsersByHouse({zipCode}, result) {
         let query = `select user.*
         from user, house, user_house
