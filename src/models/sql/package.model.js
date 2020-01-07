@@ -11,7 +11,7 @@ const crudPackage = {
       if (err) throw err;
 
       result(rows);
-      console.log(rows.insertId)
+      console.log(rows, rows.insertId, fields)
     });
   },
 

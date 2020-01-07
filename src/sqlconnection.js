@@ -17,4 +17,12 @@ connection.connect((err) => {
     console.log('SQL Database connected with the id ' + connection.threadId)
 })
 
+connection.on('end', (parameter) => {
+    // Não é isto que apanha o erro quando a conexão fecha por demasiado tempo de inatividade
+    console.log(parameter)
+})
+
+connection.on('error', (error) => {
+    console.log(error, "Tentar apanhar erro de inatividade");
+})
 module.exports = connection
