@@ -31,10 +31,16 @@ const userCrud = {
     getByEmail({email}, result) {
 
     },
-    insert({ name, username, password, idType, email, taxAdress,taxZipCode, phoneNumber, nif = "", twoFactorAuth = 0 }, result) {
-        // let firstQuery = `select * from user where`
+    insert({ name, username, password, idType, email, taxAdress,taxZipCode, phoneNumber, nif = "", twoFactorAuth = 0}, result) {
+        /** TODO:
+         * Tem que se inserir aqui também valores nas tabelas user_house e house
+         * ou criar outro método para inserir esses valores visto que para um user se
+         * registar tem que escolher um pacote por isso registar a sua casa.
+         * Para inserir uma (order) vai ser num método diferente
+         */
+        let inserteId = 0
         password = bcrypt.hashSync(password, salt)
-        console.log(password, "PASSSS")
+        /** Usar o rows.insertId */
         let query = `insert into user 
         (name, username, password, idType, email, taxAdress,taxZipCode,nif, verified)
         values
@@ -45,10 +51,11 @@ const userCrud = {
 
         sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {
-                err.lalalalala = query.replace(/\n/g, "")
+
                 result(err, rows);
                 return;
             }
+            
             console.log("DONE!!!!!!!!!!!!")
             result(null, rows);
         });
@@ -103,11 +110,12 @@ const userCrud = {
         });
     },
     getUsersByHouse({zipCode}, result) {
-        let query = `select user.*
-        from user, house, user_house
-        where house.zipCode = ${zipCode} 
-        and user_house.zipCode= house.zipCode
-        and user_house.idUser = user.idUser `;
+        let query = `
+        select user.* 
+        from user, house, user_house 
+        where user_house.zipCode = ${zipCode} 
+        and user.idUser = user_house.idUser 
+        and house.zipCode = user_house.zipCode`;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
@@ -250,7 +258,25 @@ const userCrud = {
         })
     },
     delete({iduser}, result) {
-        let query = `delete from user where idUser = ${iduser}`;
+        /**
+         * Como temos relações temos que eliminar as entradas do user
+         * em todas as tabelas antes de eliminar o user
+         * as tabelas podem ser:
+         * order
+         * user_house
+         * user_contact
+         * review
+         * 
+         * Nota:
+         * Há tabelas em que não queremos apagar os registos porque senão não ficamos com o históorico do 
+         * que aconteceu.
+         * Por isso o que vamos fazer aqui vai ser um "virtual delete" em que vamos apenas desativar o user.
+         * Desta maneira continuamos com um histórico do user e das suas ações
+         * Depois é melhor fazer um outro delete para realmente apagar o user.
+         */
+        let query = `
+        update user set disabled = 1 where idUser = ${iduser}
+        `;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
