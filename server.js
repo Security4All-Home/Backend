@@ -22,10 +22,11 @@ const sensorRoute = require(generalRoutesPath + "sensor.route");
 const userRoute = require(generalRoutesPath + "user.route");
 const packageRoute = require(generalRoutesPath + "package.route")
 const authRoute = require(generalRoutesPath+"auth.route")
-
+const orderRoute = require(generalRoutesPath + "order.route")
+const houseRoute = require(generalRoutesPath + "house.route")
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
-const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
+//const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
 
 
 /** Middlewares */
@@ -34,7 +35,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 // server.use(testMiddleware.visualizeHeaders);
-server.use(sanitizerMiddleware)
+// server.use(sanitizerMiddleware)
 
 server.use("/macadress", getMacAdressRoute);
 server.use("/test", testRoute);
@@ -47,7 +48,7 @@ server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);
 server.use("/packages", packageRoute);
-
+server.use("/house", houseRoute);
 
 server.get("/home", (req, res) => {
   res.send(`
