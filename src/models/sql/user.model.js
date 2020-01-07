@@ -110,10 +110,12 @@ const userCrud = {
         });
     },
     getUsersByHouse({zipCode}, result) {
-        let query = `select user.*
-        from user, house, user_house
-        where user.idUser = user_house.idUser
-        and house.zipCode = ${zipCode}`;
+        let query = `
+        select user.* 
+        from user, house, user_house 
+        where user_house.zipCode = ${zipCode} 
+        and user.idUser = user_house.idUser 
+        and house.zipCode = user_house.zipCode`;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
