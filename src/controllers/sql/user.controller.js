@@ -72,6 +72,24 @@ const userCrud = {
             return;
         }
     },
+    insertReview(req, res, next) {
+        try {
+            userModel.insertReview(req.body, (error, data) => {
+                if (error) {
+                    next(error);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (err) {
+            next(err);
+            return;
+        }
+    },
     insertSpace(req, res, next) {
         try {
             userModel.insertSpace(req.body, (error, data) => {

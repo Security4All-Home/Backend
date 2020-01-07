@@ -62,6 +62,11 @@ router.post('/insert/house', (req, res, next) => {
     userController.insertHouse(req, res, next);
 })
 
+/** Insert Review */
+router.post('/insert/review', (req, res, next) => {
+    userController.insertReview(req, res, next);
+})
+
 /** Update User Houses */
 router.put('/updateHouses/:zipCode', (req, res, next) => {
     userController.updateUserHouses(req, res, next)
