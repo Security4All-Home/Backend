@@ -1,6 +1,5 @@
 const server = require("express").Router();
 
-/** NPM Packages, ver se não dá para passar o invocamento das packages para o loader.js */
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -48,7 +47,7 @@ server.use("/packages", packageRoute);
 
 server.get("/home", (req, res) => {
   res.send(`
-    <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API </h1>
+    <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
     `);
 });
 
