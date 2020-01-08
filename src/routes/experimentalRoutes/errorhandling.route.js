@@ -2,10 +2,6 @@ const router = require("express").Router();
 const fs = require("fs");
 const {connection, model, schema} = require("../../mongoconnection");
 
-/**
- * Handle lost connection by mysql
- * https://stackoverflow.com/questions/20210522/nodejs-mysql-error-connection-lost-the-server-closed-the-connection
- */
 
 /** 
  * Notas: 
