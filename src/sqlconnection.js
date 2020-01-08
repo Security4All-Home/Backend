@@ -11,8 +11,8 @@ const dbConfig = {
     password: process.env.rootPassSql,
     database: process.env.databaseSql,
     port: process.env.portSql,
-    multipleStatements: true,
-    connectTimeout: 200000
+    multipleStatements: true
+    // connectTimeout: 200000
 }
 
 let connection = null;
@@ -35,8 +35,8 @@ function connectToDatabase() {
 
     connection.on('error', (error) => {
         console.timeEnd('tempo de atividade DB');
-        console.log(error, "Tentar apanhar erro de inatividade");
-        console.log(error.code);
+        // console.log(error, "Tentar apanhar erro de inatividade");
+        console.log(error.code, "Connection Error Code!");
         if (error.code == "PROTOCOL_CONNECTION_LOST") {
             connection.end();
             console.log("VOLTAR A FAZER A CONEXÃO")
