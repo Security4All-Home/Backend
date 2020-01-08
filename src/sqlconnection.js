@@ -13,7 +13,7 @@ connection.connect((err) => {
         console.log(err, "Error ocurred in mysql")
         return;
     }
-
+    console.time('tempo de atividade DB');
     console.log('SQL Database connected with the id ' + connection.threadId)
 })
 
@@ -23,6 +23,7 @@ connection.on('end', (parameter) => {
 })
 
 connection.on('error', (error) => {
+    console.timeEnd('tempo de atividade DB');
     console.log(error, "Tentar apanhar erro de inatividade");
 })
 module.exports = connection
