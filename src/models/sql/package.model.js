@@ -1,9 +1,10 @@
 const sql = require("../../sqlconnection");
 
 const crudPackage = {
+  
   //Create Package
   addPackage(newPackage, result) {
-    sql.query("Insert into package set ?", newPackage, function(
+    sql.query("Insert into package set ?; ", newPackage, function(
       err,
       rows,
       fields
@@ -11,11 +12,35 @@ const crudPackage = {
       if (err) throw err;
 
       result(rows);
-      console.log(rows.insertId)
+      console.log("ID PACKAGE:",rows.insertId)
+      
+      
     });
+
   },
 
+ //Add Sensor List to Package
+  addSensorToPackage(idPackage, sensorList, result){
+    let query =``
+    console.log(sensorList)
+    for (let i=0;i<sensorList.length;i++){
+      console.log(sensorList[i])
+      query += `insert into sensor_package(idSensor,idPackage) values(${sensorList[i]}, ${idPackage});`;
+    }
+    console.log(query)
+    sql.query(query, (err, rows) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+      result(null, rows);
+    });
+
+  },
+ 
+
   //Read All
+  //fazer join de packageSensors e sensors para apresentar tudo -TO DO
   getAll(result) {
     sql.query("Select * from package", function(err, rows, fields) {
       if (err) next(err);

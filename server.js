@@ -34,7 +34,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 // server.use(testMiddleware.visualizeHeaders);
-server.use(sanitizerMiddleware)
+//server.use(sanitizerMiddleware)
 
 server.use("/macadress", getMacAdressRoute);
 server.use("/test", testRoute);
