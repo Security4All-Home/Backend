@@ -76,6 +76,14 @@ router.put('/updateHouses/:zipCode', (req, res, next) => {
 router.put('/updateSensor/:idSensor', (req, res, next) => {
     userController.updateSensor(req, res, next)
 })
-
+// Inserir um utilizador:
+// Tabelas:
+// - user
+// - user_contact
+// - house
+// - user_house
+// - order
+// - space (Isto não é preciso ser logo que o user crie a sua conta).
+// - package ou sensor
 
 module.exports = router;
