@@ -15,7 +15,7 @@ const dbConfig = {
     connectTimeout: 200000
 }
 
-const connection;
+let connection = null;
 function connectToDatabase() {
     connection = mysql.createConnection(dbConfig);
 
