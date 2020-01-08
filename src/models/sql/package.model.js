@@ -12,7 +12,9 @@ const crudPackage = {
       if (err) throw err;
 
       result(rows);
-      console.log(rows, rows.insertId, fields)
+      console.log("ID PACKAGE:",rows.insertId)
+      
+      
     });
 
   },
