@@ -115,12 +115,14 @@ const crudSensor = {
   //get sensors that are inside a space
   getSensorsInSpace(idSpace, result) {
     sql.query(
-      `Select space.description as Division,sensor.* from space,sensor_space,sensor where space.idSpace=${idSpace} and sensor_space.idSpace=space.idSpace and sensor.idSensor=sensor_space.idSensor`,
+      `Select space.description as Division,sensor.* from space,sensor_space,sensor
+       where space.idSpace=${idSpace} and sensor_space.idSpace=space.idSpace and sensor.idSensor=sensor_space.idSensor`,
       (err, rows) => {
         if (err) {
           result(err, rows);
           return;
         }
+        console.log(rows);
         result(null, rows);
       }
     );
