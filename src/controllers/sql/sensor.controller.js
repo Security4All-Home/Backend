@@ -185,6 +185,49 @@ const crudSensor = {
     } catch (err) {
       next(err);
     }
+  },
+  sensorSpace(req, res, next) {
+    try {
+      sensorModel.sensorSpace(
+        req.query.idSensor,
+        req.query.idSpace,
+        (err, data) => {
+          res.status(200).json({ success: true, data: data });
+        },
+        next
+      );
+      console.log("QUERY:", req.query);
+    } catch (err) {
+      next(err);
+    }
+  },
+  getSensorSpace(req, res, next) {
+    try {
+      sensorModel.getSensorsInSpace(
+        req.params.idSpace,
+        (err, data) => {
+          res.status(200).json({ success: true, data: data });
+        },
+        next
+      );
+    } catch (err) {
+      next(err);
+    }
+  },
+  removeSensorSpace(req, res, next) {
+    try {
+      console.log(req.query);
+      sensorModel.removeSensorSpace(
+        req.query.idSensor,
+        req.query.idSpace,
+        (err, data) => {
+          res.status(200).json({ success: true, data: data });
+        },
+        next
+      );
+    } catch (err) {
+      next(err);
+    }
   }
 };
 
