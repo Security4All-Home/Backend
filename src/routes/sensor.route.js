@@ -37,7 +37,7 @@ router.post("/space", (req, res, next) => {
 router.get("/space/:idSpace", (req, res, next) => {
   sensorController.getSensorSpace(req, res, next);
 });
-router.delete("/space", (req, res, next) => {
+router.delete("/space/:idSensor/:idSpace", (req, res, next) => {
   sensorController.removeSensorSpace(req, res, next);
 });
 module.exports = router;
