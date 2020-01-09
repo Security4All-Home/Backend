@@ -40,6 +40,7 @@ server.use("/test", testRoute);
 /** Paths */
 server.use("/auth", authRoute);
 
+server.use("/order", orderRoute);
 server.use("/category", categoryRoute);
 server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
