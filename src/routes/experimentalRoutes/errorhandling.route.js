@@ -22,21 +22,19 @@ function errorHandler(err, req, res, next) {
     try {
         console.log(err, "ERORORO")
         if (err) {
-            
             let customError = { // This the error that goes to the user
                 msg: "",
                 status: 400 //For now it's always this code
             }
             customError = diferenciateErrors(err, customError);
             console.log(err, "errorHandler!!!")
-            console.log(typeof err, "typeof err!!!")
+            // console.log(typeof err, "typeof err!!!")
             logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
             res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
         }
         else next();
 
     } catch (err) {
-
         res.json({ success: false, msg: "Internal server error", error: err })
     }
 }
@@ -45,7 +43,6 @@ function diferenciateErrors(err, custom) {
     /** Depois talvez se possa usar um Switch
      * We have to make custom errors for the user, for the log file, (more to come?)
      */
-
 
     if (err.sql != undefined) {
         let queryType = err.sql.split(" ");
@@ -81,9 +78,9 @@ function diferenciateErrors(err, custom) {
 
 /** O model dos erros vai ficar aqui */
 let errorSchema = new schema({
-    errorType: {
-        type: String
-    },
+    // errorType: {
+    //     type: String
+    // },
     description: {
         type: String
     },
@@ -98,9 +95,9 @@ let errorSchema = new schema({
 
 let error = model('errorLogs', errorSchema);
 
-function logsToDatabase(errorType, errorMessage, description = "") {
+function logsToDatabase(/*errorType,*/ errorMessage, description = "") {
     let newError = new error({
-        errorType: errorType,
+        /*errorType: errorType,*/
         description: description,
         message: errorMessage
     })
@@ -122,5 +119,3 @@ module.exports = {
     errorHandler: errorHandler,
     router: router
 };
-
-

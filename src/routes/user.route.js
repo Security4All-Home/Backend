@@ -18,7 +18,7 @@ router.delete('/delete/:iduser', (req, res, next) => {
     userController.delete(req, res, next);
 })
 
-router.get('/:id', verifyToken,(req, res, next) => {
+router.get('/:id', (req, res, next) => {
     userController.getById(req, res, next)
 })
 
@@ -62,6 +62,11 @@ router.post('/insert/house', (req, res, next) => {
     userController.insertHouse(req, res, next);
 })
 
+/** Insert Review */
+router.post('/insert/review', (req, res, next) => {
+    userController.insertReview(req, res, next);
+})
+
 /** Update User Houses */
 router.put('/updateHouses/:zipCode', (req, res, next) => {
     userController.updateUserHouses(req, res, next)
@@ -71,6 +76,14 @@ router.put('/updateHouses/:zipCode', (req, res, next) => {
 router.put('/updateSensor/:idSensor', (req, res, next) => {
     userController.updateSensor(req, res, next)
 })
-
+// Inserir um utilizador:
+// Tabelas:
+// - user
+// - user_contact
+// - house
+// - user_house
+// - order
+// - space (Isto não é preciso ser logo que o user crie a sua conta).
+// - package ou sensor
 
 module.exports = router;

@@ -2,5 +2,6 @@
 /database/
 /dummydata.json
 todos.txt
+.vscode
 .vscode/settings.json
 authNotes.md

@@ -93,6 +93,55 @@ const crudSensor = {
       }
       result(null, rows);
     });
+  },
+  //insert sensor into space
+  sensorSpace(idSensor, idSpace, result) {
+    sql.query(
+      `Insert into sensor_space SET idSensor=?,idSpace=?`,
+      [idSensor, idSpace],
+      (err, rows) => {
+        if (err) {
+          console.log("ERRO?", err); //Falar com alvaro
+          result(err, rows);
+          return;
+        }
+        console.log(idSensor, idSpace);
+
+        result(null, rows);
+        console.log(rows);
+      }
+    );
+  },
+  //get sensors that are inside a space
+  getSensorsInSpace(idSpace, result) {
+    sql.query(
+      `Select space.description as Division,sensor.* from space,sensor_space,sensor
+       where space.idSpace=${idSpace} and sensor_space.idSpace=space.idSpace and sensor.idSensor=sensor_space.idSensor`,
+      (err, rows) => {
+        if (err) {
+          result(err, rows);
+          return;
+        }
+        console.log(rows);
+        result(null, rows);
+      }
+    );
+  },
+  //Remove sensors from space
+  removeSensorSpace(idSensor, idSpace, result) {
+    console.log(idSensor, idSpace);
+    sql.query(
+      `Delete from sensor_space where idSpace=${idSpace} and idSensor=${idSensor}`,
+      (err, rows) => {
+        if (err) {
+          console.log(err);
+          result(err, rows);
+          return;
+        }
+        console.log(rows);
+        result(null, rows);
+      }
+    );
   }
 };
 module.exports = crudSensor;

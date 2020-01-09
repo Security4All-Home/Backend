@@ -1,4 +1,5 @@
 const userModel = require("../../models/sql/user.model");
+const houseController = require("../../models/sql/house.model");
 
 const userCrud = {
     getAll(res, next) {
@@ -38,7 +39,29 @@ const userCrud = {
     },
     insert(req, res, next) {
         try {
-            userModel.insert(req.body, (error, data) => {
+            let finalData = {}
+            userModel.insert(req.body.user, (error, data) => {
+                if (error) {
+                    next(error);
+                    return;
+                }
+                
+                finalData.userId = data.insertId
+
+                houseModel.insert(req.body.house)
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (err) {
+            next(err);
+            return;
+        }
+    },
+    insertHouse(req, res, next) {
+        try {
+            userModel.insertHouse(req.body, (error, data) => {
                 if (error) {
                     next(error);
                     return;
@@ -54,9 +77,9 @@ const userCrud = {
             return;
         }
     },
-    insertHouse(req, res, next) {
+    insertReview(req, res, next) {
         try {
-            userModel.insertHouse(req.body, (error, data) => {
+            userModel.insertReview(req.body, (error, data) => {
                 if (error) {
                     next(error);
                     return;
