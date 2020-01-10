@@ -20,7 +20,7 @@ const sensorRoute = require(generalRoutesPath + "sensor.route");
 const userRoute = require(generalRoutesPath + "user.route");
 const packageRoute = require(generalRoutesPath + "package.route");
 const authRoute = require(generalRoutesPath + "auth.route");
-
+const alertRoute = require(generalRoutesPath + "alert.route");
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
 const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware");
@@ -44,7 +44,7 @@ server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);
 server.use("/packages", packageRoute);
-
+server.use("/alerts", alertRoute);
 server.get("/home", (req, res) => {
   res.send(`
     <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
