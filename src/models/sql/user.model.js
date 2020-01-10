@@ -60,28 +60,18 @@ const userCrud = {
             result(null, rows);
         });
     },
-    insertSpace({idHouse, description}, result) {
-        let query = `insert into space 
-        (description)
-        values
-        (${description});
-        insert into house_space values (${idHouse},LAST_INSERT_ID());`
 
-        sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
-            if (err) {
-                err.lalalalala = query.replace(/\n/g, "")
-                result(err, rows);
-                return;
-            }
-            result(null, rows);
-        });
-    },
-    insertHouse({idUser, zipCode, local, adress}, result) {
-        let query = `insert into house 
-        (zipCode, local, adress)
-        values
-        (${zipCode}, ${local}, ${adress});
-        insert into user_house (zipCode, idUser) values (${zipCode},${idUser});`
+    //TODO 
+    /*
+    firstRegister({credit, name, username, password, email, nif, taxAdress, taxZipCode, contacto, idPackage,instalation, zipCode, local, adress}, result){
+        let query = `select price from package where idPackage= ${idPackage}  
+        case price <= ${credit} then (
+            insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
+            insert into user_contact values (LAST_INSERT_ID(),${contacto} );
+            insert into uZvFiNMuwF.order(date,idPackage, idUser, instalation,payed) values (CURRENT_TIMESTAMP(),(select MAX(idUser) from user), ${instalation},1);
+            insert into house (zipCode, local, adress) values(${zipCode}, ${local}, ${adress});
+            insert into user_house(zipCode, idUser) values(${zipCode},(select MAX(idUser) from user));)
+        end`
 
         sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {
@@ -92,7 +82,9 @@ const userCrud = {
             
             result(null, rows);
         });
-    },
+
+    },*/
+    
     insertReview({text, idUser, idSensor, date}, result) {
         let query = `insert into review 
         (text, idUser, idSensor, date)
@@ -126,20 +118,7 @@ const userCrud = {
             result(null, rows);
         })
     },
-    getHousesByUser({id}, result) {
-        let query = `select house.zipCode, house.local,
-         house.adress from house, user_house where 
-         user_house.idUser = ${id} and user_house.zipCode = house.zipCode `;
-
-        sql.query(query, (err, rows, fields) => {
-            if(err) {
-                result(err, rows);
-                return;
-            }
-
-            result(null, rows);
-        })
-    },
+   
     getSensorByUser({id}, result) {
         let query = `select sensor.* from sensor, user_house, house_space, sensor_space where 
         sensor_space.idSensor = sensor.idSensor and sensor_space.idSpace = house_space.idSpace 
@@ -197,6 +176,8 @@ const userCrud = {
         })
     },
     update({iduser}, { name, username, password, idType, email, taxZipCode, telemovel, nif }, result) {
+        
+        
         let query = "update user set "
 
         if(name != undefined || name != null) query += "name = " + name + " " 
@@ -257,6 +238,106 @@ const userCrud = {
             result(null, rows);
         })
     },
+
+    addSensorToSpace(req,{idSpace, idSensor}, result) {
+        let query = `insert into sensor_space
+        (idSpace, idSensor) 
+        values 
+        (${idSpace}, ${idSensor});`
+
+        sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
+            if (err) {
+                err.lalalalala = query.replace(/\n/g, "")
+                result(err, rows);
+                return;
+            }
+            
+            result(null, rows);
+        });
+    },
+
+    //alterar o campo payment na tabela order
+    updateOrderPayment({idOrder},{}, result) { 
+
+        let query = `update uZvFiNMuwF.order set payed = 1` 
+        query += ` where idOrder = ${idOrder}`
+        console.log(query)
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+
+    //alterar o campo active para 0 na tabela order   
+    deleteLogicOrder({idOrder},{}, result) { 
+        let query = `update uZvFiNMuwF.order set active = 0` 
+        query += ` where idOrder = ${idOrder}`
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+
+    //delete logic num user
+    deleteLogicUser({idUser},{}, result) { 
+        let query = `update uZvFiNMuwF.user set disabled = 1` 
+        query += ` where idUser = ${idUser}`
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+
+    //Add credits to user by id
+    addCreditToUser({idUser},{credit}, result) { 
+
+        let query = `update uZvFiNMuwF.user set` 
+        if(credit != undefined || credit != null) query += ` credit = credit + ${credit} `
+        query += ` where idUser = ${idUser}`
+        console.log(query)
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+
+    //take credits from an user by id
+    takeCreditsFromUser({idUser},{credit}, result) { 
+
+        let query = `update user set` 
+        if(credit != undefined || credit != null) query += ` credit = credit - ${credit} `
+        query += ` where idUser = ${idUser}`
+        console.log(query)
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+
+
+    
     delete({iduser}, result) {
         /**
          * Como temos relações temos que eliminar as entradas do user
