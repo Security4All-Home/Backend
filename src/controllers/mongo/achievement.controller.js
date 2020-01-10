@@ -1,9 +1,9 @@
 const achievement = require("../../models/mongo/achievement.model")
 
 const crudAchievements = {
-    getAll(res) {
+    getAll(res, next) {
         achievement.find({}, (err, results) => {
-            if(err) throw err
+            if(err) next(err)
             res.json({success: true, data: results})
         })
     }
