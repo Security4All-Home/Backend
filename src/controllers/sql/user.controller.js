@@ -59,9 +59,11 @@ const userCrud = {
             return;
         }
     },
-    insertHouse(req, res, next) {
+
+    /*
+    firstRegister(req, res, next) {
         try {
-            userModel.insertHouse(req.body, (error, data) => {
+            userModel.firstRegister(req.body, (error, data) => {
                 if (error) {
                     next(error);
                     return;
@@ -77,6 +79,8 @@ const userCrud = {
             return;
         }
     },
+    */
+    
     insertReview(req, res, next) {
         try {
             userModel.insertReview(req.body, (error, data) => {
@@ -95,24 +99,7 @@ const userCrud = {
             return;
         }
     },
-    insertSpace(req, res, next) {
-        try {
-            userModel.insertSpace(req.body, (error, data) => {
-                if (error) {
-                    next(error);
-                    return;
-                }
-
-                res.json({
-                    success: true,
-                    data: data
-                })
-            })
-        } catch (err) {
-            next(err);
-            return;
-        }
-    },
+    
     update(req, res, next) {
         try {
             userModel.update(req.params, req.body, (err, data) => {
@@ -167,25 +154,7 @@ const userCrud = {
             return;
         }
     },
-    //GET houses by user
-    getHousesByUser(req, res, next) {
-        try {
-            userModel.getHousesByUser(req.params, (err, data) => {
-                if (err) {
-                    next(err);
-                    return;
-                }
-
-                res.json({
-                    success: true,
-                    data
-                });
-            })
-        } catch (error) {
-            next(error);
-            return;
-        }
-    },
+    
     //UPDATE USERSHOUSES
     updateUserHouses(req, res, next) {
         try {
@@ -229,6 +198,126 @@ const userCrud = {
     updateSensor(req, res, next) {
         try {
             userModel.updateSensor(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
+    //add sensor to space
+    addSensorToSpace(req, res, next) {
+        try {
+            userModel.addSensorToSpace(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
+    //update order to paid
+    updateOrderPayment(req, res, next) {
+        try {
+            userModel.updateOrderPayment(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
+    //delete logic Order
+    deleteLogicOrder(req, res, next) {
+        try {
+            userModel.deleteLogicOrder(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
+    //delete logic num user
+    deleteLogicUser(req, res, next) {
+        try {
+            userModel.deleteLogicUser(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
+    //Add credits to user by id
+    addCreditToUser(req, res, next) {
+        try {
+            userModel.addCreditToUser(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
+     //take credits from an user by id
+     takeCreditsFromUser(req, res, next) {
+        try {
+            userModel.takeCreditsFromUser(req.params, req.body, (err, data) => {
                 if (err) {
                     next(err);
                     return;

@@ -9,7 +9,10 @@ router.get('/', (req, res, next) => {
 router.post('/insert', (req, res, next) => {
     userController.insert(req, res, next);
 })
-
+/*
+router.post('/firstRegister', (req, res, next) => {
+    userController.firstRegister(req, res, next);
+})*/
 router.put('/update/:iduser', (req, res, next) => {
     userController.update(req, res, next)
 })
@@ -27,10 +30,6 @@ router.get('/house/:zipCode', (req, res, next) => {
     userController.getUsersByHouse(req, res, next);
 })
 
-/** Get Houses by User */
-router.get('/houses/:id', (req, res, next) => {
-    userController.getHousesByUser(req, res, next);
-})
 
 /** Get Sensors by User */
 router.get('/sensors/:id', (req, res, next) => {
@@ -52,16 +51,6 @@ router.get('/review/:id', (req, res, next) => {
     userController.getReviewByUser(req, res, next);
 })
 
-/** Insert Space */
-router.post('/insert/space', (req, res, next) => {
-    userController.insertSpace(req, res, next);
-})
-
-/** Insert House */
-router.post('/insert/house', (req, res, next) => {
-    userController.insertHouse(req, res, next);
-})
-
 /** Insert Review */
 router.post('/insert/review', (req, res, next) => {
     userController.insertReview(req, res, next);
@@ -76,6 +65,37 @@ router.put('/updateHouses/:zipCode', (req, res, next) => {
 router.put('/updateSensor/:idSensor', (req, res, next) => {
     userController.updateSensor(req, res, next)
 })
+
+/** Add sensor to space */
+router.post('/addSensorSpace', (req, res, next) => {
+    userController.addSensorToSpace(req, res, next);
+})
+
+/** update order to paid */
+router.put('/updatePaidOrder/:idOrder', (req, res, next) => {
+    userController.updateOrderPayment(req, res, next);
+})
+
+/** delete Logic Order*/
+router.put('/deleteLogicOrder/:idOrder', (req, res, next) => {
+    userController.deleteLogicOrder(req, res, next);
+})
+
+/** delete logic num user*/
+router.put('/deleteLogic/:idUser', (req, res, next) => {
+    userController.deleteLogicUser(req, res, next);
+})
+
+/** Add credits to user by id*/
+router.put('/addCredit/:idUser', (req, res, next) => {
+    userController.addCreditToUser(req, res, next);
+})
+
+/** take credits from an user by id*/
+router.put('/takeCredit/:idUser', (req, res, next) => {
+    userController.takeCreditsFromUser(req, res, next);
+})
+
 
 
 module.exports = router;
