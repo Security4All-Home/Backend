@@ -37,7 +37,7 @@ const confirmMiddleware = require(ourMiddlewarePath + 'confirmValues.middleware.
 
 
 /** Middlewares */
-// server.use(cors()) // Não pode ficar assim depois
+server.use(cors()) // Não pode ficar assim depois
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
