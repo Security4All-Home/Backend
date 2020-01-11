@@ -18,7 +18,6 @@ function errorHandler(err, req, res, next) {
     try {
         console.log(err, "ERORORO")
         if (err) {
-            
             let customError = { // This the error that goes to the user
                 msg: "",
                 status: 400 //For now it's always this code
@@ -32,7 +31,6 @@ function errorHandler(err, req, res, next) {
         else next();
 
     } catch (err) {
-
         res.json({ success: false, msg: "Internal server error", error: err })
     }
 }
@@ -117,5 +115,3 @@ module.exports = {
     errorHandler: errorHandler,
     router: router
 };
-
-

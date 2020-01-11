@@ -17,6 +17,22 @@ const crudPackage = {
     }
   },
 
+  //Add Sensor List to Package
+  addSensorToPackage(req,res,next) {
+    try{
+      packageModel.addSensorToPackage(
+        req.params.idPackage,req.body.sensorList,
+        function(err,data) {
+          res.status(200).json({ success: true, data: data })
+        },
+        next
+      )
+    } catch (error) {
+
+      next(err)
+    }
+  },
+
   //Get all packages
   getAll(req, res, next) {
     try {

@@ -6,6 +6,11 @@ router.post("/", (req, res, next) => {
   packageController.addPackage(req, res, next);
 });
 
+//Add Sensor List to Package
+router.post("/sensor/:idPackage", (req, res, next) => {
+  packageController.addSensorToPackage(req,res,next);
+})
+
 //Read package
 router.get("/", (req, res, next) => {
   packageController.getAll(req, res, next);

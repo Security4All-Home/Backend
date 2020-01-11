@@ -1,9 +1,10 @@
 const sql = require("../../sqlconnection");
 
 const crudPackage = {
+  
   //Create Package
   addPackage(newPackage, result) {
-    sql.query("Insert into package set ?", newPackage, function(
+    sql.query("Insert into package set ?; ", newPackage, function(
       err,
       rows,
       fields
@@ -13,9 +14,31 @@ const crudPackage = {
       result(rows);
       console.log(rows, rows.insertId, fields)
     });
+
   },
 
+ //Add Sensor List to Package
+  addSensorToPackage(idPackage, sensorList, result){
+    let query =``
+    console.log(sensorList)
+    for (let i=0;i<sensorList.length;i++){
+      console.log(sensorList[i])
+      query += `insert into sensor_package(idSensor,idPackage) values(${sensorList[i]}, ${idPackage});`;
+    }
+    console.log(query)
+    sql.query(query, (err, rows) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+      result(null, rows);
+    });
+
+  },
+ 
+
   //Read All
+  //fazer join de packageSensors e sensors para apresentar tudo -TO DO
   getAll(result) {
     sql.query("Select * from package", function(err, rows, fields) {
       if (err) next(err);
@@ -24,14 +47,24 @@ const crudPackage = {
     });
   },
 
-  //Read By ID
+  //Read By Id com sensores correspondentes
   getByID(id, result) {
-    sql.query(
-      "Select * from package where idPackage=" + id,
-      (err, rows, fields) => {
-        if (err) next(err);
-        result(rows, fields);
-      }
+    
+    let query =`Select package.*, sensor.name as Sensor from sensor, sensor_package, package
+    where package.idPackage = ${id} and sensor_package.idPackage=package.idPackage
+    and sensor.idSensor = sensor_package.idSensor`
+    sql.query(query,(err,rows,fields) => {
+         if (err) next(err);
+         else if (rows.length==0) {
+           sql.query("Select * from package where idPackage=" + id, (err, rows,fields) => {
+            result(null,rows)
+           })
+         }
+         else {
+          result(null, rows);
+         }
+         
+       }
     );
   },
   //Update

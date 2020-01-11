@@ -24,17 +24,19 @@ const categoryRoute = require(generalRoutesPath + "category.route");
 const achievementsRoute = require(generalRoutesPath + "achievement.route");
 const sensorRoute = require(generalRoutesPath + "sensor.route");
 const userRoute = require(generalRoutesPath + "user.route");
+const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware");
 const packageRoute = require(generalRoutesPath + "package.route")
-const authRoute = require(generalRoutesPath + "auth.route")
 const orderRoute = require(generalRoutesPath + "order.route")
 const houseRoute = require(generalRoutesPath + "house.route")
+const authRoute = require(generalRoutesPath + "auth.route");
+const alertRoute = require(generalRoutesPath + "alert.route");
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
 //const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
 
 
 /** Middlewares */
-server.use(cors()) // Não pode ficar assim depois
+// server.use(cors()) // Não pode ficar assim depois
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
@@ -78,6 +80,7 @@ server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);
 server.use("/packages", packageRoute);
+server.use("/alerts", alertRoute);
 server.use("/house", houseRoute);
 
 /**

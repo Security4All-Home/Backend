@@ -18,12 +18,26 @@ router.get("/:id", (req, res, next) => {
 router.get("/category/:idCategory", (req, res, next) => {
   sensorController.getByCategory(req, res, next);
 });
+//Update Stock
+router.put("/stock", (req, res, next) => {
+  sensorController.updateSensorStock(req, res, next);
+});
 //Update
 router.put("/:id", (req, res, next) => {
   sensorController.updateByID(req, res, next);
 });
+
 //Delete
 router.delete("/:id", (req, res, next) => {
   sensorController.deleteByID(req, res, next);
+});
+router.post("/space", (req, res, next) => {
+  sensorController.sensorSpace(req, res, next);
+});
+router.get("/space/:idSpace", (req, res, next) => {
+  sensorController.getSensorSpace(req, res, next);
+});
+router.delete("/space/:idSensor/:idSpace", (req, res, next) => {
+  sensorController.removeSensorSpace(req, res, next);
 });
 module.exports = router;
