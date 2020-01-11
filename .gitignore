@@ -1,0 +1,7 @@
+/node_modules/
+/database/
+/dummydata.json
+todos.txt
+.vscode
+.vscode/settings.json
+authNotes.md

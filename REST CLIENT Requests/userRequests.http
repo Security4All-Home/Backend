@@ -1,0 +1,14 @@
+# Para testar os diferentes 
+
+GET http://localhost:8002/user
+
+###
+GET http://localhost:8002/user/6
+x-access-token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjoic2QyIiwiYWdlbnQiOiJQb3N0bWFuUnVudGltZS83LjIwLjEiLCJpYXQiOjE1NzY1Nzg0NTMsImV4cCI6MTU3NjU4MDI1M30.R_UZYMLmQJvf5sf9BIGtnU8wwFwIFmtfOetylKoxArg"
+
+### 
+
+
+{
+
+}
