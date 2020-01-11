@@ -15,6 +15,10 @@ const dbConfig = {
     // connectTimeout: 200000
 }
 
+
+/**
+ * recover after fatal, ver depois (https://stackoverflow.com/questions/33652697/node-js-process-cannot-recover-after-mysql-turned-off-then-turn-on)
+ */
 let connection = null;
 function connectToDatabase() {
     connection = mysql.createConnection(dbConfig);
