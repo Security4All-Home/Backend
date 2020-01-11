@@ -25,7 +25,7 @@ function errorHandler(err, req, res, next) {
             customError = diferenciateErrors(err, customError);
             console.log(err, "errorHandler!!!")
             // console.log(typeof err, "typeof err!!!")
-            // logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
+            logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
             res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
         }
         else next();
