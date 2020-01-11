@@ -28,6 +28,7 @@ Ex: tentar apagar um user enviando um id que não existe. (Ver o campo afectedRo
 
 ### 11/01/2020 :)
 - já é possivel toda a gente fazer documentação:
+    - Para aceder à Documentação é preciso aceder ao endpoint ``` /api-docs ``` por exemplo http://localhost:8002/api-docs 
     - PAra fazer a documentação é fazer como tem no ``` server.js``` ou ``` order.js```.
     - Têm que ter atenção À identação que fazem porque se estiver mal vai dar um erro.
     - Usem as tags para diferenciar a categoria do pedido.
