@@ -26,6 +26,14 @@ Ex: tentar apagar um user enviando um id que não existe. (Ver o campo afectedRo
 - ``` res.header('Access-Control-Allow-Origin', '*'); ``` Header que permite que o pedido à API seja feito de qualquer lado
 - ### *não dá para fazer deploy da API no NETLIFY, só dá para fazer deploy de um site* 
 
+### 11/01/2020 :)
+- já é possivel toda a gente fazer documentação:
+    - PAra fazer a documentação é fazer como tem no ``` server.js``` ou ``` order.js```.
+    - Têm que ter atenção À identação que fazem porque se estiver mal vai dar um erro.
+    - Usem as tags para diferenciar a categoria do pedido.
+    - Podemos usar a description para explicar ao certo o que cada pedido faz, e o summary para ser mais fácil de ler a documentação
+    - Entratanto vou melhorando os detalhes da documentação, como tipo de resposta, etc...
+
 ## Git Help
 ### Fazer merge de um branch de equipa para o master.
 

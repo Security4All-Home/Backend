@@ -1,6 +1,11 @@
 const sql = require("../../sqlconnection");
 
 const orderModelCrud = {
+    /** Ir buscar todas as orders */
+    getAll(result) {
+        
+    },
+
     /** Método para inserir uma encomenda quando se encomenda um package */
     insertOrderPackage({ idPackage, idUser, instalation, payed, active }, result) {
         /** Pode ser preciso fazer a confirmação se um user está a encomendar um package que á tinha encomendado */
