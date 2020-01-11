@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const fs = require("fs");
-const {connection, model, schema} = require("../../mongoconnection");
+const { connection, model, schema } = require("../../mongoconnection");
 
 
 /** 
@@ -16,7 +16,7 @@ function errorHandler(err, req, res, next) {
      */
     //process.stdout.write("\u001b[0J\u001b[1J\u001b[2J\u001b[0;0H\u001b[0;0W");
     try {
-        console.log(err, "ERORORO")
+        console.log(err, "ERRO SEM SER TRATADO!")
         if (err) {
             let customError = { // This the error that goes to the user
                 msg: "",
@@ -25,7 +25,7 @@ function errorHandler(err, req, res, next) {
             customError = diferenciateErrors(err, customError);
             console.log(err, "errorHandler!!!")
             // console.log(typeof err, "typeof err!!!")
-            logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
+            // logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
             res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
         }
         else next();
@@ -49,24 +49,32 @@ function diferenciateErrors(err, custom) {
                 break;
             case "UPDATE":
                 custom.msg = "There was an error updating your data!"
-            break;
+                break;
 
-            case "DELETE": 
+            case "DELETE":
                 custom.msg = "There was an error deleting what you want xD!"
-            break;
+                break;
 
             case "INSERT":
                 custom.msg = "There was an error inserting your data!"
-            break;
+                break;
         }
     }
 
     /** Fazer a mesma coisa para os diferentes tipos de erros que tivermos */
-    if (JSON.stringify(err).includes('jwt') || JSON.stringify(err).includes('Token')){
+    if (JSON.stringify(err).includes('jwt') || JSON.stringify(err).includes('Token')) {
         custom.msg = "ERrro no JWT";
     }
-    if(err.type.toUpperCase() = "JWT") {
-        custom.msg = "Erro No JWT!!!"
+    
+    if (err.type != undefined) {
+        if (err.type.toUpperCase() = "JWT") {
+            custom.msg = "Erro No JWT!!!"
+        }
+    }
+
+    if (err.custom) {
+        custom.msg = err.error;
+        console.log("erro apanhado no middleware confirm values");
     }
 
     return custom;
@@ -99,7 +107,7 @@ function logsToDatabase(/*errorType,*/ errorMessage, description = "") {
     })
 
     newError.save((err, savedErr) => {
-        if(err) {
+        if (err) {
             writingToLogFile() // Vai para o logfile que é para termos registo
             return;
         }

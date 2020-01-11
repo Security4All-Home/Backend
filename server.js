@@ -32,6 +32,7 @@ const authRoute = require(generalRoutesPath + "auth.route");
 const alertRoute = require(generalRoutesPath + "alert.route");
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
+const confirmMiddleware = require(ourMiddlewarePath + 'confirmValues.middleware.js')
 //const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
 
 
@@ -69,6 +70,7 @@ server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOpt
 
 server.use("/macadress", getMacAdressRoute);
 server.use("/test", testRoute);
+server.use(confirmMiddleware);
 
 /** Paths */
 server.use("/auth", authRoute);
