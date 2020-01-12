@@ -1,12 +1,15 @@
 {
-  "name": "Backend-Company",
+  "name": "backend-company",
   "version": "1.0.0",
   "description": "Security4All Company Backend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node loader.js",
-    "nodemon": "nodemon loader.js"
+    "nodemon": "nodemon loader.js",
+    "run-heroku": "heroku dyno:restart web -a sec4allapp",
+    "stop-heroku": "heroku dyno:stop web -a sec4allapp",
+    "restart-heroku": "node restartBackend.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.11",
     "mysql": "^2.17.1",
+    "progress": "^2.0.3",
+    "promise": "^8.0.3",
     "sanitizer": "^0.1.3",
     "swagger-jsdoc": "^3.4.0",
     "swagger-ui-express": "^4.0.7"

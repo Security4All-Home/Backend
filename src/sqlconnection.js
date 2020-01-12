@@ -11,8 +11,8 @@ const dbConfig = {
     password: process.env.rootPassSql,
     database: process.env.databaseSql,
     port: process.env.portSql,
-    multipleStatements: true
-    // connectTimeout: 200000
+    multipleStatements: true,
+    connectTimeout: 1860000
 }
 
 
