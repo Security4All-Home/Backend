@@ -302,6 +302,21 @@ const userCrud = {
         })
     },
 
+    //update user type (1-Admin or 2-User)   
+    editUserType({idUser},{idType}, result) { 
+        let query = `update uZvFiNMuwF.user set idType = ${idType}` 
+        query += ` where idUser = ${idUser}`
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+
     //Add credits to user by id
     addCreditToUser({idUser},{credit}, result) { 
 
