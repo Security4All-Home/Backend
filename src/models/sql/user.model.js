@@ -272,9 +272,9 @@ const userCrud = {
         })
     },
 
-    //alterar o campo active para 0 na tabela order   
-    deleteLogicOrder({idOrder},{}, result) { 
-        let query = `update uZvFiNMuwF.order set active = 0` 
+    //update order's active state (0 or 1)   
+    deleteLogicOrder({idOrder},{active}, result) { 
+        let query = `update uZvFiNMuwF.order set active = ${active}` 
         query += ` where idOrder = ${idOrder}`
 
         sql.query(query, (err, rows, fields) => {
@@ -287,9 +287,9 @@ const userCrud = {
         })
     },
 
-    //delete logic num user
-    deleteLogicUser({idUser},{}, result) { 
-        let query = `update uZvFiNMuwF.user set disabled = 1` 
+    //update user's disable state (0 or 1)   
+    deleteLogicUser({idUser},{disabled}, result) { 
+        let query = `update uZvFiNMuwF.user set disabled = ${disabled}` 
         query += ` where idUser = ${idUser}`
 
         sql.query(query, (err, rows, fields) => {
