@@ -27,9 +27,8 @@ confirmStop("clica em qualquer tecla para terminar!!!!!!!!!!!!!!!\n\n").then((an
     // clearInterval(timer);
 })
 
-console.log("Reiniciar a Aplicação no Heroku  a cada " + minutes + " minutos :) ")
 let count = 0;
-progress.tick()
+
 
 function restartServer(tickAgain = true) {
     let atetetickas = tickAgain;
@@ -62,7 +61,7 @@ function restartServer(tickAgain = true) {
                         return;
                     }
 
-                    /** Só para ter noção quantas vexzes isto á aconteceu */
+                    /** Só para ter noção quantas vezes isto á aconteceu */
                     count++;
 
                     console.log("\n\n Backend no Heroku reiniciado\n");
@@ -92,7 +91,25 @@ function restartServer(tickAgain = true) {
     }, 60000);
 }
 
-restartServer(false);
+exec('heroku dyno:restart web -a sec4allapp"', (err, stdout, stderr) => {
+    if (err) {
+        console.error('An error as ocured \n', err);
+        return;
+    }
+
+    console.log("Bamo lá\n")
+    console.log(stdout)
+    if(stderr) console.log(stderr)
+
+    let inter = setInterval(() => {
+        console.log("Reiniciar a Aplicação no Heroku  a cada " + minutes + " minutos :) ")
+        progress.tick()
+        clearInterval(inter);
+        restartServer(false);
+    }, 5000);
+    
+})
+
 
 /** Função para parar de fazer restart. */
 function confirmStop(text) {
