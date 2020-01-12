@@ -17,16 +17,55 @@ const orderCrud = {
     insertOrderSensors(req, res, next) {
         try {
             orderModel.insertOrderSensors(req.body, (err, data) => {
-                if(err) {
+                if (err) {
                     next(err);
                     return;
                 }
 
-                res.json({success: true, data: data});
+                res.json({ success: true, data: data });
             })
         } catch (error) {
             next(error);
         }
+    },
+    getOrdersWithPackages(req, res, next) {
+        try {
+            orderModel.getOrdersWithPackages((err, results) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({ success: true, data: results })
+            })
+        }
+        catch (err) {
+            next(err)
+        }
+    },
+    getOrdersWithSensors(req, res, next) {
+        try {
+            orderModel.getOrdersWithSensors((err, results) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({ success: true, data: results })
+            })
+        }
+        catch (err) {
+            next(err)
+        }
+    },
+    updateInstaltion() {
+        
+    },
+    updatePayment() {
+
+    },
+    updateActive() {
+
     }
 }
 

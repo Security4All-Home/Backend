@@ -1,9 +1,14 @@
 const router = require("express").Router();
 const orderController = require("../controllers/sql/order.controller");
 
-/** Get all orders */
-router.get("/", (req, res, next) => {
-    orderController.getAll(req, res, next);
+/** Get all orders  with sensors*/
+router.get("/withpackages", (req, res, next) => {
+    orderController.getOrdersWithPackages(req, res, next);
+})
+
+/** Get all orders with packages */
+router.get("/withsensors", (req, res, next) => {
+    orderController.getOrdersWithSensors(req, res, next);
 })
 
 /** Get one order by id 
@@ -13,7 +18,7 @@ router.get("/:id")
 
 /**  view all orders */
 router.get("/", (req, res, next) => {
-    
+
 })
 /** Insert an order with a Package*/
 /**
