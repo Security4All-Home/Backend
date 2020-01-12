@@ -75,6 +75,42 @@ const orderModelCrud = {
 
             result(null, rows)
         })
+    },
+    updateInstaltion(id, result) {
+        let query = "update `order` set instalation=IF(instalation=1,0,1) where idOrder=" + id;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows)
+        })
+    },
+    updatePayment(id, result) {
+        let query = "update `order` set payed=IF(payed=1,0,1) where idOrder=" + id;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows)
+        })
+    },
+    updateActive(id, result) {
+        let query = "update `order` set active=IF(active=1,0,1) where idOrder=" + id;
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows)
+        })
     }
 }
 

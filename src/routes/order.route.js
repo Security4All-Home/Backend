@@ -47,8 +47,18 @@ router.post("/sensors", (req, res, next) => {
     orderController.insertOrderSensors(req, res, next);
 })
 
-/** Update an order */
-router.put("/:id")
+/** Update an order installation */
+router.put("/instalation/:id", (req, res, next) => {
+    orderController.updateInstaltion(req, res, next)
+})
+
+router.put("/payment/:id", (req, res, next) => {
+    orderController.updatePayment(req, res, next)
+})
+
+router.put("/active/:id", (req, res, next) => {
+    orderController.updateActive(req, res, next)
+})
 
 /** delete an order
  * é possivel que ao apagar uma order tenha que se apagar um user tambem

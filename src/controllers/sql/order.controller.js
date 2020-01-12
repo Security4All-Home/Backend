@@ -58,14 +58,47 @@ const orderCrud = {
             next(err)
         }
     },
-    updateInstaltion() {
-        
-    },
-    updatePayment() {
+    updateInstaltion(req, res, next) {
+        try {
+            orderModel.updateInstaltion(req.params.id, (err, rows) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
 
+                res.json({ success: true, data: rows })
+            })
+        } catch (err) {
+            next(err);
+        }
     },
-    updateActive() {
+    updatePayment(req, res, next) {
+        try {
+            orderModel.updatePayment(req.params.id, (err, rows) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
 
+                res.json({ success: true, data: rows })
+            })
+        } catch (err) {
+            next(err);
+        }
+    },
+    updateActive(req, res, next) {
+        try {
+            orderModel.updateActive(req.params.id, (err, rows) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({ success: true, data: rows })
+            })
+        } catch (err) {
+            next(err);
+        }
     }
 }
 
