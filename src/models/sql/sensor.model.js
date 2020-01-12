@@ -55,7 +55,7 @@ const crudSensor = {
     );
   },
   getSensorHouse(id, result) {
-    let query = `select house.*, space.idSpace,space.description as division, sensor.* from house
+    let query = `select house.*, space.idSpace,space.description as division, sensor_space.active , sensor.* from house
     inner join house_space on house.zipCode = house_space.idHouse and house.zipCode = ${id}
     inner join space on space.idSpace = house_space.idSpace
     inner join sensor_space on house_space.idSpace = sensor_space.idSpace
