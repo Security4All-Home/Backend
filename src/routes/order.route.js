@@ -11,8 +11,10 @@ router.get("/", (req, res, next) => {
 */
 router.get("/:id")
 
-/**  */
-
+/**  view all orders */
+router.get("/", (req, res, next) => {
+    
+})
 /** Insert an order with a Package*/
 /**
  * @swagger
