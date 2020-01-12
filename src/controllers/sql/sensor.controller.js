@@ -56,7 +56,21 @@ const crudSensor = {
     } catch (err) {
       next(err);
     }
-  }, //Update sensor information
+  },
+  getSensorHouse(req, res, next) {
+    try {
+      sensorModel.getSensorHouse(req.params.idHouse, (err, data) => {
+        if(err) {
+          next(err);
+          return;
+        }
+        res.status(200).json({success: true, data: data})
+      })
+    } catch (err) {
+      next(err);
+    }
+  },
+  //Update sensor information
   updateByID(req, res, next) {
     try {
       sensorModel.updateByID(req.params.id, req.body, (err, data) => {

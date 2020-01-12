@@ -54,6 +54,21 @@ const crudSensor = {
       }
     );
   },
+  getSensorHouse(id, result) {
+    let query = `select house.*, space.description as division, sensor.* from house
+    inner join house_space on house.zipCode = house_space.idHouse and house.zipCode = ${id}
+    inner join space on space.idSpace = house_space.idSpace
+    inner join sensor_space on house_space.idSpace = sensor_space.idSpace
+    inner join sensor on sensor.idSensor = sensor_space.idSensor;`
+
+    sql.query(query, (err, rows, fields) => {
+      if(err) {
+        result(err, rows);
+        return;
+      }
+      result(null, rows);
+    })
+  },
   //Update
   updateByID(id, newSensor, result) {
     sql.query(

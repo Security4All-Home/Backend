@@ -14,6 +14,9 @@ router.get("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   sensorController.getByID(req, res, next);
 });
+router.get("/house/:idHouse", (req, res, next) => {
+  sensorController.getSensorHouse(req, res, next);
+})
 //ReadBYCategory
 router.get("/category/:idCategory", (req, res, next) => {
   sensorController.getByCategory(req, res, next);

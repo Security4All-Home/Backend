@@ -12,7 +12,7 @@ const dbConfig = {
     database: process.env.databaseSql,
     port: process.env.portSql,
     multipleStatements: true,
-    connectTimeout: 1860000
+    // connectTimeout: 1860000
 }
 
 
@@ -28,6 +28,7 @@ function connectToDatabase() {
             console.log(err, "Error ocurred in mysql")
             return;
         }
+        // connection.query('SET PERSIST interactive_timeout=1860000;')
         console.time('tempo de atividade DB');
         console.log('SQL Database connected with the id ' + connection.threadId)
     })
