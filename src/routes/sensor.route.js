@@ -16,7 +16,7 @@ router.get("/:id", (req, res, next) => {
 });
 router.get("/house/:idHouse", (req, res, next) => {
   sensorController.getSensorHouse(req, res, next);
-})
+});
 //ReadBYCategory
 router.get("/category/:idCategory", (req, res, next) => {
   sensorController.getByCategory(req, res, next);
@@ -29,7 +29,10 @@ router.put("/stock", (req, res, next) => {
 router.put("/:id", (req, res, next) => {
   sensorController.updateByID(req, res, next);
 });
-
+//Update State of sensor
+router.put("/:idSensor/spaces/:idSpace", (req, res, next) => {
+  sensorController.updateSensorState(req, res, next);
+});
 //Delete
 router.delete("/:id", (req, res, next) => {
   sensorController.deleteByID(req, res, next);

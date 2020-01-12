@@ -59,15 +59,15 @@ const crudSensor = {
     inner join house_space on house.zipCode = house_space.idHouse and house.zipCode = ${id}
     inner join space on space.idSpace = house_space.idSpace
     inner join sensor_space on house_space.idSpace = sensor_space.idSpace
-    inner join sensor on sensor.idSensor = sensor_space.idSensor;`
+    inner join sensor on sensor.idSensor = sensor_space.idSensor;`;
 
     sql.query(query, (err, rows, fields) => {
-      if(err) {
+      if (err) {
         result(err, rows);
         return;
       }
       result(null, rows);
-    })
+    });
   },
   //Update
   updateByID(id, newSensor, result) {
@@ -98,6 +98,19 @@ const crudSensor = {
       }
       result(null, rows);
     });
+  },
+
+  updateSensorState(idSensor, idSpace, result) {
+    sql.query(
+      `update sensor_space set active=IF(active=1,0,1) where idSensor=${idSensor} and idSpace=${idSpace};`,
+      (err, rows) => {
+        if (err) {
+          result(err, rows);
+          return;
+        }
+        result(null, rows);
+      }
+    );
   },
   //Delete
   deleteByID(id, result, next) {

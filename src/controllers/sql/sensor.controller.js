@@ -60,12 +60,12 @@ const crudSensor = {
   getSensorHouse(req, res, next) {
     try {
       sensorModel.getSensorHouse(req.params.idHouse, (err, data) => {
-        if(err) {
+        if (err) {
           next(err);
           return;
         }
-        res.status(200).json({success: true, data: data})
-      })
+        res.status(200).json({ success: true, data: data });
+      });
     } catch (err) {
       next(err);
     }
@@ -93,6 +93,23 @@ const crudSensor = {
         }
         res.status(200).json({ success: true, data: data });
       });
+    } catch (err) {
+      next(err);
+    }
+  }, //Mudar o sensor no espaço para ativo ou desativo
+  updateSensorState(req, res, next) {
+    try {
+      sensorModel.updateSensorState(
+        req.params.idSensor,
+        req.params.idSpace,
+        (err, data) => {
+          if (err) {
+            next(err);
+            return;
+          }
+          res.status(200).json({ success: true, data: data });
+        }
+      );
     } catch (err) {
       next(err);
     }
