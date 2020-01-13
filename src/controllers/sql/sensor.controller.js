@@ -157,18 +157,29 @@ const crudSensor = {
       next(err);
     }
   },
-  removeSensorSpace(req, res, next) {
+  sensorSpace(req, res, next) {
     try {
-      sensorModel.removeSensorSpace(
-        req.params.idSensor,
+      sensorModel.sensorSpace(
+        req.query.idSensor,
+        req.query.idSpace,
+        (err, data) => {
+          res.status(200).json({ success: true, data: data });
+        },
+        next
+      );
+      console.log("QUERY:", req.query);
+    } catch (err) {
+      next(err);
+    }
+  },
+  getSensorSpace(req, res, next) {
+    try {
+      sensorModel.getSensorsInSpace(
         req.params.idSpace,
         (err, data) => {
-          if (err) {
-            next(err);
-            return;
-          }
           res.status(200).json({ success: true, data: data });
-        }
+        },
+        next
       );
     } catch (err) {
       next(err);
@@ -207,50 +218,7 @@ const crudSensor = {
       console.log(req.query);
       sensorModel.removeSensorSpace(
         req.query.idSensor,
-        req.query.idSpace,
-        (err, data) => {
-          res.status(200).json({ success: true, data: data });
-        },
-        next
-      );
-    } catch (err) {
-      next(err);
-    }
-  },
-  sensorSpace(req, res, next) {
-    try {
-      sensorModel.sensorSpace(
-        req.query.idSensor,
-        req.query.idSpace,
-        (err, data) => {
-          res.status(200).json({ success: true, data: data });
-        },
-        next
-      );
-      console.log("QUERY:", req.query);
-    } catch (err) {
-      next(err);
-    }
-  },
-  getSensorSpace(req, res, next) {
-    try {
-      sensorModel.getSensorsInSpace(
         req.params.idSpace,
-        (err, data) => {
-          res.status(200).json({ success: true, data: data });
-        },
-        next
-      );
-    } catch (err) {
-      next(err);
-    }
-  },
-  removeSensorSpace(req, res, next) {
-    try {
-      console.log(req.query);
-      sensorModel.removeSensorSpace(
-        req.query.idSensor,
-        req.query.idSpace,
         (err, data) => {
           res.status(200).json({ success: true, data: data });
         },
