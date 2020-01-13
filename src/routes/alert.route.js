@@ -1,28 +1,188 @@
 const route = require("express").Router();
 const alertController = require("../controllers/mongo/alert.controller");
+/**
+ *
+ * @swagger
+ * paths:
+ *  /alerts:
+ *    post:
+ *      tags:
+ *        - alerts
+ *      summary: Cria um alerta na base de dados
+ *      operationId: addAlert
+ *      description: Cria um alerta e adiciona-o na base de dados
+ *      consumes:
+ *        - application/json
+ *      produces:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: alertItem
+ *          description: Alert Item que vai ser acrescentado
+ *          schema:
+ *            $ref: '#/definitions/AlertItem'
+ *      responses:
+ *          200:
+ *            description: Alerta adicionado com sucesso
+ *          400:
+ *            description: Erro ao adicionar o Alerta
+ *    get:
+ *      tags:
+ *        - alerts
+ *      summary: Vai Buscar os alertas todos à base de dados
+ *      operationId: getAlerts
+ *      description: Vai buscar os alertas todos da base de dados
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        200:
+ *          description: Os alertas foram encontrados com sucesso
+ *        400:
+ *          description: Erro ao procurar os Alertas
+ *  /alerts/{id}:
+ *    get:
+ *      tags:
+ *        - alerts
+ *      summary: Vai buscar um alert especifico por id
+ *      operationId: getAlertByID
+ *      description: Vai buscar um alerta especifico com um id enviado nos parametros
+ *      produces:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Alerta encontrado com sucesso
+ *        400:
+ *          description: Erro ao procurar o Alerta
+ *    delete:
+ *      tags:
+ *        - alerts
+ *      summary: Apaga um alerta
+ *      operationId: removeAlert
+ *      description: Remove um alerta da base de dados
+ *      produces:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Alerta removido com sucesso
+ *        400:
+ *          description: Erro ao remover o Alerta
+ *  /alerts/users/{id}:
+ *    get:
+ *      tags:
+ *        - alerts
+ *      summary: Vai buscar os alertas de um user
+ *      operationId: GetAlertsByUser
+ *      description: Vai buscar os alertas pertencentes ao user com o id que introduzirmos no path
+ *      produces:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Alertas do utilizador encontrados com sucesso com sucesso
+ *        400:
+ *          description: Erro ao procurar os Alertas
+ *  /alerts/users/{idUser}/houses/{idHouse}:
+ *    get:
+ *      tags:
+ *        - alerts
+ *      summary: Vai buscar os alertas de uma casa de um utilizador
+ *      operationId: GetAlertsByUserHouse
+ *      description: Vai buscar todos os alertas que estão relacionados com uma das casas de um utilizador
+ *      produces:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: idUser
+ *          required: true
+ *        - in: path
+ *          name: idHouse
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Alertas do utilizador encontrados com sucesso com sucesso
+ *        400:
+ *          description: Erro ao procurar os alertas
+ *  /alerts/users/{idUser}/houses/{idHouse}/spaces/{idSpace}:
+ *    get:
+ *      tags:
+ *        - alerts
+ *      summary: Vai buscar os alertas de um espaço de uma casa de um utilizador
+ *      operationId: GetAlertsByUserHouseSpace
+ *      description: Vai buscar todos os alertas que estão relacionados com o espaço de uma das casas de um utilizador
+ *      produces:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: idUser
+ *          required: true
+ *        - in: path
+ *          name: idHouse
+ *          required: true
+ *        - in: path
+ *          name: idSpace
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Alertas do utilizador encontrados com sucesso com sucesso
+ *        400:
+ *          description: Erro ao procurar os alertas
+ * definitions:
+ *  AlertItem:
+ *    type: object
+ *    properties:
+ *      idUser:
+ *        type: integer
+ *        example: 2
+ *      idHouse:
+ *        type: integer
+ *        example: 222
+ *      idSpace:
+ *        type: integer
+ *        example: 8
+ *      idAlerta:
+ *        type: integer
+ *        example: 1
+ *      alertText:
+ *        type: string
+ *        example: Este alerta é para quando um Alerta começa a dar valores estranhos
+ *      alertType:
+ *        type: String
+ *        example: warning
+ */
 
 route.post("/", (req, res, next) => {
   alertController.addAlert(req, res, next);
-}); //Working
+}); //Feito
 route.get("/", (req, res, next) => {
   alertController.getAlerts(req, res, next);
-}); //Working
+}); //Feito
 route.get("/:id", (req, res, next) => {
   alertController.getAlertById(req, res, next);
-}); //Working
+}); //Feito
 route.get("/users/:id", (req, res, next) => {
   alertController.getAlertByUser(req, res, next);
-}); //Working
+}); //Feito
 route.get("/users/:idUser/houses/:idHouse", (req, res, next) => {
   alertController.getAlertByHouse(req, res, next);
-}); //Working
+}); //Feito
 route.get(
   "/users/:idUser/houses/:idHouse/spaces/:idSpace",
   (req, res, next) => {
     alertController.getAlertBySpace(req, res, next);
   }
-); //Working
+); //Feito
 route.delete("/:id", (req, res, next) => {
   alertController.removeAlert(req, res, next);
-}); //Working
+}); //Feito
 module.exports = route;
