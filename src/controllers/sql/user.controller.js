@@ -332,6 +332,26 @@ const userCrud = {
         }
     },
 
+    //verify user 
+    verifyUser(req, res, next) {
+        try {
+            userModel.verifyUser(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
     //Add credits to user by id
     addCreditToUser(req, res, next) {
         try {

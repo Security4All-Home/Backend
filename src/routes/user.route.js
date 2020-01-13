@@ -97,6 +97,11 @@ router.put('/editUserType/:idUser', (req, res, next) => {
     userController.editUserType(req, res, next);
 })
 
+/** verify user */
+router.put('/verify/:idUser', (req, res, next) => {
+    userController.verifyUser(req, res, next);
+})
+
 /** Add credits to user by id*/
 router.put('/addCredit/:idUser', (req, res, next) => {
     userController.addCreditToUser(req, res, next);

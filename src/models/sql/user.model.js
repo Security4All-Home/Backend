@@ -330,6 +330,21 @@ const userCrud = {
         })
     },
 
+    //verify user
+    verifyUser({idUser},{}, result) { 
+        let query = `update uZvFiNMuwF.user set verified = 1` 
+        query += ` where idUser = ${idUser}`
+
+        sql.query(query, (err, rows, fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
+
     //Add credits to user by id
     addCreditToUser({idUser},{credit}, result) { 
 
@@ -384,7 +399,7 @@ const userCrud = {
          * Depois é melhor fazer um outro delete para realmente apagar o user.
          */
         let query = `
-        update user set disabled = 1 where idUser = ${iduser}
+        delete from user where idUser = ${iduser}
         `;
 
         sql.query(query, (err, rows, fields) => {
