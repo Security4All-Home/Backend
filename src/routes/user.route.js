@@ -76,14 +76,19 @@ router.put('/updatePaidOrder/:idOrder', (req, res, next) => {
     userController.updateOrderPayment(req, res, next);
 })
 
-/** delete Logic Order*/
+/** update order's active state (0 or 1)   */
 router.put('/deleteLogicOrder/:idOrder', (req, res, next) => {
     userController.deleteLogicOrder(req, res, next);
 })
 
-/** delete logic num user*/
+/** update user's disable state (0 or 1) */
 router.put('/deleteLogic/:idUser', (req, res, next) => {
     userController.deleteLogicUser(req, res, next);
+})
+
+/** //update user type (1-Admin or 2-User) */
+router.put('/editUserType/:idUser', (req, res, next) => {
+    userController.editUserType(req, res, next);
 })
 
 /** Add credits to user by id*/

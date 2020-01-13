@@ -254,7 +254,7 @@ const userCrud = {
         }
     },
 
-    //delete logic Order
+    //update order's active state (0 or 1)   
     deleteLogicOrder(req, res, next) {
         try {
             userModel.deleteLogicOrder(req.params, req.body, (err, data) => {
@@ -274,10 +274,30 @@ const userCrud = {
         }
     },
 
-    //delete logic num user
+    //update user's disable state (0 or 1) 
     deleteLogicUser(req, res, next) {
         try {
             userModel.deleteLogicUser(req.params, req.body, (err, data) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (error) {
+            next(error);
+            return;
+        }
+    },
+
+    //update user type (1-Admin or 2-User) 
+    editUserType(req, res, next) {
+        try {
+            userModel.editUserType(req.params, req.body, (err, data) => {
                 if (err) {
                     next(err);
                     return;

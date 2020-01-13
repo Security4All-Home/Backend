@@ -95,9 +95,10 @@ server.use("/house", houseRoute);
  *      description: Só para dizer olá
  */
 server.get("/home", (req, res) => {
-  res.send(`
-    <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
-    `);
+  // res.send(`
+  //   <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
+  //   `);
+  res.json({asda: "ad"})
 });
 
 server.get("/teste", (req, res) => {
