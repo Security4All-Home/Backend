@@ -28,6 +28,19 @@ const userCrud = {
             result(null, rows);
         })
     },
+    // Get user type by id
+    getUserType({id}, result) {
+        let query = 'select idType from user where idUser = ' + id;
+
+        sql.query(query, (err, rows, fieds) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
     getByEmail({email}, result) {
 
     },

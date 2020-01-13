@@ -37,6 +37,24 @@ const userCrud = {
             return;
         }
     },
+    // Get user type by id
+    getUserType(req, res, next) {
+        try {
+            userModel.getUserType(req.params, (error, data) => {
+                if (error) {
+                    next(error);
+                    return;
+                }
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (err) {
+            next(err);
+            return;
+        }
+    },
     insert(req, res, next) {
         try {
             let finalData = {}
