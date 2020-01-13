@@ -30,6 +30,8 @@ const orderRoute = require(generalRoutesPath + "order.route")
 const houseRoute = require(generalRoutesPath + "house.route")
 const authRoute = require(generalRoutesPath + "auth.route");
 const alertRoute = require(generalRoutesPath + "alert.route");
+
+const arduinoRoute = require(generalRoutesPath + "arduino.route");
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
 const confirmMiddleware = require(ourMiddlewarePath + 'confirmValues.middleware.js')
@@ -84,6 +86,7 @@ server.use("/user", userRoute);
 server.use("/packages", packageRoute);
 server.use("/alerts", alertRoute);
 server.use("/house", houseRoute);
+server.use("/arduino", arduinoRoute);
 
 /**
  * @swagger
