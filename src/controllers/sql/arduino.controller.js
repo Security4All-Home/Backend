@@ -1,43 +1,47 @@
 const arduinoModel = require("../../models/sql/arduino.model");
 var SerialPort = require("serialport");
+let serialPort = null;
 
 const crudArduino = {
-  //Create
 
   addRecord(req, res, next) {
     let value = null;
-    try {
-      arduinoModel.addRecord(req.body, (err, data) => {
-        //Ler aqui valores do sensor
+    let addRecord = false;
 
-        /*if (serialPort != null) {
-          serialPort.close();
-        }*/
 
-        setTimeout(function () {
+    setTimeout(function () {
 
-          const Readline = SerialPort.parsers.Readline;
-          const serialPort = new SerialPort("/dev/cu.usbserial-14110", {
-            baudRate: 9600
-          });
-          console.log('serial port opened');
-          const parser = serialPort.pipe(new Readline('\r\n'))
-          console.log('parser setup');
-          //res.json({ message: "Operation Sent" });  
-          parser.on('data', function (data) {
-            console.log(data);
-          });
-
-        }, 4000);
-        if (err) {
-          next(err);
-          return;
-        }
-        res.status(200).json({ success: true, data: data });
+      const Readline = SerialPort.parsers.Readline;
+      serialPort = new SerialPort("/dev/cu.usbserial-14140", {
+        baudRate: 9600
       });
-    } catch (error) {
-      res.status(400).json({ success: false, err: error });
-    }
+      console.log('serial port opened');
+      const parser = serialPort.pipe(new Readline('\r\n'))
+      console.log('parser setup');
+      //res.json({ message: "Operation Sent" });  
+      parser.on('data', function (data) {
+        value = data;
+        req.body.value = value;
+        try {
+          arduinoModel.addRecord(req.body, (err, dataSQL) => {
+            console.log(dataSQL);
+            //res.status(200).json({ success: true, data: dataSQL });
+            serialPort.close();
+            if (err) {
+              next(err);
+              return;
+            }
+          });
+        } catch (error) {
+          res.status(400).json({ success: false, err: error });
+        }
+      });
+
+    }, 2000)
+
+    
+    
+
     /*
     var portName = "/dev/cu.usbserial-14110";
   
@@ -84,8 +88,29 @@ const crudArduino = {
     } catch (err) {
       next(err);
     }
-  }
+  },
 
-};
+  closeArduino(req, res, next) {
+    if (serialPort != null) {
+      serialPort.close();
+      console.log("Arduino connection closed.");
+    }
+  },
+
+  deleteAllRecords(req, res, next) {
+    try {
+      arduinoModel.deleteAllRecords((err, data) => {
+        if (err) {
+          next(err);
+          return;
+        }
+        res.status(200).json({ success: true, data: data });
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+}
+
 
 module.exports = crudArduino;
