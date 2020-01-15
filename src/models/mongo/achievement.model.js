@@ -12,23 +12,15 @@ const achievementSchema = new Schema({
         required: true,
         default: null
     },
-    type: {
-        type: String,
-        unique: false,
-        required: true,
-        default: null
-    },
     goal: {
         type: Number,
         unique: false,
         required: true,
         default: null
-    },
-    image: {
-        type: String,
-        unique: false,
-        required: true,
-        default: null
+    },  
+    imageType: {
+        type: { type: String, default: null },
+        image: { type: String, default: null}
     },
     imageDefault: {
         type: String,
