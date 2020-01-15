@@ -41,8 +41,39 @@ router.post("/package", (req, res, next) => {
  *    post:
  *      tags:
  *          - "order"
+ *      summary: Inserir sensores numa order
  *      description: Inserir uma order com sensores
+ *      produces:
+ *          - application/json
+ *      consumes:
+ *          - apllication/json
+ *      parameters:
+ *          - name: sensors
+ *            in: body
+ *            required: true
+ *            schema:
+ *              type: object
+ *              properties:
+ *                sensors:
+ *                     type: array
+ *                     items:
+ *                        type: object
+ *                        properties:
+ *                          idSensor:
+ *                                  type: integer
+ *                          quantity:
+ *                                  type: integer
+ *                idUser:
+ *                      type: integer
+ *                instalation: 
+ *                      type: number
+ *                payed:
+ *                      type: number
+ *                active:
+ *                      type: number
+ * 
  */
+// sensors, idUser, instalation, payed, active
 router.post("/sensors", (req, res, next) => {
     orderController.insertOrderSensors(req, res, next);
 })

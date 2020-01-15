@@ -49,7 +49,7 @@ const orderModelCrud = {
                     return;
                 }
 
-                // result({ success: true, data: rows2 })
+                result(null, rows2)
             })
         })
     },

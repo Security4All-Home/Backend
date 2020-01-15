@@ -243,7 +243,6 @@ const sensorController = require("../controllers/sql/sensor.controller");
  *              description: Erro ao remover o sensor
  * definitions:
  *  SensorItem:
- *    type: Object
  *    properties:
  *      name:
  *        type: string
