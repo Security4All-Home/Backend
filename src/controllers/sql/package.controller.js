@@ -88,6 +88,23 @@ const crudPackage = {
     } catch (err) {
       next(err);
     }
+  },
+
+  //Delete sensor from package
+  removeSensorFromPackage(req, res, next) {
+    try {
+      console.log(req.query);
+      packageModel.removeSensorFromPackage(
+        req.params.idPackage,
+        req.query.idSensor,
+        (err, data) => {
+          res.status(200).json({ success: true, data: data });
+        },
+        next
+      );
+    } catch (err) {
+      next(err);
+    }
   }
 };
 

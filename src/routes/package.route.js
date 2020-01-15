@@ -27,4 +27,9 @@ router.put("/:id", (req, res, next) => {
 router.delete("/:id", (req, res, next) => {
   packageController.deleteByID(req, res, next);
 });
+//Remove sensor from package
+router.delete("/package/:idPackage", (req, res, next) => {
+  console.log("req", req.query.idSensor);
+  packageController.removeSensorFromPackage(req, res, next);
+});
 module.exports = router;
