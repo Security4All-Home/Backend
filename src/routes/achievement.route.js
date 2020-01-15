@@ -7,6 +7,14 @@ route.get("/all", (req, res) => {
     } catch (err) {
         res.json({ success: false, err: err })
     }
+}),
+
+route.post("/", (req, res) => {
+    try {
+        achievementController.insert(req)
+    } catch (err) {
+        res.json({ success: false, err: err })
+    }
 })
 
 module.exports = route;
