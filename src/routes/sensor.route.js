@@ -141,7 +141,7 @@ const sensorController = require("../controllers/sql/sensor.controller");
  *          - sensor
  *        summary: Altera o stock de múltiplos sensores
  *        operationId: UpdateSensorStock
- *        description: Altera o stock de múltiplos sensores
+ *        description: Altera o stock de múltiplos sensores.
  *        consumes:
  *          - application/json
  *        produces:
@@ -150,6 +150,18 @@ const sensorController = require("../controllers/sql/sensor.controller");
  *          - name: stockArray
  *            in: body
  *            required: true
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                    id:
+ *                       type: integer
+ *                    number:
+ *                       type: integer
+ *                    subtract:
+ *                       type: boolean
+ *
  *        responses:
  *          200:
  *            description: O stock foi alterado nos sensores desejados
@@ -261,6 +273,9 @@ const sensorController = require("../controllers/sql/sensor.controller");
  *        type: integer
  *        example: 1
  */
+
+//Create
+/**Insert a sensor */
 router.post("/", (req, res, next) => {
   console.log("Foste Convocado");
   sensorController.addSensor(req, res, next);
