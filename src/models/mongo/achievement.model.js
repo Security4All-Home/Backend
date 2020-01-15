@@ -4,15 +4,26 @@ const model = require("mongoose").model;
 const achievementSchema = new Schema({
     id: {
         type: Number,
-        /** Required */
+        unique: true,
     },
     description: {
-        type: String
+        type: String,
+        unique: false,
+        required: true,
+        default: null
     },
     type: {
-        type: String
+        type: String,
+        unique: false,
+        required: true,
+        default: null
     },
-    goal: Number
+    goal: {
+        type: Number,
+        unique: false,
+        required: true,
+        default: null
+    },
 })
 
 const achievementModel = model("achievement", achievementSchema);
