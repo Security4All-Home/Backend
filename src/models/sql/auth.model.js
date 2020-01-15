@@ -10,12 +10,9 @@ const authModel = {
          */
 
          // não devia mandar a pass
-        let query = `
-        select * from user 
-        where email like ${email}
-        ` // Por agora enviamos tudo de volta
+        let query = `select * from user where email like '${email}'` // Por agora enviamos tudo de volta
 
-        sql.query(query, (err, rows, fields) => {
+        sql.query(query/*.replace(/\n/g)*/, (err, rows, fields) => {
             if (err) {
                 result(err, rows);
                 return;

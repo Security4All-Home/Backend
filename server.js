@@ -35,6 +35,7 @@ const arduinoRoute = require(generalRoutesPath + "arduino.route");
 /** Our middlewares */
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
 const confirmMiddleware = require(ourMiddlewarePath + 'confirmValues.middleware.js')
+const authMiddleware = require(ourMiddlewarePath + "auth.middleware.js")
 //const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
 
 
@@ -79,7 +80,7 @@ server.use("/auth", authRoute);
 
 
 server.use("/order", orderRoute);
-server.use("/category", categoryRoute);
+server.use("/category",categoryRoute);
 server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
 server.use("/user", userRoute);

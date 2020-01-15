@@ -13,6 +13,7 @@ const authCtrl = {
                     return;
                 }
                 user = user[0]
+                req.idUser = user.idUser
                 if (user == undefined) {
                     next({ error: "Esse email Ao existe", email: req.body.email })
                     return;
@@ -22,6 +23,7 @@ const authCtrl = {
                     let token = jwt.createAccessToken(req);
                     console.log(token);
                     res.cookie('token', token)
+                    res.set('x-access-token', token)
                     res.json({ success: true, data: user });
                 } else {
                     res.json({ success: false, msg: "as passwords não correspondem" })
