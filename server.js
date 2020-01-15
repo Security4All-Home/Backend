@@ -80,10 +80,10 @@ server.use("/auth", authRoute);
 
 
 server.use("/order", orderRoute);
-server.use("/category",categoryRoute);
+server.use("/category", categoryRoute);
 server.use("/achievement", achievementsRoute);
 server.use("/sensors", sensorRoute);
-server.use("/user", userRoute);
+server.use("/user", authMiddleware.verifyToken, userRoute);
 server.use("/packages", packageRoute);
 server.use("/alerts", alertRoute);
 server.use("/house", houseRoute);
@@ -102,7 +102,7 @@ server.get("/home", (req, res) => {
   // res.send(`
   //   <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
   //   `);
-  res.json({asda: "ad"})
+  res.json({ asda: "ad" })
 });
 
 server.get("/teste", (req, res) => {

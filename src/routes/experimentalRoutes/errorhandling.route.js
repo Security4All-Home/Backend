@@ -22,8 +22,8 @@ function errorHandler(err, req, res, next) {
                 msg: "",
                 status: 400 //For now it's always this code
             }
+
             customError = diferenciateErrors(err, customError);
-            console.log(err, "errorHandler!!!")
             // console.log(typeof err, "typeof err!!!")
             logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
             res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
@@ -31,6 +31,7 @@ function errorHandler(err, req, res, next) {
         else next();
 
     } catch (err) {
+        console.log(err, "Mas que caralhos")
         res.json({ success: false, msg: "Internal server error", error: err })
     }
 }
@@ -61,16 +62,18 @@ function diferenciateErrors(err, custom) {
         }
     }
 
+
     /** Fazer a mesma coisa para os diferentes tipos de erros que tivermos */
-    if (JSON.stringify(err).includes('jwt') || JSON.stringify(err).includes('Token')) {
-        custom.msg = "ERrro no JWT";
-    }
-    
-    if (err.type != undefined) {
-        if (err.type.toUpperCase() = "JWT") {
-            custom.msg = "Erro No JWT!!!"
-        }
-    }
+    // if (JSON.stringify(err).includes('jwt') || JSON.stringify(err).includes('Token')) {
+    //     custom.msg = "ERrro no JWT";
+    // }
+    console.log(err, "errorHandler!!!")
+
+    // if (err.type != undefined) {
+    //     if (err.type.toUpperCase() = "JWT") {
+    //         custom.msg = "Erro No JWT!!!"
+    //     }
+    // }
 
     if (err.custom) {
         custom.msg = err.error;
