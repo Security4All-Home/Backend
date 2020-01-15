@@ -50,7 +50,7 @@ const crudPackage = {
   //Read By Id com sensores correspondentes
   getByID(id, result) {
     
-    let query =`Select package.*, sensor.name as Sensor from sensor, sensor_package, package
+    let query =`Select package.*, sensor.idSensor, sensor.name as Sensor from sensor, sensor_package, package
     where package.idPackage = ${id} and sensor_package.idPackage=package.idPackage
     and sensor.idSensor = sensor_package.idSensor`
     sql.query(query,(err,rows,fields) => {
@@ -78,11 +78,31 @@ const crudPackage = {
       }
     );
   },
+  //remove sensor from package
+  removeSensorFromPackage(idPackage, idSensor, result){
+    console.log("PACKAGE:",idPackage, "senso", idSensor)
+    sql.query(
+      `Delete from sensor_package where idPackage=${idPackage} and idSensor=${idSensor}`,
+      (err, rows) => {
+        if (err) {
+          console.log(err);
+          result(err, rows);
+          return;
+        }
+        console.log(rows);
+        result(null, rows);
+      }
+    );
+
+  },
 
   //Delete
   deleteByID(id, result, next) {
     sql.query("delete from package where idPackage=" + id, (err, rows) => {
-      if (err) next(err);
+      if (err){
+        result(err,rows)
+        return
+      }
       result(rows);
     });
   }
