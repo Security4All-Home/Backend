@@ -89,7 +89,11 @@ const crudSensor = {
     console.log("sensors", body);
     for (let i = 0; i < body.length; i++) {
       console.log("sensor", body[i].number);
-      query += `update sensor set stock=IF(stock>0,stock-${body[i].number},0) where idSensor=${body[i].id};`;
+      if (body[i].subtract) {
+        query += `update sensor set stock=IF(stock>0,stock-${body[i].number},0) where idSensor=${body[i].id};`;
+      } else {
+        query += `update sensor set stock=IF(stock>0,stock+${body[i].number},0) where idSensor=${body[i].id};`;
+      }
     }
     sql.query(query, (err, rows) => {
       if (err) {
