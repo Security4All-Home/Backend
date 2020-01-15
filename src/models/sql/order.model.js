@@ -21,11 +21,11 @@ const orderModelCrud = {
             result(null, rows)
         })
     },
-    insertOrderSensors({ sensors, idUser, instalation, payed, active }, result) {
+    insertOrderSensors({ sensors, idUser, idPackage = null,instalation = 0, payed = 0, active = 0 }, result) {
         let date = new Date().toISOString().split('T').join(' ').split('.')[0];
 
-        let query = "insert into `order` (date, idPackage, idUser, instalation, payed, active) values (?, Null, ?, ?, ?, ?)"
-        sql.query(query, [date, idUser, instalation, payed, active], (err, rows, fields) => {
+        let query = "insert into `order` (date, idPackage, idUser, instalation, payed, active) values (?, ?, ?, ?, ?, ?)"
+        sql.query(query, [date, idPackage,idUser, instalation, payed, active], (err, rows, fields) => {
             if (err) {
                 result(err, rows);
                 return;

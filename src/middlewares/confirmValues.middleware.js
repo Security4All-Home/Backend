@@ -12,6 +12,8 @@ module.exports = (req, res, next) => {
     let method = req.method
     let move = true;
 
+    console.log(body, "BODY!!!!!!")
+
     switch(url) {
         case "/home":
             console.log("LALALALALALALALALA")
