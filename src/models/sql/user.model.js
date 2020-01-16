@@ -99,10 +99,7 @@ const userCrud = {
     },*/
     
     insertReview({text, idUser, idSensor, date}, result) {
-        let query = `insert into review 
-        (text, idUser, idSensor, date)
-        values
-        (${text}, ${idUser}, ${idSensor}, ${date});`
+        let query = `insert into review (text, idUser, idSensor, date) values (${text}, ${idUser}, ${idSensor}, ${date})`
 
         sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {
@@ -188,19 +185,23 @@ const userCrud = {
             result(null, rows);
         })
     },
-    update({iduser}, { name, username, password, idType, email, taxZipCode, telemovel, nif }, result) {
+    update({iduser}, { name, username, password, idType, email, taxAdress, taxZipCode, twoFactorAuth, disabled, points, credit, image }, result) {
         
         
         let query = "update user set "
 
-        if(name != undefined || name != null) query += "name = " + name + " " 
-        if(username != undefined || username != null) query += "username = " + username + " "
-        if(password != undefined || password != null) query += "password = " + password + " "
-        if(idType != undefined || idType !=null) query += "idType = " + idType  + " "
-        if(email != undefined || email != null) query += "email = " + email  + " "
-        if(taxZipCode != undefined || taxZipCode != null) query += "taxZipCode = " + taxZipCode + " " 
-        if(telemovel != undefined || telemovel != null) query += "telemovel = " + telemovel + " " 
-        if(nif != undefined || nif != null) query += "nif = " + nif + " "
+        if(name != undefined || name != null) query += "name = " + name + ", " 
+        if(username != undefined || username != null) query += "username = " + username + ", "
+        if(password != undefined || password != null) query += "password = " + password + ", "
+        if(idType != undefined || idType !=null) query += "idType = " + idType  + ", "
+        if(email != undefined || email != null) query += "email = " + email  + ", "
+        if(taxAdress != undefined || taxAdress != null) query += "taxAdress = " + taxAdress + ", " 
+        if(taxZipCode != undefined || taxZipCode != null) query += "taxZipCode = " + taxZipCode + ", " 
+        if(twoFactorAuth != undefined || twoFactorAuth != null) query += "twoFactorAuth = " + twoFactorAuth + ", " 
+        if(disabled != undefined || disabled != null) query += "disabled = " + disabled + ", " 
+        if(points != undefined || points != null) query += "points = " + points + ", " 
+        if(credit != undefined || credit != null) query += "credit = " + credit + ", " 
+        if(image != undefined || image != null) query += "image = " + image + " "
 
         query += `where idUser = ${iduser}`
 
@@ -285,20 +286,6 @@ const userCrud = {
         })
     },
 
-    //update order's active state (0 or 1)   
-    deleteLogicOrder({idOrder},{active}, result) { 
-        let query = `update uZvFiNMuwF.order set active = ${active}` 
-        query += ` where idOrder = ${idOrder}`
-
-        sql.query(query, (err, rows, fields) => {
-            if(err) {
-                result(err, rows);
-                return;
-            }
-
-            result(null, rows);
-        })
-    },
 
     //update user's disable state (0 or 1)   
     deleteLogicUser({idUser},{disabled}, result) { 
@@ -399,8 +386,7 @@ const userCrud = {
          * Depois é melhor fazer um outro delete para realmente apagar o user.
          */
         let query = `
-        delete from user where idUser = ${iduser}
-        `;
+        delete from user where idUser = ${iduser}`;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
