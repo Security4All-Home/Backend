@@ -23,7 +23,7 @@ function errorHandler(err, req, res, next) {
                 status: 400 //For now it's always this code
             }
             customError = diferenciateErrors(err, customError);
-            console.log(err, "errorHandler!!!")
+            console.log(contumeError, "costumeError!!!")
             // console.log(typeof err, "typeof err!!!")
             logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
             res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
