@@ -15,6 +15,7 @@ function errorHandler(err, req, res, next) {
      * Link: https://stackoverflow.com/questions/9006988/node-js-on-windows-how-to-clear-console/38492871#38492871
      */
     //process.stdout.write("\u001b[0J\u001b[1J\u001b[2J\u001b[0;0H\u001b[0;0W");
+    // balbla(err)
     try {
         console.log(err, "ERRO SEM SER TRATADO!")
         if (err) {
@@ -25,7 +26,7 @@ function errorHandler(err, req, res, next) {
             customError = diferenciateErrors(err, customError);
             console.log(contumeError, "costumeError!!!")
             // console.log(typeof err, "typeof err!!!")
-            logsToDatabase(typeof err, "error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
+            logsToDatabase("error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
             res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
         }
         else next();
@@ -114,6 +115,13 @@ function logsToDatabase(/*errorType,*/ errorMessage, description = "") {
         console.log(savedErr, "Erro Gravado com sucesso !!!")
     })
 }
+
+function balbla(error) {
+    console.log("EEEEEEEE");
+    console.log(process);
+    console.log(error);
+}
+
 
 function writingToLogFile() {
     return;

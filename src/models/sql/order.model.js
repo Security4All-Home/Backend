@@ -14,7 +14,17 @@ const orderModelCrud = {
             result(null, rows);
         })
     },
+    getById(id, result) {
+        let query = "select * from `order` left join  package on package.idPackage = order.idPackage left join sensor_order on`order`.idOrder = sensor_order.idOrder left join sensor on sensor_order.idSensor = sensor.idSensor where `order`.idOrder = " + id +";";
 
+        sql.query(query, (err, rows,  fields) => {
+            if(err) {
+                result(err, rows);
+                return;
+            }
+            result(null, rows);
+        })
+    },
     /** Método para inserir uma encomenda quando se encomenda um package */
     insertOrderPackage({ idPackage, idUser, instalation, payed, active }, result) {
         /** Pode ser preciso fazer a confirmação se um user está a encomendar um package que á tinha encomendado */

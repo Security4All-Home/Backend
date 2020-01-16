@@ -1,10 +1,11 @@
 const mysql = require("mysql");
+const progressBar = require("progress")
 
 /**
  * Handle lost connection by mysql
  * https://stackoverflow.com/questions/20210522/nodejs-mysql-error-connection-lost-the-server-closed-the-connection
  */
-
+let progress;
 const dbConfig = {
   host: process.env.serverSql,
   user: process.env.rootUserSql,
@@ -19,7 +20,9 @@ const dbConfig = {
  * recover after fatal, ver depois (https://stackoverflow.com/questions/33652697/node-js-process-cannot-recover-after-mysql-turned-off-then-turn-on)
  */
 let connection = null;
+let tabelsArray = ["user", "order", "package", "sensor", "space"];
 function connectToDatabase() {
+  let index = 0;
   connection = mysql.createConnection(dbConfig);
 
   connection.connect(err => {
@@ -47,8 +50,30 @@ function connectToDatabase() {
       throw error;
     }
   });
+
+  restartDB()
 }
 
+function restartDB() {
+  progress = new progressBar(':bar Recomeçar DB\n ', {total: 50});
+  progress.tick();
+  setTimeout(() => {
+    if (index == tabelsArray.length) index = 0;
+    let query = "select * from " + tabelsArray[index] + ";";
+    progress.tick();
+    sql.query(query, (err, rows, fields) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      if(progress.complete) {
+        restartDB();
+      }
+      console.log("Query para evitar que a base de dados vá abaixo")
+    })
+    index++
+  }, 1850000)
+}
 connectToDatabase();
 
 module.exports = connection;

@@ -15,6 +15,19 @@ const orderCrud = {
             next(err);
         }
     },
+    getById(req, res, next) {
+        try {
+            orderModel.getById(req.params.idOrder, (err, result) => {
+                if(err) {
+                    next(err);
+                    return;
+                }
+                res.json({success: true, data: result})
+            })
+        } catch(error) {
+            next(error)
+        }
+    },
     insertOrderPackage(req, res, next) {
         try {
             orderModel.insertOrderPackage(req.body, (err, data) => {

@@ -14,7 +14,9 @@ router.get("/sensors", (req, res, next) => {
 /** Get one order by id 
  * saber se a order tem package ou sensores e trabalhar com isso
 */
-router.get("/:id")
+router.get("/:idOrder", (req, res, next) => {
+    orderController.getById(req, res, next);
+})
 
 /**  view all orders */
 router.get("/", (req, res, next) => {
