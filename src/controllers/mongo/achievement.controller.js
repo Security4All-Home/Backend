@@ -2,27 +2,31 @@ const achievement = require("../../models/mongo/achievement.model")
 
 const crudAchievements = {
     getAll(res, next) {
-        achievement.find({}, (err, results) => {
-            if (err) next(err)
-            res.json({ success: true, data: results })
-        })
+        try {
+            achievement.find({}, (err, results) => {
+                if (err) next(err)
+                res.json({ success: true, data: results })
+            })
+        } catch (err) {
+            next(err);
+        }
     },
     insert({ body }, res, next) {
-        let newAchievement = new achievement({
-            id: body.id,
-            description: body.description,
-            type: body.type,
-            goal: body.goal
-        })
+        try {
+            console.log(body, "bodyyyy")
+            let newAchievement = new achievement(body)
 
-        newAchievement.save((err, savedErr) => {
-            if (err) {
-                next(err);
-                return
-            }
+            newAchievement.save((err, savedErr) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
 
-            res.json({ success: true, msg: "Achievement saved sucessfully!" })
-        })
+                res.json({ success: true, msg: "Achievement saved sucessfully!" })
+            })
+        } catch (err) {
+            next(err)
+        }
     }
 }
 

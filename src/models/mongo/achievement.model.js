@@ -2,10 +2,10 @@ const Schema = require("mongoose").Schema;
 const model = require("mongoose").model;
 
 const achievementSchema = new Schema({
-    id: {
-        type: Number,
-        unique: true,
-    },
+    // id: {
+    //     type: Number,
+    //     unique: true,
+    // },
     description: {
         type: String,
         unique: false,
@@ -13,7 +13,7 @@ const achievementSchema = new Schema({
         default: null
     },
     goal: {
-        type: Number,
+        type: String,
         unique: false,
         required: true,
         default: null
