@@ -21,18 +21,33 @@ const dbConfig = {
  */
 let connection = null;
 let tabelsArray = ["user", "order", "package", "sensor", "space"];
+let index = 0;
 function connectToDatabase() {
-  let index = 0;
   connection = mysql.createConnection(dbConfig);
 
   connection.connect(err => {
     if (err) {
       console.log(err, "Error ocurred in mysql");
-      setTimeout(connectToDatabase, 2000); // We introduce a delay before attempting to reconnect,
+      let timerDB = setTimeout(() => {
+        connectToDatabase();
+        clearInterval(timerDB);
+      }, 5000); // We introduce a delay before attempting to reconnect,
     }
     // connection.query('SET PERSIST interactive_timeout=1860000;')
     console.time("tempo de atividade DB");
     console.log("SQL Database connected with the id " + connection.threadId);
+
+    let timerRestartDB = setTimeout(() => {
+      if(index == tabelsArray.length) index = 0;
+      let query = "select * from " + tabelsArray[index] + ";";
+      connection.query(query, (err, rows, fields) => {
+        if(err) {
+          throw err;
+        }
+        index++;
+        console.log(query, "Query para evitar que a DB vá abaixo!!!!");
+      }, 1850000);
+    })
   });
 
   connection.on("end", parameter => {
@@ -50,29 +65,14 @@ function connectToDatabase() {
       throw error;
     }
   });
-
-  restartDB()
 }
 
 function restartDB() {
-  progress = new progressBar(':bar Recomeçar DB\n ', {total: 50});
-  progress.tick();
-  setTimeout(() => {
-    if (index == tabelsArray.length) index = 0;
-    let query = "select * from " + tabelsArray[index] + ";";
-    progress.tick();
-    sql.query(query, (err, rows, fields) => {
-      if (err) {
-        next(err);
-        return;
-      }
-      if(progress.complete) {
-        restartDB();
-      }
-      console.log("Query para evitar que a base de dados vá abaixo")
-    })
-    index++
-  }, 1850000)
+  // progress = new progressBar(':bar Recomeçar DB\n ', {total: 50});
+  // progress.tick();
+
+
+
 }
 connectToDatabase();
 
