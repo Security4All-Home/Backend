@@ -51,6 +51,20 @@ const crudAchievements = {
     } catch (err) {
       next(err);
     }
+  },
+
+  deleteAchievement(req, res, next) {
+    try {
+      achievement.findByIdAndRemove(req.params.id, (err, document) => {
+        if (err) {
+          next(err);
+          return;
+        }
+        res.json({ success: true, msg: "Apagado com sucesso" });
+      });
+    } catch (err) {
+      next(err);
+    }
   }
 };
 

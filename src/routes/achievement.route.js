@@ -21,5 +21,7 @@ route.put("/:id", (req, res, next) => {
   achievementController.update(req, res, next);
 });
 //Delete
-
+route.delete("/:id", (req, res, next) => {
+  achievementController.deleteAchievement(req, res, next);
+});
 module.exports = route;
