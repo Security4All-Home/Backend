@@ -233,7 +233,7 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  * /user/updateHouses/{zipCode}:
  *      put:
  *        tags:
- *          - userHouse
+ *          - user
  *        summary: Update User houses
  *        operationId: updateUserHouses
  *        description: Update User houses 
