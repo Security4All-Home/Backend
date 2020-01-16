@@ -190,18 +190,18 @@ const userCrud = {
         
         let query = "update user set "
 
-        if(name != undefined || name != null) query += "name = " + name + ", " 
-        if(username != undefined || username != null) query += "username = " + username + ", "
-        if(password != undefined || password != null) query += "password = " + password + ", "
-        if(idType != undefined || idType !=null) query += "idType = " + idType  + ", "
-        if(email != undefined || email != null) query += "email = " + email  + ", "
-        if(taxAdress != undefined || taxAdress != null) query += "taxAdress = " + taxAdress + ", " 
-        if(taxZipCode != undefined || taxZipCode != null) query += "taxZipCode = " + taxZipCode + ", " 
-        if(twoFactorAuth != undefined || twoFactorAuth != null) query += "twoFactorAuth = " + twoFactorAuth + ", " 
-        if(disabled != undefined || disabled != null) query += "disabled = " + disabled + ", " 
-        if(points != undefined || points != null) query += "points = " + points + ", " 
-        if(credit != undefined || credit != null) query += "credit = " + credit + ", " 
-        if(image != undefined || image != null) query += "image = " + image + " "
+        if(name != undefined || name != null) query += "name = '" + name + "', " 
+        if(username != undefined || username != null) query += "username = '" + username + "', "
+        if(password != undefined || password != null) query += "password = '" + password + "', "
+        if(idType != undefined || idType !=null) query += "idType = '" + idType  + "', "
+        if(email != undefined || email != null) query += "email = '" + email  + "', "
+        if(taxAdress != undefined || taxAdress != null) query += "taxAdress = '" + taxAdress + "', " 
+        if(taxZipCode != undefined || taxZipCode != null) query += "taxZipCode = '" + taxZipCode + "', " 
+        if(twoFactorAuth != undefined || twoFactorAuth != null) query += "twoFactorAuth = '" + twoFactorAuth + "', " 
+        if(disabled != undefined || disabled != null) query += "disabled = '" + disabled + "', " 
+        if(points != undefined || points != null) query += "points = '" + points + "', " 
+        if(credit != undefined || credit != null) query += "credit = '" + credit + "', " 
+        if(image != undefined || image != null) query += "image = '" + image + "' "
 
         query += `where idUser = ${iduser}`
 

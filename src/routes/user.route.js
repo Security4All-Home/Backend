@@ -383,40 +383,40 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  *    properties:
  *      name:
  *        type: string
- *        example: '"ze"'
+ *        example: ze
  *      username:
  *        type: string
- *        example: '"ze123"'
+ *        example: ze123
  *      password:
  *        type: string
- *        example: '"1234567"'
+ *        example: 1234567
  *      idType:
  *        type: integer
- *        example: '"1"'
+ *        example: 1
  *      email:
  *        type: string
- *        example: '"zeasd@ze.com"'
+ *        example: zeasd@ze.com
  *      taxAdress:
  *        type: string
- *        example: '"12345"'
+ *        example: 12345
  *      taxZipCode:
  *        type: string
- *        example: '"12345"'
+ *        example: 12345
  *      twoFactorAuth:
  *        type: integer
- *        example: '"1"'
+ *        example: 1
  *      disabled:
  *        type: integer
- *        example: '"0"'
+ *        example: 0
  *      points:
  *        type: integer
- *        example: '"0"'
+ *        example: 0
  *      credit:
  *        type: number
- *        example: '"0"'
+ *        example: 0
  *      image:
  *        type: string
- *        example: '"aqui"'
+ *        example: aqui
  * 
  *  UserHouse:
  *    type: Object
