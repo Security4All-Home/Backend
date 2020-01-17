@@ -3,7 +3,7 @@ const sql = require("../../sqlconnection");
 const orderModelCrud = {
     /** Ir buscar todas as orders */
     getAll(result) {
-        let query = "select * from `order` left join  package on package.idPackage = order.idPackage left join sensor_order on`order`.idOrder = sensor_order.idOrder left join sensor on sensor_order.idSensor = sensor.idSensor; "
+        let query = "select * from `order` left join user on user.idUser = order.idUser left join  package on package.idPackage = order.idPackage left join sensor_order on`order`.idOrder = sensor_order.idOrder left join sensor on sensor_order.idSensor = sensor.idSensor; "
 
         sql.query(query, (err, rows, fields) => {
             if(err) {
@@ -15,7 +15,7 @@ const orderModelCrud = {
         })
     },
     getById(id, result) {
-        let query = "select * from `order` left join  package on package.idPackage = order.idPackage left join sensor_order on`order`.idOrder = sensor_order.idOrder left join sensor on sensor_order.idSensor = sensor.idSensor where `order`.idOrder = " + id +";";
+        let query = "select * from `order` left join user on user.idUser = order.idUser left join  package on package.idPackage = order.idPackage left join sensor_order on`order`.idOrder = sensor_order.idOrder left join sensor on sensor_order.idSensor = sensor.idSensor where `order`.idOrder = " + id +";";
 
         sql.query(query, (err, rows,  fields) => {
             if(err) {
@@ -73,7 +73,7 @@ const orderModelCrud = {
         })
     },
     getOrdersWithPackages(result) {
-        let query = "select * from `order` inner join package on package.idPackage = order.idPackage";
+        let query = "select * from `order` left join user on user.idUser = order.idUser inner join package on package.idPackage = order.idPackage";
         sql.query(query, (err, rows, fields) => {
             if (err) {
                 result(err, rows);
@@ -84,7 +84,7 @@ const orderModelCrud = {
         })
     },
     getOrdersWithSensors(result) {
-        let query = "select * from `order` inner join sensor_order on `order`.idOrder = sensor_order.idOrder inner join sensor on sensor_order.idSensor = sensor.idSensor;"
+        let query = "select * from `order` left join user on user.idUser = order.idUser inner join sensor_order on `order`.idOrder = sensor_order.idOrder inner join sensor on sensor_order.idSensor = sensor.idSensor;"
 
         sql.query(query, (err, rows, fields) => {
             if (err) {
