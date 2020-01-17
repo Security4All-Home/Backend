@@ -78,7 +78,7 @@ const userCrud = {
         }
     },
 
-    /*
+  
     firstRegister(req, res, next) {
         try {
             userModel.firstRegister(req.body, (error, data) => {
@@ -97,7 +97,7 @@ const userCrud = {
             return;
         }
     },
-    */
+    
     
     insertReview(req, res, next) {
         try {

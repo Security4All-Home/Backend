@@ -3,7 +3,7 @@ const sql = require("../../sqlconnection");
 const crudSensor = {
   //Create
   addSensor(newSensor, result) {
-    sql.query("Insert into sensor set ?", newSensor, function(
+    sql.query("Insert into sensor set ?", newSensor, function (
       err,
       rows,
       fields
@@ -19,7 +19,7 @@ const crudSensor = {
 
   //Read All
   getAll(result) {
-    sql.query("Select * from sensor", function(err, rows, fields) {
+    sql.query("Select * from sensor", function (err, rows, fields) {
       if (err) {
         result(err, rows);
         return;
@@ -53,6 +53,64 @@ const crudSensor = {
         result(null, rows);
       }
     );
+  },
+  //Get score by user
+  getScoreByUser({idUser}, result) {
+    let query = `Select * from sensor_score where idUser = ${idUser}`
+
+    sql.query(query, (err, rows, fields) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+
+      result(null, rows);
+    })
+  },
+  //Get score by sensor
+  getScoreBySensor({idSensor}, result) {
+    let query = `Select * from sensor_score where idSensor = ${idSensor}`
+
+    sql.query(query, (err, rows, fields) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+
+      result(null, rows);
+    })
+  },
+  //Get average by sensor id
+  getAverageBySensor({idSensor}, result) {
+    let query = `SELECT AVG(score)
+    FROM sensor_score
+    WHERE idSensor = ${idSensor}`
+
+    sql.query(query, (err, rows, fields) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+
+      result(null, rows);
+    })
+  },
+  //add score 
+  addScore(req,{idSensor, idUser, score}, result) {
+    let query = `insert into sensor_score
+    (idSensor, idUser, score) 
+    values 
+    (${idSensor}, ${idUser}, ${score});`
+
+    sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
+        if (err) {
+            err.lalalalala = query.replace(/\n/g, "")
+            result(err, rows);
+            return;
+        }
+        
+        result(null, rows);
+    });
   },
   getSensorHouse(id, result) {
     let escapedId = sql.escape(id);

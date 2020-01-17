@@ -253,6 +253,83 @@ const sensorController = require("../controllers/sql/sensor.controller");
  *              description: Sensor removido com sucesso
  *            400:
  *              description: Erro ao remover o sensor
+ *  /sensors/score:
+ *        post:
+ *          tags:
+ *            - score
+ *          summary: Acrescenta um score
+ *          operationId: AddScore
+ *          description: Adiciona um score
+ *          consumes:
+ *            - application/json
+ *          produces:
+ *            - application/json
+ *          parameters:
+ *            - in: body
+ *              name: review
+ *              description: add review
+ *              schema:
+ *                $ref: '#/definitions/SensorScore'
+
+ *          responses:
+ *            200:
+ *              description: Sscore adicionado com sucesso
+ *            400:
+ *              description: Erro ao adicionar o score
+ * /sensors/score/{idSensor}:
+ *      get:
+ *        tags:
+ *          - score
+ *        summary: get All scores by sensor
+ *        operationId: getScoreBySensor
+ *        description: get score by sensor 
+ *        produces:
+ *          - application/json
+ *        parameters:
+ *         - name: idSensor
+ *           in: path
+ *           required: true
+ *        responses:
+ *            200:
+ *              description: Valores obtidos corretamente
+ *            400:
+ *              description: Erro ao obter valores
+ * /sensors/score/{idUser}:
+ *      get:
+ *        tags:
+ *          - score
+ *        summary: get All scores by user
+ *        operationId: getScoreByUser
+ *        description: get score by user 
+ *        produces:
+ *          - application/json
+ *        parameters:
+ *         - name: idUser
+ *           in: path
+ *           required: true
+ *        responses:
+ *            200:
+ *              description: Valores obtidos corretamente
+ *            400:
+ *              description: Erro ao obter valores
+ * /sensors/score/average/{idSensor}:
+ *      get:
+ *        tags:
+ *          - score
+ *        summary: get average scores by sensor
+ *        operationId: getAverageBySensor
+ *        description: get average scores by sensor
+ *        produces:
+ *          - application/json
+ *        parameters:
+ *         - name: idSensor
+ *           in: path
+ *           required: true
+ *        responses:
+ *            200:
+ *              description: Média obtida corretamente
+ *            400:
+ *              description: Erro ao obter média 
  * definitions:
  *  SensorItem:
  *    properties:
@@ -272,7 +349,18 @@ const sensorController = require("../controllers/sql/sensor.controller");
  *      idCategory:
  *        type: integer
  *        example: 1
- */
+ *  SensorScore:
+ *    type: Object
+ *    properties:
+ *      idSensor:
+ *        type: integer
+ *        example: '11'
+ *      idUser:
+ *        type: integer
+ *        example: 10
+ *      score:
+ *        type: integer
+ *        example: '5' */
 
 //Create
 /**Insert a sensor */
@@ -296,6 +384,22 @@ router.get("/house/:idHouse", (req, res, next) => {
 router.get("/category/:idCategory", (req, res, next) => {
   sensorController.getByCategory(req, res, next);
 }); //Feito
+//getScoreByUser
+router.get("/score/:idSensor", (req, res, next) => {
+  sensorController.getScoreBySensor(req, res, next);
+}); 
+//getScoreByUser
+router.get("/score/:idUser", (req, res, next) => {
+  sensorController.getScoreByUser(req, res, next);
+}); 
+//get average by sensor id 
+router.get("/score/average/:idSensor", (req, res, next) => {
+  sensorController.getAverageBySensor(req, res, next);
+}); 
+/** add score  */
+router.post('/score', (req, res, next) => {
+  sensorController.addScore(req, res, next);
+})
 //Update Stock
 router.put("/stock", (req, res, next) => {
   sensorController.updateSensorStock(req, res, next);

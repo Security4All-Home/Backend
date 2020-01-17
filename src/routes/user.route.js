@@ -456,10 +456,9 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     userController.insert(req, res, next);
 })
-/*
 router.post('/firstRegister', (req, res, next) => {
     userController.firstRegister(req, res, next);
-})*/
+})
 
 router.put('/:iduser', (req, res, next) => {
     userController.update(req, res, next)

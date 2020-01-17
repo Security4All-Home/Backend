@@ -75,20 +75,32 @@ const userCrud = {
     },
 
     //TODO 
-    /*
     firstRegister({credit, name, username, password, email, nif, taxAdress, taxZipCode, contacto, idPackage,instalation, zipCode, local, adress}, result){
-        let query = `select price from package where idPackage= ${idPackage}  
+        let query1 = `declare pricePackage for select price from package where idPackage= ${idPackage}`
+/*  
         case price <= ${credit} then (
             insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
             insert into user_contact values (LAST_INSERT_ID(),${contacto} );
             insert into uZvFiNMuwF.order(date,idPackage, idUser, instalation,payed) values (CURRENT_TIMESTAMP(),(select MAX(idUser) from user), ${instalation},1);
             insert into house (zipCode, local, adress) values(${zipCode}, ${local}, ${adress});
             insert into user_house(zipCode, idUser) values(${zipCode},(select MAX(idUser) from user));)
-        end`
-
-        sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
+        end*/
+       /* sql.query(query1.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {
-                err.lalalalala = query.replace(/\n/g, "")
+                err.lalalalala = query1.replace(/\n/g, "")
+                result(err, rows);
+                return;
+            }
+            
+            result(null, rows);
+        });*/
+        let query2 = `${query1} if pricePackage <= ${credit} then (
+            insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
+           `
+
+        sql.query(query2.replace(/\n/g, ""), (err, rows, fields) => {
+            if (err) {
+                err.lalalalala = query2.replace(/\n/g, "")
                 result(err, rows);
                 return;
             }
@@ -96,7 +108,7 @@ const userCrud = {
             result(null, rows);
         });
 
-    },*/
+    },
     
     insertReview({text, idUser, idSensor, date}, result) {
         let query = `insert into review (text, idUser, idSensor, date) values (${text}, ${idUser}, ${idSensor}, ${date})`
