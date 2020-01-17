@@ -11,7 +11,7 @@ const crudPackage = {
     ) {
       if (err) throw err;
 
-      result(rows);
+      result(null, rows);
       console.log(rows, rows.insertId, fields)
     });
 
@@ -74,7 +74,7 @@ const crudPackage = {
       [newPackage, id],
       (err, rows) => {
         if (err) next(err);
-        result(rows);
+        result(null, rows);
       }
     );
   },
@@ -98,13 +98,14 @@ const crudPackage = {
 
   //Delete
   deleteByID(id, result, next) {
-    let query=`delete from package where idPackage=${id}; delete from sensor_package where idPackage=${id}`
+    let escapedID=sql.escape(id)
+    let query="delete from sensor_package where idPackage=" + escapedID + "; delete from `order` where idPackage= " + escapedID +"; delete from package where idPackage=" + escapedID + ";"
     sql.query(query, (err, rows) => {
       if (err){
         result(err,rows)
         return
       }
-      result(rows);
+      result(null, rows);
     });
 
   }
