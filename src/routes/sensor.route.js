@@ -256,7 +256,7 @@ const sensorController = require("../controllers/sql/sensor.controller");
  *  /sensors/score:
  *        post:
  *          tags:
- *            - score
+ *            - sensor
  *          summary: Acrescenta um score
  *          operationId: AddScore
  *          description: Adiciona um score
@@ -279,7 +279,7 @@ const sensorController = require("../controllers/sql/sensor.controller");
  * /sensors/score/{idSensor}:
  *      get:
  *        tags:
- *          - score
+ *          - sensor
  *        summary: get All scores by sensor
  *        operationId: getScoreBySensor
  *        description: get score by sensor 
@@ -297,7 +297,7 @@ const sensorController = require("../controllers/sql/sensor.controller");
  * /sensors/score/{idUser}:
  *      get:
  *        tags:
- *          - score
+ *          - sensor
  *        summary: get All scores by user
  *        operationId: getScoreByUser
  *        description: get score by user 
@@ -315,7 +315,7 @@ const sensorController = require("../controllers/sql/sensor.controller");
  * /sensors/score/average/{idSensor}:
  *      get:
  *        tags:
- *          - score
+ *          - sensor
  *        summary: get average scores by sensor
  *        operationId: getAverageBySensor
  *        description: get average scores by sensor
