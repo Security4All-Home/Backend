@@ -21,7 +21,7 @@ const dbConfig = {
  * connection.query('SET PERSIST interactive_timeout=1860000;')
  */
 let connection = null;
-let tabelsArray = ["user", "order", "package", "sensor", "space"];
+let tabelsArray = ["user", "`order`", "package", "sensor", "space"];
 let index = 0;
 function connectToDatabase() {
   connection = mysql.createConnection(dbConfig);
