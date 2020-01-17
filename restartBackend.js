@@ -55,7 +55,7 @@ function restartServer(tickAgain = true) {
                 clearInterval(timer);
 
                 /** Executar Comando para reiniciaar servidor */
-                exec('heroku dyno:restart web -a sec4allapp"', (err, stdout, stderr) => {
+                exec('heroku dyno:restart web -a sec4allapp', (err, stdout, stderr) => {
                     if (err) {
                         console.error('An error as ocured \n', err);
                         return;
