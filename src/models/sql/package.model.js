@@ -98,13 +98,15 @@ const crudPackage = {
 
   //Delete
   deleteByID(id, result, next) {
-    sql.query("delete from package where idPackage=" + id, (err, rows) => {
+    let query=`delete from package where idPackage=${id}; delete from sensor_package where idPackage=${id}`
+    sql.query(query, (err, rows) => {
       if (err){
         result(err,rows)
         return
       }
       result(rows);
     });
+
   }
 };
 module.exports = crudPackage;
