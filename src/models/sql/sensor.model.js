@@ -3,7 +3,7 @@ const sql = require("../../sqlconnection");
 const crudSensor = {
   //Create
   addSensor(newSensor, result) {
-    sql.query("Insert into sensor set ?", newSensor, function(
+    sql.query("Insert into sensor set ?", newSensor, function (
       err,
       rows,
       fields
@@ -19,7 +19,7 @@ const crudSensor = {
 
   //Read All
   getAll(result) {
-    sql.query("Select * from sensor", function(err, rows, fields) {
+    sql.query("Select * from sensor", function (err, rows, fields) {
       if (err) {
         result(err, rows);
         return;
@@ -31,7 +31,7 @@ const crudSensor = {
   //Read By ID
   getByID(id, result) {
     sql.query(
-      "Select * from sensor where idSensor=" + id,
+      "Select * from sensor where idSensor=" + sql.escape(id),
       (err, rows, fields) => {
         if (err) {
           result(err, rows);
@@ -44,7 +44,7 @@ const crudSensor = {
   //Read By category
   getByCategory(idCategory, result) {
     sql.query(
-      "Select * from sensor where idCategory=" + idCategory,
+      "Select * from sensor where idCategory=" + sql.escape(idCategory),
       (err, rows, fields) => {
         if (err) {
           result(err, rows);
@@ -54,9 +54,68 @@ const crudSensor = {
       }
     );
   },
+  //Get score by user
+  getScoreByUser({idUser}, result) {
+    let query = `Select * from sensor_score where idUser = ${idUser}`
+
+    sql.query(query, (err, rows, fields) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+
+      result(null, rows);
+    })
+  },
+  //Get score by sensor
+  getScoreBySensor({idSensor}, result) {
+    let query = `Select * from sensor_score where idSensor = ${idSensor}`
+
+    sql.query(query, (err, rows, fields) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+
+      result(null, rows);
+    })
+  },
+  //Get average by sensor id
+  getAverageBySensor({idSensor}, result) {
+    let query = `SELECT AVG(score)
+    FROM sensor_score
+    WHERE idSensor = ${idSensor}`
+
+    sql.query(query, (err, rows, fields) => {
+      if (err) {
+        result(err, rows);
+        return;
+      }
+
+      result(null, rows);
+    })
+  },
+  //add score 
+  addScore(req,{idSensor, idUser, score}, result) {
+    let query = `insert into sensor_score
+    (idSensor, idUser, score) 
+    values 
+    (${idSensor}, ${idUser}, ${score});`
+
+    sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
+        if (err) {
+            err.lalalalala = query.replace(/\n/g, "")
+            result(err, rows);
+            return;
+        }
+        
+        result(null, rows);
+    });
+  },
   getSensorHouse(id, result) {
+    let escapedId = sql.escape(id);
     let query = `select house.*, space.idSpace,space.description as division, sensor_space.active , sensor.* from house
-    inner join house_space on house.zipCode = house_space.idHouse and house.zipCode = ${id}
+    inner join house_space on house.zipCode = house_space.idHouse and house.zipCode = ${escapedId}
     inner join space on space.idSpace = house_space.idSpace
     inner join sensor_space on house_space.idSpace = sensor_space.idSpace
     inner join sensor on sensor.idSensor = sensor_space.idSensor;`;
@@ -90,9 +149,13 @@ const crudSensor = {
     for (let i = 0; i < body.length; i++) {
       console.log("sensor", body[i].number);
       if (body[i].subtract) {
-        query += `update sensor set stock=IF(stock>0,stock-${body[i].number},0) where idSensor=${body[i].id};`;
+        query += `update sensor set stock=IF(stock>0,stock-${sql.escape(
+          body[i].number
+        )},0) where idSensor=${sql.escape(body[i].id)};`;
       } else {
-        query += `update sensor set stock=IF(stock>0,stock+${body[i].number},0) where idSensor=${body[i].id};`;
+        query += `update sensor set stock=IF(stock>0,stock+${sql.escape(
+          body[i].number
+        )},0) where idSensor=${sql.escape(body[i].id)};`;
       }
     }
     sql.query(query, (err, rows) => {
@@ -106,7 +169,9 @@ const crudSensor = {
 
   updateSensorState(idSensor, idSpace, result) {
     sql.query(
-      `update sensor_space set active=IF(active=1,0,1) where idSensor=${idSensor} and idSpace=${idSpace};`,
+      `update sensor_space set active=IF(active=1,0,1) where idSensor=${sql.escape(
+        idSensor
+      )} and idSpace=${sql.escape(idSpace)};`,
       (err, rows) => {
         if (err) {
           result(err, rows);
@@ -118,13 +183,16 @@ const crudSensor = {
   },
   //Delete
   deleteByID(id, result, next) {
-    sql.query("delete from sensor where idSensor=" + id, (err, rows) => {
-      if (err) {
-        result(err, rows);
-        return;
+    sql.query(
+      "delete from sensor where idSensor=" + sql.escape(id),
+      (err, rows) => {
+        if (err) {
+          result(err, rows);
+          return;
+        }
+        result(null, rows);
       }
-      result(null, rows);
-    });
+    );
   },
   //insert sensor into space
   sensorSpace(idSensor, idSpace, result) {
@@ -147,7 +215,9 @@ const crudSensor = {
   //get sensors that are inside a space
   getSensorsInSpace(idSpace, result) {
     sql.query(
-      `Select space.description as Division,sensor.*, sensor_space.active, house_space.idHouse from space,sensor_space,sensor, house_space where space.idSpace=${idSpace} and sensor_space.idSpace=space.idSpace and sensor.idSensor=sensor_space.idSensor and house_space.idSpace = space.idSpace`,
+      `Select space.description as Division,sensor.*, sensor_space.active, house_space.idHouse from space,sensor_space,sensor, house_space where space.idSpace=${sql.escape(
+        idSpace
+      )} and sensor_space.idSpace=space.idSpace and sensor.idSensor=sensor_space.idSensor and house_space.idSpace = space.idSpace`,
       (err, rows) => {
         if (err) {
           result(err, rows);
@@ -161,7 +231,9 @@ const crudSensor = {
   removeSensorSpace(idSensor, idSpace, result) {
     console.log(idSensor, idSpace);
     sql.query(
-      `Delete from sensor_space where idSpace=${idSpace} and idSensor=${idSensor}`,
+      `Delete from sensor_space where idSpace=${sql.escape(
+        idSpace
+      )} and idSensor=${sql.escape(idSensor)}`,
       (err, rows) => {
         if (err) {
           console.log(err);

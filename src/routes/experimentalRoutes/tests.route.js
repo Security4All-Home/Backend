@@ -42,4 +42,8 @@ router.get('/mr', (req, resp) => {
     })
 })
 
+router.get("/error", (req, res, next) => {
+    next({error: "error TEste!!!!"})
+}) 
+
 module.exports = router;

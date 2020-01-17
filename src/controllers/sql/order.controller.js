@@ -1,6 +1,33 @@
 const orderModel = require("../../models/sql/order.model");
 
 const orderCrud = {
+    getAll(req, res, next) {
+        try {
+            orderModel.getAll((err, data) => {
+                if(err) {
+                    next(err);
+                    return;
+                }
+
+                res.json({success: true, data: data})
+            })
+        } catch (err) {
+            next(err);
+        }
+    },
+    getById(req, res, next) {
+        try {
+            orderModel.getById(req.params.idOrder, (err, result) => {
+                if(err) {
+                    next(err);
+                    return;
+                }
+                res.json({success: true, data: result})
+            })
+        } catch(error) {
+            next(error)
+        }
+    },
     insertOrderPackage(req, res, next) {
         try {
             orderModel.insertOrderPackage(req.body, (err, data) => {

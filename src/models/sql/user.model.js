@@ -75,20 +75,32 @@ const userCrud = {
     },
 
     //TODO 
-    /*
     firstRegister({credit, name, username, password, email, nif, taxAdress, taxZipCode, contacto, idPackage,instalation, zipCode, local, adress}, result){
-        let query = `select price from package where idPackage= ${idPackage}  
+        let query1 = `declare pricePackage for select price from package where idPackage= ${idPackage}`
+/*  
         case price <= ${credit} then (
             insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
             insert into user_contact values (LAST_INSERT_ID(),${contacto} );
             insert into uZvFiNMuwF.order(date,idPackage, idUser, instalation,payed) values (CURRENT_TIMESTAMP(),(select MAX(idUser) from user), ${instalation},1);
             insert into house (zipCode, local, adress) values(${zipCode}, ${local}, ${adress});
             insert into user_house(zipCode, idUser) values(${zipCode},(select MAX(idUser) from user));)
-        end`
-
-        sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
+        end*/
+       /* sql.query(query1.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {
-                err.lalalalala = query.replace(/\n/g, "")
+                err.lalalalala = query1.replace(/\n/g, "")
+                result(err, rows);
+                return;
+            }
+            
+            result(null, rows);
+        });*/
+        let query2 = `${query1} if pricePackage <= ${credit} then (
+            insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
+           `
+
+        sql.query(query2.replace(/\n/g, ""), (err, rows, fields) => {
+            if (err) {
+                err.lalalalala = query2.replace(/\n/g, "")
                 result(err, rows);
                 return;
             }
@@ -96,13 +108,10 @@ const userCrud = {
             result(null, rows);
         });
 
-    },*/
+    },
     
     insertReview({text, idUser, idSensor, date}, result) {
-        let query = `insert into review 
-        (text, idUser, idSensor, date)
-        values
-        (${text}, ${idUser}, ${idSensor}, ${date});`
+        let query = `insert into review (text, idUser, idSensor, date) values (${text}, ${idUser}, ${idSensor}, ${date})`
 
         sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {
@@ -188,19 +197,23 @@ const userCrud = {
             result(null, rows);
         })
     },
-    update({iduser}, { name, username, password, idType, email, taxZipCode, telemovel, nif }, result) {
+    update({iduser}, { name, username, password, idType, email, taxAdress, taxZipCode, twoFactorAuth, disabled, points, credit, image }, result) {
         
         
         let query = "update user set "
 
-        if(name != undefined || name != null) query += "name = " + name + " " 
-        if(username != undefined || username != null) query += "username = " + username + " "
-        if(password != undefined || password != null) query += "password = " + password + " "
-        if(idType != undefined || idType !=null) query += "idType = " + idType  + " "
-        if(email != undefined || email != null) query += "email = " + email  + " "
-        if(taxZipCode != undefined || taxZipCode != null) query += "taxZipCode = " + taxZipCode + " " 
-        if(telemovel != undefined || telemovel != null) query += "telemovel = " + telemovel + " " 
-        if(nif != undefined || nif != null) query += "nif = " + nif + " "
+        if(name != undefined || name != null) query += "name = '" + name + "', " 
+        if(username != undefined || username != null) query += "username = '" + username + "', "
+        if(password != undefined || password != null) query += "password = '" + password + "', "
+        if(idType != undefined || idType !=null) query += "idType = '" + idType  + "', "
+        if(email != undefined || email != null) query += "email = '" + email  + "', "
+        if(taxAdress != undefined || taxAdress != null) query += "taxAdress = '" + taxAdress + "', " 
+        if(taxZipCode != undefined || taxZipCode != null) query += "taxZipCode = '" + taxZipCode + "', " 
+        if(twoFactorAuth != undefined || twoFactorAuth != null) query += "twoFactorAuth = '" + twoFactorAuth + "', " 
+        if(disabled != undefined || disabled != null) query += "disabled = '" + disabled + "', " 
+        if(points != undefined || points != null) query += "points = '" + points + "', " 
+        if(credit != undefined || credit != null) query += "credit = '" + credit + "', " 
+        if(image != undefined || image != null) query += "image = '" + image + "' "
 
         query += `where idUser = ${iduser}`
 
@@ -285,20 +298,6 @@ const userCrud = {
         })
     },
 
-    //update order's active state (0 or 1)   
-    deleteLogicOrder({idOrder},{active}, result) { 
-        let query = `update uZvFiNMuwF.order set active = ${active}` 
-        query += ` where idOrder = ${idOrder}`
-
-        sql.query(query, (err, rows, fields) => {
-            if(err) {
-                result(err, rows);
-                return;
-            }
-
-            result(null, rows);
-        })
-    },
 
     //update user's disable state (0 or 1)   
     deleteLogicUser({idUser},{disabled}, result) { 
@@ -399,8 +398,7 @@ const userCrud = {
          * Depois é melhor fazer um outro delete para realmente apagar o user.
          */
         let query = `
-        delete from user where idUser = ${iduser}
-        `;
+        delete from user where idUser = ${iduser}`;
 
         sql.query(query, (err, rows, fields) => {
             if(err) {

@@ -32,6 +32,7 @@ function createAccessToken(req) {
     let token = jwt.sign({
         auth: author, //autor do token
         agent: req.headers["user-agent"], //saber quem é o cliente(ex: browser)
+        idUser: req.idUser
     }, secretKey,accessSignOptions);
     return token;
 }
@@ -41,6 +42,7 @@ function createRefreshToken(req) {
     token = jwt.sign({
         auth: author, //autor do token
         agent: req.headers["user-agent"], //saber quem é o cliente(ex: browser)
+        idUser: req.idUser
     }, secretKey, refreshSignOptions);
 
     return token;

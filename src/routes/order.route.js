@@ -2,23 +2,25 @@ const router = require("express").Router();
 const orderController = require("../controllers/sql/order.controller");
 
 /** Get all orders  with sensors*/
-router.get("/withpackages", (req, res, next) => {
+router.get("/packages", (req, res, next) => {
     orderController.getOrdersWithPackages(req, res, next);
 })
 
 /** Get all orders with packages */
-router.get("/withsensors", (req, res, next) => {
+router.get("/sensors", (req, res, next) => {
     orderController.getOrdersWithSensors(req, res, next);
 })
 
 /** Get one order by id 
  * saber se a order tem package ou sensores e trabalhar com isso
 */
-router.get("/:id")
+router.get("/:idOrder", (req, res, next) => {
+    orderController.getById(req, res, next);
+})
 
 /**  view all orders */
 router.get("/", (req, res, next) => {
-
+    orderController.getAll(req, res, next);
 })
 /** Insert an order with a Package*/
 /**
@@ -46,31 +48,32 @@ router.post("/package", (req, res, next) => {
  *      produces:
  *          - application/json
  *      consumes:
- *          - apllication/json
+ *          - application/json
  *      parameters:
- *          - name: sensors
- *            in: body
+ *          - in: body
+ *            name: body
  *            required: true
  *            schema:
  *              type: object
  *              properties:
- *                sensors:
- *                     type: array
- *                     items:
- *                        type: object
- *                        properties:
- *                          idSensor:
- *                                  type: integer
- *                          quantity:
- *                                  type: integer
- *                idUser:
- *                      type: integer
- *                instalation: 
- *                      type: number
- *                payed:
- *                      type: number
- *                active:
- *                      type: number
+ *                       type: object
+ *                       sensors:
+ *                            type: array
+ *                            items:
+ *                               type: object
+ *                               properties:
+ *                                 idSensor:
+ *                                         type: integer
+ *                                 quantity:
+ *                                         type: integer
+ *                       idUser:
+ *                             type: integer
+ *                       instalation: 
+ *                             type: number
+ *                       payed:
+ *                             type: number
+ *                       active:
+ *                             type: number
  * 
  */
 // sensors, idUser, instalation, payed, active

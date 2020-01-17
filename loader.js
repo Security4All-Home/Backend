@@ -12,6 +12,9 @@ const sqlConnection = require("./src/sqlconnection");
 const app = require("./server")
 const port = process.env.PORT;
 
+process.on("beforeExit", () => {
+    console.log("SAIRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!")
+})
 server.use(app);
 
 server.listen(port, () => {

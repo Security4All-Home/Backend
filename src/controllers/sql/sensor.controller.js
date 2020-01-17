@@ -10,10 +10,16 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (error) {
-      res.status(400).json({ success: false, err: error });
+      res.status(400).json({
+        success: false,
+        err: error
+      });
     }
   },
   getAll(req, res, next) {
@@ -24,7 +30,10 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
@@ -38,7 +47,10 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
@@ -51,10 +63,68 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
+    }
+  },
+  // Get score by user
+  getScoreBySensor(req, res, next) {
+    try {
+      sensorModel.getScoreBySensor(req.params, (error, data) => {
+        if (error) {
+          next(error);
+          return;
+        }
+        res.json({
+          success: true,
+          data: data
+        })
+      })
+    } catch (err) {
+      next(err);
+      return;
+    }
+  },
+  // Get average by sensor id
+  getAverageBySensor(req, res, next) {
+    try {
+      sensorModel.getAverageBySensor(req.params, (error, data) => {
+        if (error) {
+          next(error);
+          return;
+        }
+        res.json({
+          success: true,
+          data: data
+        })
+      })
+    } catch (err) {
+      next(err);
+      return;
+    }
+  },
+  //add score 
+  addScore(req, res, next) {
+    try {
+        sensorModel.addScore(req.params, req.body, (err, data) => {
+            if (err) {
+                next(err);
+                return;
+            }
+
+            res.json({
+                success: true,
+                data: data
+            })
+        })
+    } catch (error) {
+        next(error);
+        return;
     }
   },
   getSensorHouse(req, res, next) {
@@ -64,7 +134,10 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
@@ -78,7 +151,10 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
@@ -91,7 +167,10 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
@@ -107,7 +186,10 @@ const crudSensor = {
             next(err);
             return;
           }
-          res.status(200).json({ success: true, data: data });
+          res.status(200).json({
+            success: true,
+            data: data
+          });
         }
       );
     } catch (err) {
@@ -121,7 +203,10 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
@@ -137,7 +222,10 @@ const crudSensor = {
             next(err);
             return;
           }
-          res.status(200).json({ success: true, data: data });
+          res.status(200).json({
+            success: true,
+            data: data
+          });
         }
       );
     } catch (err) {
@@ -151,7 +239,10 @@ const crudSensor = {
           next(err);
           return;
         }
-        res.status(200).json({ success: true, data: data });
+        res.status(200).json({
+          success: true,
+          data: data
+        });
       });
     } catch (err) {
       next(err);
@@ -163,7 +254,10 @@ const crudSensor = {
         req.query.idSensor,
         req.query.idSpace,
         (err, data) => {
-          res.status(200).json({ success: true, data: data });
+          res.status(200).json({
+            success: true,
+            data: data
+          });
         },
         next
       );
@@ -177,7 +271,10 @@ const crudSensor = {
       sensorModel.getSensorsInSpace(
         req.params.idSpace,
         (err, data) => {
-          res.status(200).json({ success: true, data: data });
+          res.status(200).json({
+            success: true,
+            data: data
+          });
         },
         next
       );
@@ -191,7 +288,10 @@ const crudSensor = {
         req.query.idSensor,
         req.query.idSpace,
         (err, data) => {
-          res.status(200).json({ success: true, data: data });
+          res.status(200).json({
+            success: true,
+            data: data
+          });
         },
         next
       );
@@ -205,7 +305,10 @@ const crudSensor = {
       sensorModel.getSensorsInSpace(
         req.params.idSpace,
         (err, data) => {
-          res.status(200).json({ success: true, data: data });
+          res.status(200).json({
+            success: true,
+            data: data
+          });
         },
         next
       );
@@ -220,7 +323,10 @@ const crudSensor = {
         req.query.idSensor,
         req.params.idSpace,
         (err, data) => {
-          res.status(200).json({ success: true, data: data });
+          res.status(200).json({
+            success: true,
+            data: data
+          });
         },
         next
       );

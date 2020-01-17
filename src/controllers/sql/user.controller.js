@@ -78,7 +78,7 @@ const userCrud = {
         }
     },
 
-    /*
+  
     firstRegister(req, res, next) {
         try {
             userModel.firstRegister(req.body, (error, data) => {
@@ -97,7 +97,7 @@ const userCrud = {
             return;
         }
     },
-    */
+    
     
     insertReview(req, res, next) {
         try {
@@ -272,25 +272,6 @@ const userCrud = {
         }
     },
 
-    //update order's active state (0 or 1)   
-    deleteLogicOrder(req, res, next) {
-        try {
-            userModel.deleteLogicOrder(req.params, req.body, (err, data) => {
-                if (err) {
-                    next(err);
-                    return;
-                }
-
-                res.json({
-                    success: true,
-                    data: data
-                })
-            })
-        } catch (error) {
-            next(error);
-            return;
-        }
-    },
 
     //update user's disable state (0 or 1) 
     deleteLogicUser(req, res, next) {
