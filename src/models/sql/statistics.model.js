@@ -39,7 +39,7 @@ const crudStatistics = {
   },
   ordersToPay(req, res, result) {
     sql.query(
-      "Select Count(payed) as Orders_Payed from `order` where `order`.payed=0",
+      "Select Count(payed) as Orders_To_Pay from `order` where `order`.payed=0",
       (err, rows, fields) => {
         if (err) {
           result(err, rows);
