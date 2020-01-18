@@ -207,6 +207,29 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  *            400:
  *              description: Erro ao ir buscar as reviews do user
  * 
+ * /user/firstRegister:
+ *      post:
+ *        tags:
+ *            - user
+ *        summary: Adiciona um novo user
+ *        operationId: firstRegister
+ *        description: Adiciona um novo user verificando se o valor que este pretende inserir corresponte ao valor do pacote selecionado
+ *        consumes:
+ *            - application/json
+ *        produces:
+ *            - application/json
+ *        parameters:
+ *            - in: body
+ *              name: review
+ *              description: add review
+ *              schema:
+ *                $ref: '#/definitions/NewUser'
+ *        responses:
+ *          200:
+ *            description: item created
+ *          400:
+ *            description:invalid input, object invalid
+ * 
  * /user/insert/review:
  *      post:
  *        tags:
@@ -445,8 +468,58 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  *      credit:
  *        type: number
  *        example: 10 
- * 
- */
+ *  NewUser:
+ *    type: Object
+ *    properties:
+ *      credit:
+ *        type: number
+ *        example: 400 
+ *      name:
+ *        type: string
+ *        example: "'Alberto'"
+ *      username:
+ *        type: string
+ *        example: "'AlbertoJJ'" 
+ *      password:
+ *        type: string
+ *        example: "'1234d7'" 
+ *      email:
+ *        type: string
+ *        example: "'alberto'"
+ *      nif:
+ *        type: integer
+ *        example: 222333444 
+ *      taxAdress:
+ *        type: string
+ *        example: "'Rua do Alberto'"
+ *      taxZipCode:
+ *        type: string
+ *        example: "'1234568a'"
+ *      contacto:
+ *        type: integer
+ *        example: 919191919
+ *      idPackage:
+ *        type: integer
+ *        example: 1
+ *      instalation:
+ *        type: integer
+ *        example: 1
+ *      zipCode:
+ *        type: string
+ *        example: "'12345678a'"
+ *      local:
+ *        type: string
+ *        example: "'Local'"
+ *      adress:
+ *        type: string
+ *        example: "'Rua do Alberto'" 
+ *      active:
+ *        type: integer
+ *        example: 1
+ *      instaled:
+ *        type: integer
+ *        example: 0  
+ *  */
 
 
 router.get('/', (req, res, next) => {
