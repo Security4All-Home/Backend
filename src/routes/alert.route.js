@@ -1,5 +1,6 @@
 const route = require("express").Router();
 const alertController = require("../controllers/mongo/alert.controller");
+const {  verifyToken } = require("../middlewares/auth.middleware");
 /**
  *
  * @swagger
@@ -86,28 +87,28 @@ const alertController = require("../controllers/mongo/alert.controller");
  *        example: warning
  */
 
-route.post("/", (req, res, next) => {
+route.post("/",  verifyToken, (req, res, next) => {
   alertController.addAlert(req, res, next);
 }); //Feito
-route.get("/", (req, res, next) => {
+route.get("/",  verifyToken, (req, res, next) => {
   alertController.getAlerts(req, res, next);
 }); //Feito
-route.get("/:id", (req, res, next) => {
+route.get("/:id",  verifyToken, (req, res, next) => {
   alertController.getAlertById(req, res, next);
 }); //Feito
-route.get("/users/:id", (req, res, next) => {
+route.get("/users/:id",  verifyToken, (req, res, next) => {
   alertController.getAlertByUser(req, res, next);
 }); //Feito
-route.get("/users/:idUser/houses/:idHouse", (req, res, next) => {
+route.get("/users/:idUser/houses/:idHouse",  verifyToken, (req, res, next) => {
   alertController.getAlertByHouse(req, res, next);
 }); //Feito
 route.get(
-  "/users/:idUser/houses/:idHouse/spaces/:idSpace",
+  "/users/:idUser/houses/:idHouse/spaces/:idSpace", verifyToken, 
   (req, res, next) => {
     alertController.getAlertBySpace(req, res, next);
   }
 ); //Feito
-route.delete("/:id", (req, res, next) => {
+route.delete("/:id",  verifyToken, (req, res, next) => {
   alertController.removeAlert(req, res, next);
 }); //Feito
 module.exports = route;

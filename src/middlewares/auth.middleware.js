@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const ourJwt = require("../assets/scripts/jwt");
 module.exports = {
     verifyToken(req, res, next) {
         try {
@@ -7,12 +8,13 @@ module.exports = {
          * Verificar 
          */
             let token = req.headers['x-access-token'];
-            // console.log(req.cookies)
-            // console.log(req.headers)
-
+            console.log(req.cookies)
+            console.log(req.headers)
+            console.log(token, "TOKEN!!!!!!!!!!!!")
             let decodedToken = jwt.decode(token)
             console.log(decodedToken, "TOKEN")
-            if (token) {
+            let valid = ourJwt.validateToken(token)
+            if (valid) {
                 next();
             }
             else {
@@ -20,7 +22,8 @@ module.exports = {
                 next({ type: "JWT", error: "missing token" })
             }
         } catch (err) {
-            next({ type: "JWT", error: "Ocorreu um erro ao ler o token" });
+            if (err.message == undefined) next({ type: "JWT", error: "Ocorreu um erro ao ler o token" });
+            else next({ type: "JWT", error: err.message });
         }
     }
 }

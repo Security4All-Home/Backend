@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const sensorController = require("../controllers/sql/sensor.controller");
+const {  verifyToken,  } = require("../middlewares/auth.middleware");
 
 //Create
 /**Insert a sensor */
@@ -364,7 +365,7 @@ const sensorController = require("../controllers/sql/sensor.controller");
 
 //Create
 /**Insert a sensor */
-router.post("/", (req, res, next) => {
+router.post("/", verifyToken, (req, res, next) => {
   console.log("Foste Convocado");
   sensorController.addSensor(req, res, next);
 }); //Feito
@@ -377,7 +378,7 @@ router.get("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   sensorController.getByID(req, res, next);
 }); //Feito
-router.get("/house/:idHouse", (req, res, next) => {
+router.get("/house/:idHouse",  verifyToken, (req, res, next) => {
   sensorController.getSensorHouse(req, res, next);
 }); //Feito
 //ReadBYCategory
@@ -393,36 +394,36 @@ router.get("/score/:idUser", (req, res, next) => {
   sensorController.getScoreByUser(req, res, next);
 }); 
 //get average by sensor id 
-router.get("/score/average/:idSensor", (req, res, next) => {
+router.get("/score/average/:idSensor",  verifyToken, (req, res, next) => {
   sensorController.getAverageBySensor(req, res, next);
 }); 
 /** add score  */
-router.post('/score', (req, res, next) => {
+router.post('/score',  verifyToken, (req, res, next) => {
   sensorController.addScore(req, res, next);
 })
 //Update Stock
-router.put("/stock", (req, res, next) => {
+router.put("/stock",  verifyToken, (req, res, next) => {
   sensorController.updateSensorStock(req, res, next);
 }); //Feito
 //Update
-router.put("/:id", (req, res, next) => {
+router.put("/:id",  verifyToken, (req, res, next) => {
   sensorController.updateByID(req, res, next);
 }); //Feito
 //Update State of sensor
-router.put("/:idSensor/spaces/:idSpace", (req, res, next) => {
+router.put("/:idSensor/spaces/:idSpace",  verifyToken, (req, res, next) => {
   sensorController.updateSensorState(req, res, next);
 }); //Feito
 //Delete
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id",  verifyToken, (req, res, next) => {
   sensorController.deleteByID(req, res, next);
 }); //Feito
-router.post("/space", (req, res, next) => {
+router.post("/space",  verifyToken, (req, res, next) => {
   sensorController.sensorSpace(req, res, next);
 }); //Feito
-router.get("/space/:idSpace", (req, res, next) => {
+router.get("/space/:idSpace", verifyToken,  (req, res, next) => {
   sensorController.getSensorSpace(req, res, next);
 }); //Feito
-router.delete("/space/:idSpace", (req, res, next) => {
+router.delete("/space/:idSpace",  verifyToken, (req, res, next) => {
   console.log("req", req.query.idSensor);
   sensorController.removeSensorSpace(req, res, next);
 }); //Feito

@@ -429,6 +429,24 @@ const userCrud = {
             return;
         }
     },
+    //get review by sensor
+    getReviewBySensor(req, res, next) {
+        try {
+            userModel.getReviewBySensor(req.params, (error, data) => {
+                if (error) {
+                    next(error);
+                    return;
+                }
+                res.json({
+                    success: true,
+                    data: data
+                })
+            })
+        } catch (err) {
+            next(err);
+            return;
+        }
+    }
 
 }
 

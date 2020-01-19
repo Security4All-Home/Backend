@@ -207,6 +207,48 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  *            400:
  *              description: Erro ao ir buscar as reviews do user
  * 
+ * /user/review/sensor/{idSensor}:
+ *      get:
+ *          tags:
+ *              - user
+ *          summary: Get Review by Sensor 
+ *          operationId: getReviewBySensor
+ *          description: Lista as reviews correspondente ao id do sensor inserido
+ *          produces:
+ *            - application/json
+ *          parameters:
+ *            - name: idSensor
+ *              in: path
+ *              required: true
+ *          responses:
+ *            200:
+ *              description: Todas as reviews do sensor
+ *            400:
+ *              description: Erro ao ir buscar as reviews do sensor
+ * 
+ * /user/firstRegister:
+ *      post:
+ *        tags:
+ *            - user
+ *        summary: Adiciona um novo user
+ *        operationId: firstRegister
+ *        description: Adiciona um novo user verificando se o valor que este pretende inserir corresponte ao valor do pacote selecionado
+ *        consumes:
+ *            - application/json
+ *        produces:
+ *            - application/json
+ *        parameters:
+ *            - in: body
+ *              name: review
+ *              description: add review
+ *              schema:
+ *                $ref: '#/definitions/NewUser'
+ *        responses:
+ *          200:
+ *            description: item created
+ *          400:
+ *            description:invalid input, object invalid
+ * 
  * /user/insert/review:
  *      post:
  *        tags:
@@ -445,57 +487,107 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  *      credit:
  *        type: number
  *        example: 10 
- * 
- */
+ *  NewUser:
+ *    type: Object
+ *    properties:
+ *      credit:
+ *        type: number
+ *        example: 400 
+ *      name:
+ *        type: string
+ *        example: "'Alberto'"
+ *      username:
+ *        type: string
+ *        example: "'AlbertoJJ'" 
+ *      password:
+ *        type: string
+ *        example: "'1234d7'" 
+ *      email:
+ *        type: string
+ *        example: "'alberto'"
+ *      nif:
+ *        type: integer
+ *        example: 222333444 
+ *      taxAdress:
+ *        type: string
+ *        example: "'Rua do Alberto'"
+ *      taxZipCode:
+ *        type: string
+ *        example: "'1234568a'"
+ *      contacto:
+ *        type: integer
+ *        example: 919191919
+ *      idPackage:
+ *        type: integer
+ *        example: 1
+ *      instalation:
+ *        type: integer
+ *        example: 1
+ *      zipCode:
+ *        type: string
+ *        example: "'12345678a'"
+ *      local:
+ *        type: string
+ *        example: "'Local'"
+ *      adress:
+ *        type: string
+ *        example: "'Rua do Alberto'" 
+ *      active:
+ *        type: integer
+ *        example: 1
+ *      instaled:
+ *        type: integer
+ *        example: 0  
+ *  */
 
 
-router.get('/', (req, res, next) => {
+router.get('/', verifyToken,(req, res, next) => {
     userController.getAll(res, next)
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', verifyToken,(req, res, next) => {
     userController.insert(req, res, next);
 })
 router.post('/firstRegister', (req, res, next) => {
     userController.firstRegister(req, res, next);
 })
 
-router.put('/:iduser', (req, res, next) => {
+router.put('/:iduser', verifyToken,(req, res, next) => {
     userController.update(req, res, next)
 })
 
 // Delete from BD of a unverified user
-router.delete('/:iduser', (req, res, next) => {
+router.delete('/:iduser',verifyToken, (req, res, next) => {
     userController.delete(req, res, next);
 })
 
 // Get by ID
-router.get('/:id', (req, res, next) => {
+router.get('/:id', verifyToken,(req, res, next) => {
     userController.getById(req, res, next)
 })
 
 // Get user type by id
-router.get('/type/:id', (req, res, next) => {
+router.get('/type/:id', verifyToken,(req, res, next) => {
     userController.getUserType(req, res, next)
 })
 
 /** Get Users by house */
-router.get('/house/:zipCode', (req, res, next) => {
+router.get('/house/:zipCode',verifyToken, (req, res, next) => {
     userController.getUsersByHouse(req, res, next);
 })
 
 /** Get Sensors by User */
-router.get('/sensors/:id', (req, res, next) => {
+router.get('/sensors/:id', verifyToken,(req, res, next) => {
     userController.getSensorByUser(req, res, next);
 })
 
 /** Get Spaces by User */
-router.get('/spaces/:id', (req, res, next) => {
+router.get('/spaces/:id',verifyToken, (req, res, next) => {
     userController.getEspacosByUser(req, res, next);
 })
 
 /** Get Package by User */
-router.get('/package/:id', (req, res, next) => {
+router.get('/package/:id', verifyToken,(req, res, next) => {
     userController.getPackageByUser(req, res, next);
 })
 
@@ -504,53 +596,58 @@ router.get('/review/:id', (req, res, next) => {
     userController.getReviewByUser(req, res, next);
 })
 
+/** Get Review by Sensor */
+router.get('/review/sensor/:idSensor', (req, res, next) => {
+    userController.getReviewBySensor(req, res, next);
+})
+
 /** Insert Review */
-router.post('/insert/review', (req, res, next) => {
+router.post('/insert/review', verifyToken,(req, res, next) => {
     userController.insertReview(req, res, next);
 })
 
 /** Update User Houses */
-router.put('/updateHouses/:zipCode', (req, res, next) => {
+router.put('/updateHouses/:zipCode', verifyToken,(req, res, next) => {
     userController.updateUserHouses(req, res, next)
 })
 
 /** Update Sensor */
-router.put('/updateSensor/:idSensor', (req, res, next) => {
+router.put('/updateSensor/:idSensor', verifyToken,(req, res, next) => {
     userController.updateSensor(req, res, next)
 })
 
 /** Add sensor to space */
-router.post('/addSensorSpace', (req, res, next) => {
+router.post('/addSensorSpace', verifyToken,(req, res, next) => {
     userController.addSensorToSpace(req, res, next);
 })
 
 /** update order to paid */
-router.put('/updatePaidOrder/:idOrder', (req, res, next) => {
+router.put('/updatePaidOrder/:idOrder', verifyToken,(req, res, next) => {
     userController.updateOrderPayment(req, res, next);
 })
 
 /** update user's disable state (0 or 1) */
-router.put('/deleteLogic/:idUser', (req, res, next) => {
+router.put('/deleteLogic/:idUser',verifyToken, (req, res, next) => {
     userController.deleteLogicUser(req, res, next);
 })
 
 /** //update user type (1-Admin or 2-User) */
-router.put('/editUserType/:idUser', (req, res, next) => {
+router.put('/editUserType/:idUser', verifyToken,(req, res, next) => {
     userController.editUserType(req, res, next);
 })
 
 /** verify user */
-router.put('/verify/:idUser', (req, res, next) => {
+router.put('/verify/:idUser', verifyToken,(req, res, next) => {
     userController.verifyUser(req, res, next);
 })
 
 /** Add credits to user by id*/
-router.put('/addCredit/:idUser', (req, res, next) => {
+router.put('/addCredit/:idUser', verifyToken,(req, res, next) => {
     userController.addCreditToUser(req, res, next);
 })
 
 /** take credits from an user by id*/
-router.put('/takeCredit/:idUser', (req, res, next) => {
+router.put('/takeCredit/:idUser', verifyToken,(req, res, next) => {
     userController.takeCreditsFromUser(req, res, next);
 })
 
