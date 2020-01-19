@@ -116,7 +116,7 @@ const userCrud = {
                 result(err1, rows1);
                 return;
             }
-            if (rows1[0].price < credit) {
+            if (rows1[0].price <= credit) {
                 let query2 = `insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
                 insert into house (zipCode, local, adress) values(${zipCode}, ${local}, ${adress});`;
                 sql.query(query2.replace(/\n/g, ""), (err2, rows2, fields) => {

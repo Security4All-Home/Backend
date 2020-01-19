@@ -104,7 +104,7 @@ server.get("/home", (req, res) => {
   // res.send(`
   //   <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
   //   `);
-  res.json({ asda: "ad" });
+  res.json({ asda: "ad", documentcaoOnline: "https://sec4allapp.herokuapp.com/api-docs/",  documentacaoLocal: "http://localhost:8002/api-docs"});
 });
 
 server.get("/teste", (req, res) => {
