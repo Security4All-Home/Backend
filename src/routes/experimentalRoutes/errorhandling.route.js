@@ -24,15 +24,15 @@ function errorHandler(err, req, res, next) {
                 status: 400 //For now it's always this code
             }
             customError = diferenciateErrors(err, customError);
-            console.log(contumeError, "costumeError!!!")
+            console.log(customError, "costumeError!!!")
             // console.log(typeof err, "typeof err!!!")
             logsToDatabase("error testing", "Estes erros vão para aqui mas são só para testar") //Depois vou mudar o type
-            res.status(customError.status).json({ success: false, error: customError.msg, err: err.error })
+            res.status(customError.status).json({ success: false, error: customError.msg, err: customError.error || customError.msg })
         }
         else next();
 
-    } catch (err) {
-        res.json({ success: false, msg: "Internal server error", error: err })
+    } catch (catchedErr) {
+        res.json({ success: false, msg: "Internal server error", error: catchedErr })
     }
 }
 
@@ -40,45 +40,53 @@ function diferenciateErrors(err, custom) {
     /** Depois talvez se possa usar um Switch
      * We have to make custom errors for the user, for the log file, (more to come?)
      */
+    try {
 
-    if (err.sql != undefined) {
-        let queryType = err.sql.split(" ");
+        if (err.sql != undefined) {
+            let queryType = err.sql.split(" ");
 
-        switch (queryType[0].toUpperCase()) {
-            case "SELECT":
-                custom.msg = "There was an error retrieving your data!"
-                break;
-            case "UPDATE":
-                custom.msg = "There was an error updating your data!"
-                break;
+            switch (queryType[0].toUpperCase()) {
+                case "SELECT":
+                    custom.msg = "There was an error retrieving your data!"
+                    break;
+                case "UPDATE":
+                    custom.msg = "There was an error updating your data!"
+                    break;
 
-            case "DELETE":
-                custom.msg = "There was an error deleting what you want xD!"
-                break;
+                case "DELETE":
+                    custom.msg = "There was an error deleting what you want xD!"
+                    break;
 
-            case "INSERT":
-                custom.msg = "There was an error inserting your data!"
-                break;
+                case "INSERT":
+                    custom.msg = "There was an error inserting your data!"
+                    break;
+            }
         }
-    }
-
-    /** Fazer a mesma coisa para os diferentes tipos de erros que tivermos */
-    if (JSON.stringify(err).includes('jwt') || JSON.stringify(err).includes('Token')) {
-        custom.msg = "ERrro no JWT";
-    }
-    
-    if (err.type != undefined) {
-        if (err.type.toUpperCase() = "JWT") {
-            custom.msg = "Erro No JWT!!!"
+        /** Fazer a mesma coisa para os diferentes tipos de erros que tivermos */
+        if (JSON.stringify(err).includes('jwt') || JSON.stringify(err).includes('Token')) {
+            custom.msg = "ERrro no JWT";
         }
-    }
 
-    if (err.custom) {
-        custom.msg = err.error;
-        console.log("erro apanhado no middleware confirm values");
-    }
+        if (err.type != undefined) {
 
-    return custom;
+            if (err.type.toUpperCase() == "JWT") {
+                custom.msg = "Erro No JWT!!!"
+            }
+        }
+
+
+
+        if (err.custom) {
+            custom.msg = err.error;
+            console.log("erro apanhado no middleware confirm values");
+        }
+        console.log(custom, "FUNCIONAAAAAAAAAAAAAAAA!!!!")
+
+
+        return custom;
+    } catch (err) {
+        throw err;
+    }
 }
 
 /** O model dos erros vai ficar aqui */
