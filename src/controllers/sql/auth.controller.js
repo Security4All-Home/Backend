@@ -27,10 +27,11 @@ const authCtrl = {
                     let token = jwt.createAccessToken(req);
                     console.log(token);
                     res.cookie('token', token, {
-                        httpOnly: true
+                        // httpOnly: true
+                        maxAge: 999999
                     })
                     res.header("Access-Control-Allow-Origin", "*");
-                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,x-access-token");
+                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,X-Access-Token");
                     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
                     res.set('x-access-token', token)
                     res.json({ success: true, data: user });
