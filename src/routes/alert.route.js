@@ -74,88 +74,13 @@ const alertController = require("../controllers/mongo/alert.controller");
  *          description: Alerta removido com sucesso
  *        400:
  *          description: Erro ao remover o Alerta
- *  /alerts/users/{id}:
- *    get:
- *      tags:
- *        - alerts
- *      summary: Vai buscar os alertas de um user
- *      operationId: GetAlertsByUser
- *      description: Vai buscar os alertas pertencentes ao user com o id que introduzirmos no path
- *      produces:
- *        - application/json
- *      parameters:
- *        - in: path
- *          name: id
- *          required: true
- *      responses:
- *        200:
- *          description: Alertas do utilizador encontrados com sucesso com sucesso
- *        400:
- *          description: Erro ao procurar os Alertas
- *  /alerts/users/{idUser}/houses/{idHouse}:
- *    get:
- *      tags:
- *        - alerts
- *      summary: Vai buscar os alertas de uma casa de um utilizador
- *      operationId: GetAlertsByUserHouse
- *      description: Vai buscar todos os alertas que estão relacionados com uma das casas de um utilizador
- *      produces:
- *        - application/json
- *      parameters:
- *        - in: path
- *          name: idUser
- *          required: true
- *        - in: path
- *          name: idHouse
- *          required: true
- *      responses:
- *        200:
- *          description: Alertas do utilizador encontrados com sucesso com sucesso
- *        400:
- *          description: Erro ao procurar os alertas
- *  /alerts/users/{idUser}/houses/{idHouse}/spaces/{idSpace}:
- *    get:
- *      tags:
- *        - alerts
- *      summary: Vai buscar os alertas de um espaço de uma casa de um utilizador
- *      operationId: GetAlertsByUserHouseSpace
- *      description: Vai buscar todos os alertas que estão relacionados com o espaço de uma das casas de um utilizador
- *      produces:
- *        - application/json
- *      parameters:
- *        - in: path
- *          name: idUser
- *          required: true
- *        - in: path
- *          name: idHouse
- *          required: true
- *        - in: path
- *          name: idSpace
- *          required: true
- *      responses:
- *        200:
- *          description: Alertas do utilizador encontrados com sucesso com sucesso
- *        400:
- *          description: Erro ao procurar os alertas
  * definitions:
  *  AlertItem:
  *    type: object
  *    properties:
- *      idUser:
- *        type: integer
- *        example: 2
- *      idHouse:
- *        type: integer
- *        example: 222
- *      idSpace:
- *        type: integer
- *        example: 8
- *      idAlerta:
- *        type: integer
- *        example: 1
  *      alertText:
  *        type: string
- *        example: Este alerta é para quando um Alerta começa a dar valores estranhos
+ *        example: O sensor de fumo ficou sem stock
  *      alertType:
  *        type: String
  *        example: warning
