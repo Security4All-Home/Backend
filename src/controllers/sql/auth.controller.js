@@ -13,8 +13,8 @@ const authCtrl = {
                     return;
                 }
                 console.log(user)
-                if(user.length == 0) {
-                    next({error: "Não foi encontrado o user"})
+                if (user.length == 0) {
+                    next({ error: "Não foi encontrado o user" })
                 }
                 user = user[0]
                 req.idUser = user.idUser
@@ -29,6 +29,9 @@ const authCtrl = {
                     res.cookie('token', token, {
                         httpOnly: true
                     })
+                    res.header("Access-Control-Allow-Origin", "*");
+                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,x-access-token");
+                    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
                     res.set('x-access-token', token)
                     res.json({ success: true, data: user });
                 } else {
