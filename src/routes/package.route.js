@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const packageController = require("../controllers/sql/package.controller");
+const { verifyToken } = require("../middlewares/auth.middleware");
 /**
  * @swagger
  * paths:
@@ -136,12 +137,12 @@ const packageController = require("../controllers/sql/package.controller");
  *        examples: 24.99
  */  
 //Create package
-router.post("/", (req, res, next) => {
+router.post("/", verifyToken, (req, res, next) => {
   packageController.addPackage(req, res, next);
 });
 
 //Add Sensor List to Package
-router.post("/sensor/:idPackage", (req, res, next) => {
+router.post("/sensor/:idPackage", verifyToken, (req, res, next) => {
   packageController.addSensorToPackage(req,res,next);
 })
 
@@ -154,15 +155,15 @@ router.get("/:id", (req, res, next) => {
   packageController.getByID(req, res, next);
 });
 //Update package
-router.put("/:id", (req, res, next) => {
+router.put("/:id",  verifyToken, (req, res, next) => {
   packageController.updateByID(req, res, next);
 });
 //Delete package
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id",  verifyToken, (req, res, next) => {
   packageController.deleteByID(req, res, next);
 });
 //Remove sensor from package
-router.delete("/package/:idPackage", (req, res, next) => {
+router.delete("/package/:idPackage",  verifyToken, (req, res, next) => {
   console.log("req", req.query.idSensor);
   packageController.removeSensorFromPackage(req, res, next);
 });

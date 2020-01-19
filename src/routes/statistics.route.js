@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const statisticsController = require("../controllers/sql/statistics.controller");
+const {  verifyToken } = require("../middlewares/auth.middleware");
+
 /**
  * @swagger
  * paths:
@@ -108,7 +110,7 @@ const statisticsController = require("../controllers/sql/statistics.controller")
  *          400:
  *            description: Erro ao realizar esta operação
  */
-router.get("/numUsers", (req, res, next) => {
+router.get("/numUsers",  (req, res, next) => {
   statisticsController.numberOfUsers(req, res, next);
 });
 
@@ -116,11 +118,11 @@ router.get("/numSensorsSold", (req, res, next) => {
   statisticsController.numberOfSensorsSold(req, res, next);
 });
 
-router.get("/installation", (req, res, next) => {
+router.get("/installation",  verifyToken, (req, res, next) => {
   statisticsController.installationRequests(req, res, next);
 });
 
-router.get("/ordersToPay", (req, res, next) => {
+router.get("/ordersToPay",  verifyToken, (req, res, next) => {
   statisticsController.ordersToPay(req, res, next);
 });
 
@@ -132,7 +134,7 @@ router.get("/avgSensor", (req, res, next) => {
   statisticsController.avgSensorForHouse(req, res, next);
 });
 
-router.get("/usersToValidate", (req, res, next) => {
+router.get("/usersToValidate", verifyToken,  (req, res, next) => {
   statisticsController.usersToValidate(req, res, next);
 });
 

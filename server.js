@@ -34,7 +34,7 @@ const arduinoRoute = require(generalRoutesPath + "arduino.route");
 const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
 const confirmMiddleware = require(ourMiddlewarePath +
   "confirmValues.middleware.js");
-const authMiddleware = require(ourMiddlewarePath + "auth.middleware.js");
+const { verifyToken } = require(ourMiddlewarePath + "auth.middleware.js");
 //const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
 
 /** Middlewares */
@@ -81,15 +81,15 @@ server.use(confirmMiddleware);
 /** Paths */
 server.use("/auth", authRoute);
 
-server.use("/order", orderRoute);
-server.use("/category", categoryRoute);
-server.use("/achievement", achievementsRoute);
-server.use("/sensors", sensorRoute);
-server.use("/user", userRoute);
-server.use("/packages", packageRoute);
-server.use("/alerts", alertRoute);
-server.use("/house", houseRoute);
-server.use("/arduino", arduinoRoute);
+server.use("/order", verifyToken, orderRoute);
+server.use("/category", categoryRoute); //
+server.use("/achievement", achievementsRoute); //
+server.use("/sensors", sensorRoute); //
+server.use("/user", userRoute); //
+server.use("/packages", packageRoute); //
+server.use("/alerts", alertRoute); //
+server.use("/house", houseRoute); // 
+server.use("/arduino", arduinoRoute); //
 server.use("/statistics", statisticRoute);
 /**
  * @swagger

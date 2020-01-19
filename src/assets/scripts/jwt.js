@@ -48,24 +48,26 @@ function createRefreshToken(req) {
     return token;
 }
 
-function validateToken(req, res, next) {
-    let token = req.headers.authorization;
-    if (token == "" || token == null) return next({ next: "Token não existe." });
+function validateToken(token, next) {
+    if (token == "" || token == null || token == undefined) return false;
 
     try {
         let legitToken = jwt.verify(token, secretKey, accessVerifyOptions); //verifica a legitimidade do token
 
-        if (legitToken.iat > legitToken.exp) next({ error: "Token expirado!" }); //verifica o tempo que passou desde a criação do token
+        if (legitToken.iat > legitToken.exp) {
+            throw new Error({ error: "Token expirado!" });
+        } //verifica o tempo que passou desde a criação do token
 
-        if (legitToken && legitToken.auth == author) { //verifica o autor do token
-            res.setHeader("Authorization", createAccessToken(req));
-            return next(req, res);
-        }
-        else next({ error: "Erro! O autor é diferente!" })
+        // if (legitToken && legitToken.auth == author) { //verifica o autor do token
+        //     res.setHeader("Authorization", createAccessToken(req));
+        //     return next(req, res);
+        // }
+        // else next({ error: "Erro! O autor é diferente!" }
+        return true;
     }
     catch (err) {
-        console.log(err)
-        next(err);
+        console.log(err, "RORORORORORO")
+        throw err;
     }
 }
 
