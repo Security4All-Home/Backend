@@ -22,7 +22,9 @@ const authCtrl = {
                 if (bcrypt.compareSync(req.body.password, user.password)) {
                     let token = jwt.createAccessToken(req);
                     console.log(token);
-                    res.cookie('token', token)
+                    res.cookie('token', token, {
+                        httpOnly: true
+                    })
                     res.set('x-access-token', token)
                     res.json({ success: true, data: user });
                 } else {
