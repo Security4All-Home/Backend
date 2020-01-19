@@ -207,6 +207,25 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  *            400:
  *              description: Erro ao ir buscar as reviews do user
  * 
+ * /user/review/sensor/{idSensor}:
+ *      get:
+ *          tags:
+ *              - user
+ *          summary: Get Review by Sensor 
+ *          operationId: getReviewBySensor
+ *          description: Lista as reviews correspondente ao id do sensor inserido
+ *          produces:
+ *            - application/json
+ *          parameters:
+ *            - name: idSensor
+ *              in: path
+ *              required: true
+ *          responses:
+ *            200:
+ *              description: Todas as reviews do sensor
+ *            400:
+ *              description: Erro ao ir buscar as reviews do sensor
+ * 
  * /user/firstRegister:
  *      post:
  *        tags:
@@ -575,6 +594,11 @@ router.get('/package/:id', (req, res, next) => {
 /** Get Review by User */
 router.get('/review/:id', (req, res, next) => {
     userController.getReviewByUser(req, res, next);
+})
+
+/** Get Review by Sensor */
+router.get('/review/sensor/:idSensor', (req, res, next) => {
+    userController.getReviewBySensor(req, res, next);
 })
 
 /** Insert Review */

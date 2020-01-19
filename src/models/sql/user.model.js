@@ -253,6 +253,21 @@ const userCrud = {
             result(null, rows);
         })
     },
+    getReviewBySensor({
+        idSensor
+    }, result) {
+        let query = `select review.* from review 
+        where review.idSensor = ${idSensor}`;
+
+        sql.query(query, (err, rows, fields) => {
+            if (err) {
+                result(err, rows);
+                return;
+            }
+
+            result(null, rows);
+        })
+    },
     update({
         iduser
     }, {
