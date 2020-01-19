@@ -12,6 +12,10 @@ const authCtrl = {
                     next(err);
                     return;
                 }
+                console.log(user)
+                if(user.length == 0) {
+                    next({error: "Não foi encontrado o user"})
+                }
                 user = user[0]
                 req.idUser = user.idUser
                 if (user == undefined) {
