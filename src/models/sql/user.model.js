@@ -117,8 +117,8 @@ const userCrud = {
                 return;
             }
             if (rows1[0].price <= credit) {
-                let query2 = `insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
-                insert into house (zipCode, local, adress) values(${zipCode}, ${local}, ${adress});`;
+                let query2 = `insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values ('${name}','${username}','${password}','${email}',${nif},'${taxAdress}','${taxZipCode}',${credit});
+                insert into house (zipCode, local, adress) values('${zipCode}', '${local}', '${adress}');`;
                 sql.query(query2.replace(/\n/g, ""), (err2, rows2, fields) => {
                     if (err2) {
                         result(err2, rows2);
@@ -134,7 +134,7 @@ const userCrud = {
                         let date = new Date().toISOString().split('T').join(' ').split('.')[0];
                         let query4 = `  
                             insert into user_contact values (` + lastInsertedId + `, ${contacto});
-                            insert into user_house(zipCode, idUser) values(${zipCode},` + lastInsertedId + `);
+                            insert into user_house(zipCode, idUser) values('${zipCode}',` + lastInsertedId + `);
                             insert into uZvFiNMuwF.order(date, idPackage, idUser, instalation, payed, active, instaled) values ('`+date+`',${idPackage},` + lastInsertedId + `, ${instalation},1, ${active}, ${instaled});`
                         sql.query(query4.replace(/\n/g, ""), (err4, rows4, fields) => {
                             if (err4) {
