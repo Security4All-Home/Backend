@@ -35,6 +35,7 @@ const testMiddleware = require(ourMiddlewarePath + "test/test.mid.js");
 const confirmMiddleware = require(ourMiddlewarePath +
   "confirmValues.middleware.js");
 const { verifyToken } = require(ourMiddlewarePath + "auth.middleware.js");
+
 //const sanitizerMiddleware = require(ourMiddlewarePath + "sanitizer.middleware")
 
 /** Middlewares */
@@ -81,7 +82,7 @@ server.use(confirmMiddleware);
 /** Paths */
 server.use("/auth", authRoute);
 
-server.use("/order", verifyToken, orderRoute);
+server.use("/order"/*/*verifyToken*/, orderRoute);
 server.use("/category", categoryRoute); //
 server.use("/achievement", achievementsRoute); //
 server.use("/sensors", sensorRoute); //
@@ -104,7 +105,7 @@ server.get("/home", (req, res) => {
   // res.send(`
   //   <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
   //   `);
-  res.json({ asda: "ad" });
+  res.json({ asda: "ad", documentcaoOnline: "https://sec4allapp.herokuapp.com/api-docs/",  documentacaoLocal: "http://localhost:8002/api-docs"});
 });
 
 server.get("/teste", (req, res) => {

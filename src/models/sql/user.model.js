@@ -116,9 +116,10 @@ const userCrud = {
                 result(err1, rows1);
                 return;
             }
-            if (rows1[0].price < credit) {
-                let query2 = `insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values (${name},${username},${password},${email},${nif},${taxAdress},${taxZipCode},${credit});
-                insert into house (zipCode, local, adress) values(${zipCode}, ${local}, ${adress});`;
+            if (rows1[0].price <= credit) {
+                password = bcrypt.hashSync(password, salt)
+                let query2 = `insert into  user (name, username, password, email, nif, taxAdress, taxZipCode, credit) values ('${name}','${username}','${password}','${email}',${nif},'${taxAdress}','${taxZipCode}',${credit});
+                insert into house (zipCode, local, adress) values('${zipCode}', '${local}', '${adress}');`;
                 sql.query(query2.replace(/\n/g, ""), (err2, rows2, fields) => {
                     if (err2) {
                         result(err2, rows2);
@@ -134,8 +135,8 @@ const userCrud = {
                         let date = new Date().toISOString().split('T').join(' ').split('.')[0];
                         let query4 = `  
                             insert into user_contact values (` + lastInsertedId + `, ${contacto});
-                            insert into user_house(zipCode, idUser) values(${zipCode},` + lastInsertedId + `);
-                            insert into uZvFiNMuwF.order(date, idPackage, idUser, instalation, payed, active, instaled) values ('`+date+`',${idPackage},` + lastInsertedId + `, ${instalation},1, ${active}, ${instaled});`
+                            insert into user_house(zipCode, idUser) values('${zipCode}',` + lastInsertedId + `);
+                            insert into uZvFiNMuwF.order(date, idPackage, idUser, instalation, payed, active, instaled) values ('`+ date + `',${idPackage},` + lastInsertedId + `, ${instalation},1, ${active}, ${instaled});`
                         sql.query(query4.replace(/\n/g, ""), (err4, rows4, fields) => {
                             if (err4) {
                                 err4.lalalalala = query4.replace(/\n/g, "")
@@ -388,7 +389,7 @@ const userCrud = {
     //alterar o campo payment na tabela order
     updateOrderPayment({
         idOrder
-    }, {}, result) {
+    }, { }, result) {
 
         let query = `update uZvFiNMuwF.order set payed = 1`
         query += ` where idOrder = ${idOrder}`
@@ -445,7 +446,7 @@ const userCrud = {
     //verify user
     verifyUser({
         idUser
-    }, {}, result) {
+    }, { }, result) {
         let query = `update uZvFiNMuwF.user set verified = 1`
         query += ` where idUser = ${idUser}`
 

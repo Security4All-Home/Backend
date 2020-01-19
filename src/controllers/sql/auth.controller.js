@@ -12,6 +12,10 @@ const authCtrl = {
                     next(err);
                     return;
                 }
+                console.log(user)
+                if (user.length == 0) {
+                    next({ error: "Não foi encontrado o user" })
+                }
                 user = user[0]
                 req.idUser = user.idUser
                 if (user == undefined) {
@@ -23,10 +27,14 @@ const authCtrl = {
                     let token = jwt.createAccessToken(req);
                     console.log(token);
                     res.cookie('token', token, {
-                        httpOnly: true
+                        // httpOnly: true
+                        maxAge: 999999
                     })
+                    res.header("Access-Control-Allow-Origin", "*");
+                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,X-Access-Token");
+                    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
                     res.set('x-access-token', token)
-                    res.json({ success: true, data: user });
+                    res.json({ success: true, data: user, token: token });
                 } else {
                     res.json({ success: false, msg: "as passwords não correspondem" })
                 }

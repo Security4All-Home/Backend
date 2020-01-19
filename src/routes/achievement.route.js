@@ -9,7 +9,7 @@ route.get("/all", (req, res, next) => {
     res.json({ success: false, err: err });
   }
 })
-route.post("/", verifyToken, (req, res, next) => {
+route.post("/"/*verifyToken*/, (req, res, next) => {
   try {
     achievementController.insert(req, res, next);
   } catch (err) {
@@ -18,11 +18,11 @@ route.post("/", verifyToken, (req, res, next) => {
 });
 
 //Edit
-route.put("/:id", verifyToken, (req, res, next) => {
+route.put("/:id"/*verifyToken*/, (req, res, next) => {
   achievementController.update(req, res, next);
 });
 //Delete
-route.delete("/:id", verifyToken, (req, res, next) => {
+route.delete("/:id"/*verifyToken*/, (req, res, next) => {
   achievementController.deleteAchievement(req, res, next);
 });
 module.exports = route;

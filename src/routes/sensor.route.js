@@ -365,7 +365,7 @@ const { verifyToken } = require("../middlewares/auth.middleware");
 
 //Create
 /**Insert a sensor */
-router.post("/", verifyToken, (req, res, next) => {
+router.post("/" /*verifyToken*/, (req, res, next) => {
   console.log("Foste Convocado");
   sensorController.addSensor(req, res, next);
 }); //Feito
@@ -420,7 +420,7 @@ router.delete("/:id", verifyToken, (req, res, next) => {
 router.post("/space", verifyToken, (req, res, next) => {
   sensorController.sensorSpace(req, res, next);
 }); //Feito
-router.get("/space/:idSpace", verifyToken, (req, res, next) => {
+router.get("/space/:idSpace" /*verifyToken*/, (req, res, next) => {
   sensorController.getSensorSpace(req, res, next);
 }); //Feito
 router.delete("/space/:idSpace", verifyToken, (req, res, next) => {

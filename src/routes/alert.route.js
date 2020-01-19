@@ -22,11 +22,6 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *          description: Alert Item que vai ser acrescentado
  *          schema:
  *            $ref: '#/definitions/AlertItem'
- *        - in: header
- *          name: x-access-token
- *          required: true
- *          schema:
- *            type: string
  *      responses:
  *          200:
  *            description: Alerta adicionado com sucesso
@@ -39,11 +34,6 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *      operationId: getAlerts
  *      description: Vai buscar os alertas todos da base de dados
  *      parameters:
- *        - in: header
- *          name: x-access-token
- *          required: true
- *          schema:
- *            type: string
  *      produces:
  *        - application/json
  *      responses:
@@ -64,11 +54,6 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *        - in: path
  *          name: id
  *          required: true
- *        - in: header
- *          name: x-access-token
- *          required: true
- *          schema:
- *            type: string
  *      responses:
  *        200:
  *          description: Alerta encontrado com sucesso
@@ -86,11 +71,6 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *        - in: path
  *          name: id
  *          required: true
- *        - in: header
- *          name: x-access-token
- *          required: true
- *          schema:
- *            type: string
  *      responses:
  *        200:
  *          description: Alerta removido com sucesso
@@ -108,16 +88,16 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *        example: warning
  */
 
-route.post("/", verifyToken, (req, res, next) => {
+route.post("/"/*verifyToken*/, (req, res, next) => {
   alertController.addAlert(req, res, next);
 }); //Feito
-route.get("/", verifyToken, (req, res, next) => {
+route.get("/"/*verifyToken*/, (req, res, next) => {
   alertController.getAlerts(req, res, next);
 }); //Feito
-route.get("/:id", verifyToken, (req, res, next) => {
+route.get("/:id"/*verifyToken*/, (req, res, next) => {
   alertController.getAlertById(req, res, next);
 }); //Feito
-route.delete("/:id", verifyToken, (req, res, next) => {
+route.delete("/:id"/*verifyToken*/, (req, res, next) => {
   alertController.removeAlert(req, res, next);
 }); //Feito
 module.exports = route;
