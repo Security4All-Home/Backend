@@ -7,9 +7,9 @@ module.exports = {
          * Verifcar o token
          * Verificar 
          */
-            // let token = req.headers['x-access-token'] || req.cookies.token;
-            // console.log(req.cookies)
-            // console.log(req.headers)
+            let token = req.headers['x-access-token'] || req.cookies.token;
+            console.log(req.cookies.token)
+            console.log(req.headers["x-access-token"])
             // console.log(token, "TOKEN!!!!!!!!!!!!")
             let decodedToken = jwt.decode(token)
             console.log(decodedToken, "TOKEN")
