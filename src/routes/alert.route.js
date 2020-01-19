@@ -22,9 +22,9 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *          description: Alert Item que vai ser acrescentado
  *          schema:
  *            $ref: '#/definitions/AlertItem'
- *        - in: header
- *          name: x-access-token
- *          required: true
+ *       # - in: header
+ *       #   name: x-access-token
+ *       #   required: true
  *          schema:
  *            type: string
  *      responses:
@@ -39,9 +39,9 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *      operationId: getAlerts
  *      description: Vai buscar os alertas todos da base de dados
  *      parameters:
- *        - in: header
- *          name: x-access-token
- *          required: true
+ *       # - in: header
+ *       #   name: x-access-token
+ *       #   required: true
  *          schema:
  *            type: string
  *      produces:
@@ -64,9 +64,9 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *        - in: path
  *          name: id
  *          required: true
- *        - in: header
- *          name: x-access-token
- *          required: true
+ *       # - in: header
+ *       #   name: x-access-token
+ *       #   required: true
  *          schema:
  *            type: string
  *      responses:
@@ -86,9 +86,9 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *        - in: path
  *          name: id
  *          required: true
- *        - in: header
- *          name: x-access-token
- *          required: true
+ *       # - in: header
+ *       #   name: x-access-token
+ *       #   required: true
  *          schema:
  *            type: string
  *      responses:
