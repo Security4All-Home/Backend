@@ -34,7 +34,7 @@ const authCtrl = {
                     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,X-Access-Token");
                     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
                     res.set('x-access-token', token)
-                    res.json({ success: true, data: user });
+                    res.json({ success: true, data: user, token: token });
                 } else {
                     res.json({ success: false, msg: "as passwords não correspondem" })
                 }
