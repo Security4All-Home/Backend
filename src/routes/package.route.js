@@ -137,12 +137,12 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *        examples: 24.99
  */  
 //Create package
-router.post("/", verifyToken, (req, res, next) => {
+router.post("/"/*verifyToken*/, (req, res, next) => {
   packageController.addPackage(req, res, next);
 });
 
 //Add Sensor List to Package
-router.post("/sensor/:idPackage", verifyToken, (req, res, next) => {
+router.post("/sensor/:idPackage"/*verifyToken*/, (req, res, next) => {
   packageController.addSensorToPackage(req,res,next);
 })
 

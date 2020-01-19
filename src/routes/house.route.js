@@ -13,7 +13,7 @@ router.get('/:id',  verifyToken, (req, res, next) => {
 })
 
 /** Insert Space */
-router.post('/insertSpace', verifyToken,  (req, res, next) => {
+router.post('/insertSpace'/*verifyToken*/,  (req, res, next) => {
     houseController.insertSpace(req, res, next);
 })
 

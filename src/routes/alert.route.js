@@ -108,16 +108,16 @@ const { verifyToken } = require("../middlewares/auth.middleware");
  *        example: warning
  */
 
-route.post("/", verifyToken, (req, res, next) => {
+route.post("/"/*verifyToken*/, (req, res, next) => {
   alertController.addAlert(req, res, next);
 }); //Feito
-route.get("/", verifyToken, (req, res, next) => {
+route.get("/"/*verifyToken*/, (req, res, next) => {
   alertController.getAlerts(req, res, next);
 }); //Feito
-route.get("/:id", verifyToken, (req, res, next) => {
+route.get("/:id"/*verifyToken*/, (req, res, next) => {
   alertController.getAlertById(req, res, next);
 }); //Feito
-route.delete("/:id", verifyToken, (req, res, next) => {
+route.delete("/:id"/*verifyToken*/, (req, res, next) => {
   alertController.removeAlert(req, res, next);
 }); //Feito
 module.exports = route;

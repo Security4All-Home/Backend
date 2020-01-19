@@ -10,15 +10,15 @@ router.get('/:id', (req, res, next) => {
     categoryController.getById(req, res, next)
 })
 
-router.post('/insert', verifyToken,(req, res, next) => {
+router.post('/insert'/*verifyToken*/,(req, res, next) => {
     categoryController.insert(req, res, next)
 })
 
-router.put('/update/:id',verifyToken,  (req, res, next) => {
+router.put('/update/:id'/*verifyToken*/,  (req, res, next) => {
     categoryController.update(req, res, next)
 })
 
-router.delete('/delete/:id', verifyToken, (req, res, next) => {
+router.delete('/delete/:id'/*verifyToken*/, (req, res, next) => {
     categoryController.delete(req, res, next);
 })
 
