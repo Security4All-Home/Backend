@@ -12,7 +12,7 @@ const crudArduino = {
     setTimeout(function () {
 
       const Readline = SerialPort.parsers.Readline;
-      serialPort = new SerialPort("/dev/cu.usbserial-14140", {
+      serialPort = new SerialPort("/dev/cu.usbserial-14130", {
         baudRate: 9600
       });
       console.log('serial port opened');
@@ -26,7 +26,7 @@ const crudArduino = {
           arduinoModel.addRecord(req.body, (err, dataSQL) => {
             console.log(dataSQL);
             //res.status(200).json({ success: true, data: dataSQL });
-            serialPort.close();
+            //serialPort.close();
             if (err) {
               next(err);
               return;
@@ -111,6 +111,5 @@ const crudArduino = {
     }
   }
 }
-
 
 module.exports = crudArduino;
