@@ -28,7 +28,6 @@ const houseModel = {
         })
     },
     insertSpace({idHouse, description}, result) {
-        
         let query = `INSERT INTO space (description)
         VALUES
         (${description});
