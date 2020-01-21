@@ -31,6 +31,8 @@ const verifyToken = require("../middlewares/auth.middleware").verifyToken
  *            - application/json
  *        parameters:
  *            - in: body
+ *              name: user
+ *              description: use fields
  *              schema:
  *                $ref: '#/definitions/UserObject'
  *        responses:
