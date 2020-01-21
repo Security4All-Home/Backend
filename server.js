@@ -82,14 +82,14 @@ server.use(confirmMiddleware);
 /** Paths */
 server.use("/auth", authRoute);
 
-server.use("/order"/*/*verifyToken*/, orderRoute);
+server.use("/order", orderRoute);
 server.use("/category", categoryRoute); //
 server.use("/achievement", achievementsRoute); //
 server.use("/sensors", sensorRoute); //
 server.use("/user", userRoute); //
 server.use("/packages", packageRoute); //
 server.use("/alerts", alertRoute); //
-server.use("/house", houseRoute); // 
+server.use("/house", houseRoute); //
 server.use("/arduino", arduinoRoute); //
 server.use("/statistics", statisticRoute);
 /**
@@ -105,7 +105,11 @@ server.get("/home", (req, res) => {
   // res.send(`
   //   <h1 style="color: green; font-family: "Comic Sans MS", cursive, sans-serif">Bem Vindo à nossa API</h1>
   //   `);
-  res.json({ asda: "ad", documentcaoOnline: "https://sec4allapp.herokuapp.com/api-docs/",  documentacaoLocal: "http://localhost:8002/api-docs"});
+  res.json({
+    asda: "ad",
+    documentcaoOnline: "https://sec4allapp.herokuapp.com/api-docs/",
+    documentacaoLocal: "http://localhost:8002/api-docs"
+  });
 });
 
 server.get("/teste", (req, res) => {
