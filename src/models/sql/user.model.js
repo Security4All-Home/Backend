@@ -159,7 +159,7 @@ const userCrud = {
         idSensor,
         date
     }, result) {
-        let query = `insert into review (text, idUser, idSensor, date) values (${text}, ${idUser}, ${idSensor}, ${date})`
+        let query = `insert into review (text, idUser, idSensor) values (${text}, ${idUser}, ${idSensor})`
 
         sql.query(query.replace(/\n/g, ""), (err, rows, fields) => {
             if (err) {

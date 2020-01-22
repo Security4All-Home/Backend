@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const houseController = require("../controllers/sql/house.controller");
-const {  verifyToken } = require("../middlewares/auth.middleware");
-
+const { verifyToken } = require("../middlewares/auth.middleware");
 
 /**
  * @swagger
@@ -19,7 +18,7 @@ const {  verifyToken } = require("../middlewares/auth.middleware");
  *         200:
  *          description: Todos as casas
  *         400:
- *          description: Erro ao ir buscar todas as casas 
+ *          description: Erro ao ir buscar todas as casas
  *  /house/insertSpace:
  *     post:
  *        tags:
@@ -78,9 +77,9 @@ const {  verifyToken } = require("../middlewares/auth.middleware");
  *              description: Todas as houses do user indicado
  *             400:
  *              description: Erro ao ir buscar as houses
- * 
- * definitions: 
- * 
+ *
+ * definitions:
+ *
  *  Spaces:
  *    type: Object
  *    properties:
@@ -90,8 +89,8 @@ const {  verifyToken } = require("../middlewares/auth.middleware");
  *      description:
  *        type: string
  *        example: "'cozinha'"
- * 
- * 
+ *
+ *
  *  Houses:
  *    type: Object
  *    properties:
@@ -109,27 +108,27 @@ const {  verifyToken } = require("../middlewares/auth.middleware");
  *        example: 'Terceira No 444'
  *  */
 
-
 /** Get all houses */
-router.get("/",  verifyToken, (req, res, next) => {
-    houseController.getHouses(req, res, next)
-})
+router.get("/", verifyToken, (req, res, next) => {
+  houseController.getHouses(req, res, next);
+});
 
 /** Get Houses by User */
-router.get('/:id',  verifyToken, (req, res, next) => {
+router.get(
+  "/:id",
+  /* verifyToken,*/ (req, res, next) => {
     houseController.getHousesByUser(req, res, next);
-})
+  }
+);
 
 /** Insert Space */
-router.post('/insertSpace'/*verifyToken*/,  (req, res, next) => {
-    houseController.insertSpace(req, res, next);
-})
+router.post("/insertSpace" /*verifyToken*/, (req, res, next) => {
+  houseController.insertSpace(req, res, next);
+});
 
 /** Insert House */
-router.post('/insertHouse',  verifyToken, (req, res, next) => {
-    houseController.insertHouse(req, res, next);
-})
-
-
+router.post("/insertHouse", verifyToken, (req, res, next) => {
+  houseController.insertHouse(req, res, next);
+});
 
 module.exports = router;
